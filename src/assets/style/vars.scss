@@ -1,0 +1,51 @@
+// font family
+$fontFamily: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+
+// //iPhone 6尺寸作为设计稿基准
+// @function vw($px, $vw_base: 375) {
+//   @return ($px / $vw_base) * 100vw;
+// }
+
+// rem 单位换算：定为 75px 只是方便运算，750px-75px、640-64px、1080px-108px，如此类推
+$vw_fontsize: 75; // iPhone 6尺寸的根元素大小基准值
+@function px2rem($px) {
+     @return ($px / $vw_fontsize ) * 1rem;
+}
+
+// font size
+$small: 12px;
+$normal: 14px;
+$medium: 16px;
+$large: 18px;
+$huge: 24px;
+$giant: 28px;
+
+// z-index
+$z-level-1: 997;
+$z-level-2: 998;
+$z-level-3: 999;
+
+// color
+$primary: #6B10FF;
+$success: #67c23a;
+$warning: #e6a23c;
+$danger: #f56c6c;
+$info: #909399;
+$background: #2f3d45;
+// grey color
+$black: #000000;
+$grey-0: #303133;
+$grey-1: #606266;
+$grey-2: #909399;
+$grey-3: #c0c4cc;
+$grey-4: #dedfe6;  // 用于边框
+$grey-5: #e4e7ed;
+$grey-6: #ebeef5;
+$grey-7: #f2f6fc;
+$grey-8: #f0f0f0;
+$white: #ffffff;
+
+$fcoin-1: #202229;
+$fcoin-2: #323640;
+
+
