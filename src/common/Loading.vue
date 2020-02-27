@@ -1,3 +1,12 @@
+<!--
+ * @Author: fisher
+ * @Date: 2020-02-20 11:24:54
+ * @LastEditTime: 2020-02-27 14:20:04
+ * @LastEditors: your name
+ * @Description:
+ * @FilePath: /assessment/src/common/Loading.vue
+ * @可以输入预定的版权声明、个性签名、空行等
+ -->
 <style scoped lang="scss">
 @import '../assets/style/vars.scss';
 // loading 样式
@@ -5,7 +14,7 @@
     width: 50px;
     height: 50px;
     margin: 0 auto;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -77,8 +86,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component
-export default class FixedBar extends Vue {
+export default class Loading extends Vue {
   @Prop({ default: false })
-  private loading!: boolean
+  loading!: boolean
 }
 </script>

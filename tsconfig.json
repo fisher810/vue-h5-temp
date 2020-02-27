@@ -2,6 +2,8 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
+    "allowJs": true,
+    "checkJs": true,
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -10,9 +12,10 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noImplicitAny": false,
+    "noImplicitAny": false, //不允许 隐 any
+    "noImplicitThis": false, // 不允许this 有any 类型
     "sourceMap": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "types": [
       "webpack-env"
     ],

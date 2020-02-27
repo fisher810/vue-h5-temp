@@ -7,7 +7,8 @@ import {
 interface Obj {
   [key: string]: any
 }
-const ApiSever: Obj = {}
+const ApiSever: any = {}
+const VERSION:number = 1
 const def = {
   url: '',
   method: 'post',
@@ -31,9 +32,6 @@ const def = {
 
 let checkStatus = (response: any, apiName: string) => {
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
-    if (response.data.err_code === 'user_not_login') {
-      window.location.href = '/#/login'
-    }
     return typeof response.data === 'string' ? JSON.parse(response.data) : response.data
   } else {
     return {
@@ -44,14 +42,18 @@ let checkStatus = (response: any, apiName: string) => {
   }
 }
 let checkCode = (response: any, apiName: string) => {
-  // if (response && response.code !== 0) {
-  //   console.error(response.err_msg || '系统错误')
-  // }
+  if (response && (typeof response.code !== 'undefined' && response.code !== 0)) {
+    console.error(response.message || '系统错误')
+    console.log(response)
+  }
   return response
 }
 // restAPI
 let restParams = (opt: any) => {
-  Object.keys(opt.restParams).forEach(item => {
+  if (opt.url.indexOf('{version}') !== -1) {
+    opt.url = opt.url.replace('{version}', VERSION)
+  }
+  Object.keys(opt.restParams || {}).forEach(item => {
     let reg = new RegExp('\\{' + item + '\\}')
     opt.url = opt.url.replace(reg, opt.restParams[item])
   })
@@ -84,7 +86,7 @@ axios.interceptors.response.use(response => {
 Object.keys(Models).map(m => {
   ApiSever[m] = function (opts:any = {}) {
     let options = Object.assign({}, def, Models[m], opts)
-    options.restParams && restParams(options)
+    restParams(options)
     // if (config.proxyApi && options.proxy) {
     //   setProxyUrl(options)
     // }
