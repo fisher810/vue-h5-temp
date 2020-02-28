@@ -1,30 +1,65 @@
+/*
+ * @Author: fisher
+ * @Date: 2020-02-20 11:24:54
+ * @LastEditTime: 2020-02-28 21:33:11
+ * @LastEditors: your name
+ * @Description:
+ * @FilePath: /assessment/src/language/zh.ts
+ * @可以输入预定的版权声明、个性签名、空行等
+ */
 module.exports = {
-  callName: '通话者',
-  callTime: '通话时间',
-  callDuration: '通话时长',
-  callPrice: '通话价格',
-  giftName: '赠送人',
-  giftTime: '赠送时间',
-  taskTime: '领取时间',
-  source: '来源',
-  utcTime: '时间',
-  total: '合计',
-  giftSourceEnum: {
-    '0': '聊天',
-    '1': '视频'
+  'timeTitle': '全新的主播价格体系即将开放',
+  'timeDesc': '距功能生效时间剩余',
+  'noData': '暂时未查到数据',
+  'topTips': '数据标准：根据近7天的行为数据计算，24小时更新一次',
+  'title1': '排名占比',
+  'currentPrice': '当前视频价格',
+  'priceChange': '历史价格变动',
+  'rankedTips': 'Tips：排名占比提升至TOP{rate}%内，视频电话价格将提升为{price}Conis/分钟',
+  'title2': '能力解读',
+  'activity': '活跃度',
+  'non-compliance': '违规度',
+  'earnings': '收益度',
+  'profileInfo': '资料完善度',
+  'interactiveness': '互动度',
+  'rateLevel': {
+    '1': '较差',
+    '2': '一般',
+    '3': '较好'
   },
-  callSourceEnum: {
-    '1': '女神墙来电 ',
-    '2': '匹配模式',
-    '3': '好友电话'
+  'win1': '击败',
+  'win2': '的主播',
+  'you': '你的状态',
+  'next': '下个等级主播状态',
+  'clickProfile': '去完善',
+  'chartTips': {
+    '1': '1. 资料完善度不足，建议您前往完善，',
+    '2': '2.近期你的违规次数较多，请注意避免违规行为',
+    '3': '3.收益度较低，注意提高电话接听率和多添加好友哦',
+    '4': '4.互动度较低，建议您提高与用户之间的点赞和聊天互动率哦',
+    '5': '5.活跃度较低，建议您保持每天登录活跃和增加每日视频通话时长哦'
   },
-  dayGiftTitle: '今日礼物收益明细',
-  dayCallTitle: '今日来电收益明细',
-  dayTaskTitle: '今日活跃任务收益明细',
-  weekGiftTitle: '本周礼物收益明细',
-  weekCallTitle: '本周来电收益明细',
-  weekTaskTitle: '本周活跃任务收益明细',
-  monthGiftTitle: '半月礼物收益明细',
-  monthCallTitle: '半月来电收益明细',
-  monthTaskTitle: '半月活跃任务收益明细'
+  'title3': '基础任务',
+  'taskBt': '完成',
+  'taskTips': {
+    '1': '完成基础任务',
+    '2': '接听用户视频来电获得收益',
+    '3': '使用闪聊功能呼叫用户获得收益',
+    '4': '视频过程或IM聊天时收到对方赠送礼物'
+  },
+  'dialogAbout': {
+    'title': '主播能力评定介绍',
+    'desc1': '主播实力评估是通过主播内在平台一定周期内的各维度行为值进行排名，之后根据排名区间设定对应通话价格，该价格将作平台内所有付费通话的计费价格。',
+    'desc2': '主播可以通过基础任务、活跃奖励和收益奖励等来提升行为值得分从而提升排名。',
+    'rangTitle': '排名区间及对应价格规则',
+    'column1': '排名区间',
+    'column2': '视频价格'
+  },
+  'dialogPrice': {
+    'title': '历史价格变动',
+    '1': '近期表现不错，继续保持哦',
+    '2': '减少违规行为的产生可以更快提升价格哦',
+    '3': '提升活跃度和通话时长才能获得更高的价格哦',
+    '4': '由于平台价格调整，你所在的排名区间的视频通话价格已调整为 {price}Coins/min'
+  }
 }

@@ -1,7 +1,7 @@
 <!--
  * @Author: fisher
  * @Date: 2020-02-25 19:34:12
- * @LastEditTime: 2020-02-27 18:16:47
+ * @LastEditTime: 2020-02-28 19:14:03
  * @LastEditors: your name
  * @Description:
  * @FilePath: /assessment/src/common/CountDown.vue
@@ -66,8 +66,8 @@
 </style>
 <template>
   <div class="count-down-warp">
-    <h2 class="count-down-des">The new anchor price system is about to start</h2>
-    <p class="fu-t">—— Function entry countdown ——</p>
+    <h2 class="count-down-des">{{$t('timeTitle')}}</h2>
+    <p class="fu-t">—— {{$t('timeDesc')}} ——</p>
     <ul class="date-list">
       <li>
         <p class="date-name">DAY</p>
@@ -104,7 +104,6 @@ export default class CountDown extends Vue {
   currentTime!: number
   @Watch('endTime', { immediate: true })
   onEndTimeChanged (v) {
-    console.log(v)
     this.countDown()
   }
   timeFormat (param) {

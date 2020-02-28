@@ -209,7 +209,7 @@ let radar = {
   },
   legend: {
     bottom: 10,
-    data: ['Your state', 'Next level anchor status']
+    data: []
   },
   color,
   tooltip: {
@@ -251,13 +251,13 @@ let radar = {
       }
     },
     indicator: [
-      { name: 'Activity', max: 100 },
-      { name: 'Interactive', max: 100 },
-      { name: 'Data', max: 100 },
-      { name: 'Earnings', max: 100 },
-      { name: 'Violations', max: 100 }
+      { name: '', max: 100 },
+      { name: '', max: 100 },
+      { name: '', max: 100 },
+      { name: '', max: 100 },
+      { name: '', max: 100 }
     ],
-    radius: 70,
+    radius: 60,
     // 雷达图背景的颜色，在这儿随便设置了一个颜色，完全不透明度为0，就实现了透明背景
     splitArea: {
       show: true,

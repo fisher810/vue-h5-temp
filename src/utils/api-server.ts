@@ -42,7 +42,7 @@ let checkStatus = (response: any, apiName: string) => {
   }
 }
 let checkCode = (response: any, apiName: string) => {
-  if (response && (typeof response.code !== 'undefined' && response.code !== 0)) {
+  if (response && response.code !== 0) {
     console.error(response.message || '系统错误')
     console.log(response)
   }

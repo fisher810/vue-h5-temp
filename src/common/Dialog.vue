@@ -1,7 +1,7 @@
 <!--
  * @Author: fisher
  * @Date: 2020-02-25 10:25:08
- * @LastEditTime: 2020-02-27 14:19:52
+ * @LastEditTime: 2020-02-28 13:05:28
  * @LastEditors: your name
  * @Description:
  * @FilePath: /assessment/src/common/Dialog.vue
@@ -16,6 +16,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 9999;
 }
 .dialog-warp {
   background-color: #fff;
@@ -24,8 +25,6 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  max-height: 80%;
-  overflow-y: auto;
   padding: px2rem(10) px2rem(15) px2rem(20) px2rem(15);
 }
 .close-dialog {
@@ -35,11 +34,13 @@
   background-size: 100%;
   margin-top: px2rem(5);
   margin-left: px2rem(15);
+  flex-shrink: 0;
 }
 .dialog-title {
   font-size: px2rem(20);
   line-height: 22px;
   padding-top: px2rem(5);
+  padding-bottom: px2rem(15);
   font-weight: bold;
   display: flex;
   justify-content: space-between;
@@ -48,9 +49,9 @@
   }
 }
 .dialog-content {
-  padding: px2rem(15) 0;
-  padding-bottom: 0;
   font-size: px2rem(16);
+  max-height: calc(100vh - 270px);
+  overflow-y: auto;
 }
 </style>
 <template>

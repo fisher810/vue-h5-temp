@@ -17,7 +17,7 @@
     width: px2rem(25);
     position: absolute;
     top: px2rem(7);
-    right: px2rem(10);
+    right: px2rem(15);
   }
   .top-bar {
     padding: px2rem(5) px2rem(30);
@@ -119,7 +119,6 @@
       padding: px2rem(15);
       color: #99A9BD;
       font-size: px2rem(14);
-      margin-top: px2rem(15);
       li {
         line-height: 20px;
       }
@@ -283,18 +282,18 @@
 </style>
 <template>
   <div class="home">
-    <div class="top-bar">Based on the behavior data of the past week, it is updated Based on the behavior data of the past week</div>
+    <div class="top-bar">{{$t('topTips')}}</div>
     <div class="count-down-w" v-if="showCountDown">
       <CountDown :showCountDown="showCountDown" :currentTime="currentDate" :endTime="endDate" @count-end="countDownEnd"></CountDown>
     </div>
     <div class="top-help">
-      <Title title="— Ranked TOP —" />
+      <Title :title="'— ' +  $t('title1') + ' —'" />
       <div class="help" @click="perDialogShow = true"></div>
     </div>
     <div class="main-count">
       <h2 class="big-per">{{currentTop}}%</h2>
-      <div class="current-price">Current video price: {{currentPrice}} coin/min</div>
-      <p class="click-href" @click="priceDialogShow = true">Check historical prices>></p>
+      <div class="current-price">{{$t('currentPrice')}}: {{currentPrice}} coin/min</div>
+      <p class="click-href" @click="priceDialogShow = true">{{$t('priceChange')}}>></p>
     </div>
     <div class="progress-warp">
       <div class="progress-bar">
@@ -303,49 +302,49 @@
       </div>
     </div>
     <p class="progress-des">
-      Tips: the price of video calls will be increased to {{nextPrice}} Conis/ min if the ranking proportion is increased to the top {{nextTop}}%
+      {{$t('rankedTips').replace('{rate}', nextTop).replace('{price}', nextPrice)}}
     </p>
     <div class="chart-warp">
       <div class="chart-radar-warp">
-        <Title title="— Ability to interpret —" />
+        <Title :title="'— ' +  $t('title2') + ' —'" />
         <div class="radar-render">
           <Radar :chartData="radarData"></Radar>
         </div>
         <ul class="chart-des">
-          <li>1. The data is not perfect enough, we suggest you <span class="text-href" @click="appDeepLink('profile/profileEdit')">go to perfect >></span></li>
-          <li>2. You have violated many rules recently, please pay attention</li>
-          <li>3. Low revenue, pay attention to improve the phone answering rate and add more friends oh</li>
-          <li>4. Low degree of interaction, it is suggested that you improve the chat interaction rate with users</li>
-          <li>5. Low level of activity, maintaining daily activity and increasing daily paid call time can improve the growth value.</li>
+          <li>{{$t('chartTips.1')}} <span class="text-href" @click="appDeepLink('profile/profileEdit')">{{$t('clickProfile')}} >></span></li>
+          <li>{{$t('chartTips.2')}}</li>
+          <li>{{$t('chartTips.3')}}</li>
+          <li>{{$t('chartTips.4')}}</li>
+          <li>{{$t('chartTips.5')}}</li>
         </ul>
       </div>
     </div>
-    <Title title="— Basic tasks —" />
+    <Title :title="'— ' +  $t('title3') + ' —'" />
     <div class="task-list">
       <dl class="task-row">
         <dt class="task-icon"><img src="../assets/images/icon1.png" alt=""></dt>
         <dd class="task-content">
-          <p>Complete basic tasks</p>
+          <p>{{$t('taskTips.1')}}</p>
           <!-- <p class="sub-t">Base Mission 0/200</p> -->
         </dd>
-        <dd class="task-r-botton" @click="appDeepLink('profile/profileEdit')">START</dd>
+        <dd class="task-r-botton" @click="appDeepLink('profile/profileEdit')">{{$t('taskBt')}}</dd>
       </dl>
       <dl class="task-row">
         <dt class="task-icon"><img src="../assets/images/icon2.png" alt=""></dt>
         <dd class="task-content">
-          <p>Earn revenue from user video calls</p>
+          <p>{{$t('taskTips.2')}}</p>
         </dd>
       </dl>
       <dl class="task-row">
         <dt class="task-icon"><img src="../assets/images/icon3.png" alt=""></dt>
         <dd class="task-content">
-          <p>Use flash chat to call users to earn money</p>
+          <p>{{$t('taskTips.3')}}</p>
         </dd>
       </dl>
       <dl class="task-row">
         <dt class="task-icon"><img src="../assets/images/icon4.png" alt=""></dt>
         <dd class="task-content">
-          <p>Receive gifts from each other during the video process or IM chat</p>
+          <p>{{$t('taskTips.4')}}</p>
         </dd>
       </dl>
       <!-- <dl class="task-row">
@@ -362,16 +361,16 @@
       </dl> -->
     </div>
     <Loading :loading="loading" />
-    <Dialog :dialogShow="perDialogShow" @dialog-close="perDialogClose" dialog-title="Introduction to anchor strength evaluation">
+    <Dialog :dialogShow="perDialogShow" @dialog-close="perDialogClose" :dialog-title="$t('dialogAbout.title')">
       <div class="per-dialog">
         <p class="dialog-des">
-          The strength assessment of anchors is based on the scheduling of the behavior values of each dimension within the platform of anchors within a certain period of time. Anchors can obtain growth value through basic tasks, active rewards and income rewards, so as to improve the ranking. <br>If the growth value reaches the specified ranking range, the corresponding video call price can be obtained. The price will be the same for all paid calls on the platform.
+          {{$t('dialogAbout.desc1')}} <br>{{$t('dialogAbout.desc2')}}
         </p>
-        <p class="per-title">Range and corresponding price rules</p>
+        <p class="per-title">{{$t('dialogAbout.rangTitle')}}</p>
         <ul class="per-list">
           <li class="row-th">
-            <p>Ranking range</p>
-            <p>Video price</p>
+            <p>{{$t('dialogAbout.column1')}}</p>
+            <p>{{$t('dialogAbout.column2')}}</p>
           </li>
           <li class="row-td" v-for="(item, index) in ruleData" :key="index">
             <p>>{{item.start}}% ~ ≤{{item.end}}%</p>
@@ -405,7 +404,7 @@
         </dl>
       </div>
     </Dialog>
-    <Dialog :dialogShow="priceDialogShow" @dialog-close="priceDialogClose" dialog-title="Historical price change">
+    <Dialog :dialogShow="priceDialogShow" @dialog-close="priceDialogClose" :dialog-title="$t('dialogPrice.title')">
       <div class="dialog-price-list">
         <dl class="price-item" v-for="(item, index) in priceData" :key="index">
           <dt class="price-item-t">
@@ -413,7 +412,10 @@
             <span class="price-date">{{formatDate(new Date(item.time), 5)}}</span>
           </dt>
           <dd class="price-item-c">
-            <p>{{formatType(item.type)}}</p>
+            <p v-if="item.type === 3 || item.type === 4">{{$t('dialogPrice.1')}}</p>
+            <p v-if="item.type === 2 || item.type === 4">{{$t('dialogPrice.2')}}</p>
+            <p v-if="item.type === 1 || item.type === 2">{{$t('dialogPrice.3')}}</p>
+            <p v-if="item.type === 5">{{$t('dialogPrice.4').replace('{price}', currentPrice)}}</p>
           </dd>
         </dl>
       </div>
@@ -453,8 +455,8 @@ export default class Home extends Vue {
   endDate: number = 0
   currentTop: string = ''
   currentPrice: string = ''
-  nextTop: string = ''
-  nextPrice: string = ''
+  nextTop: string = '0'
+  nextPrice: string = '0'
   priceData: Array<any> = []
   ruleData: Array<any> = []
   appId:number = 2000
@@ -502,24 +504,15 @@ export default class Home extends Vue {
     this.loadingArr = []
     this.getHttpData(this.queryJson)
   }
-  formatType (type: number) {
-    enum TypeString {
-      'Recent good performance, continue to maintain oh.' = 1,
-      'Reducing the number of violations could raise prices faster.' = 2,
-      '33faster.' = 3,
-      '44faster.' = 4,
-      '55faster.' = 5
-    }
-    return TypeString[type]
-  }
   appDeepLink (page) {
     enum AppName {
-      '2-2000' = 'livu://com.videochat.livu/',
+      '2-20000' = 'livu://com.videochat.livu/',
       '2-19999' = 'tumile://com.rcplatform.livechat/',
       '2-6666' = 'yaar://com.videochat.yaar/',
-      '1-2000' = 'livu://videochatiOS90001/'
+      '1-20000' = 'livu://videochatiOS90001/'
     }
     let src = AppName[this.platformType + '-' + this.appId] + page + '/' + this.userId
+    // console.log(src)
     window.location.href = src
   }
   // 请求数据
@@ -534,15 +527,16 @@ export default class Home extends Vue {
   getTime (query) {
     api.getTime({
       params: {
-        userId: this.userId
+        ...query
       }
     }).then(res => {
       console.log(res)
-      if (!res.code) {
-        if (res.startTime - res.nowTime > 0) {
+      if (res.code === 0) {
+        let resData = res.data
+        if (resData.startTime - resData.nowTime > 0) {
           this.showCountDown = true
-          this.currentDate = res.nowTime
-          this.endDate = res.startTime
+          this.currentDate = resData.nowTime
+          this.endDate = resData.startTime
         }
       }
       this.loadingArr.push(1)
@@ -559,12 +553,13 @@ export default class Home extends Vue {
       }
     }).then(res => {
       console.log(res)
-      if (!res.code) {
-        this.currentTop = res.rankCurrent
-        this.currentPrice = res.priceCurrent
-        this.nextPrice = res.priceNext
-        this.nextTop = res.rankNext
-        this.progressColumn = res.segment || 1
+      if (res.code === 0) {
+        let resData = res.data
+        this.currentTop = resData.rankCurrent
+        this.currentPrice = resData.priceCurrent
+        this.nextPrice = resData.priceNext
+        this.nextTop = resData.rankNext
+        this.progressColumn = resData.segment || 1
       }
       this.loadingArr.push(1)
     })
@@ -580,26 +575,39 @@ export default class Home extends Vue {
       }
     }).then(res => {
       console.log(res)
-      if (!res.code) {
+      if (res.code === 0) {
+        let resData = res.data
         this.radarData = [
           {
-            value: [res.activeNext, res.violateNext, res.benefitNext, res.improveNext, res.interactNext]
+            value: [
+              resData.activeNext,
+              resData.interactNext,
+              resData.improveNext,
+              resData.benefitNext,
+              resData.violateNext
+            ]
           },
           {
-            value: [res.active, res.violate, res.benefit, res.improve, res.interact],
+            value: [
+              resData.active,
+              resData.interact,
+              resData.improve,
+              resData.benefit,
+              resData.violate
+            ],
             level: {
-              'Activity': res.activeLevel,
-              'Violations': res.violateLevel,
-              'Earnings': res.benefitLevel,
-              'Data': res.improveLevel,
-              'Interactive': res.interactLevel
+              'activity': resData.activeLevel,
+              'interactiveness': resData.interactLevel,
+              'profileInfo': resData.improveLevel,
+              'earnings': resData.benefitLevel,
+              'non-compliance': resData.violateLevel
             },
             win: {
-              'Activity': 100 - res.active,
-              'Violations': 100 - res.violate,
-              'Earnings': 100 - res.benefit,
-              'Data': 100 - res.improve,
-              'Interactive': 100 - res.interact
+              'activity': 100 - resData.active,
+              'interactiveness': 100 - resData.interact,
+              'profileInfo': 100 - resData.improve,
+              'earnings': 100 - resData.benefit,
+              'non-compliance': 100 - resData.violate
             }
           }
         ]
@@ -618,8 +626,9 @@ export default class Home extends Vue {
       }
     }).then(res => {
       console.log(res)
-      if (!res.code) {
-        this.priceData = res.list
+      if (res.code === 0) {
+        let resData = res.data
+        this.priceData = resData.list
       }
       this.loadingArr.push(1)
     })
@@ -635,8 +644,9 @@ export default class Home extends Vue {
       }
     }).then(res => {
       console.log(res)
-      if (!res.code) {
-        this.ruleData = res
+      if (res.code === 0) {
+        let resData = res.data
+        this.ruleData = resData
       }
       this.loadingArr.push(1)
     })

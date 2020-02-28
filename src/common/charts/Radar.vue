@@ -1,7 +1,7 @@
 <!--
  * @Author: fisher
  * @Date: 2020-02-24 14:14:44
- * @LastEditTime: 2020-02-27 16:32:25
+ * @LastEditTime: 2020-02-28 22:14:04
  * @LastEditors: your name
  * @Description:
  * @FilePath: /assessment/src/common/charts/Radar.vue
@@ -28,7 +28,7 @@
 </style>
 <template>
   <div class="chart-inner">
-    <div class="empty-tips" v-show="isEmpty">暂时未查到数据</div>
+    <div class="empty-tips" v-show="isEmpty">{{$t('noData')}}</div>
     <div class="chart-dom" ref="chartDom"></div>
   </div>
 </template>
@@ -63,17 +63,13 @@ export default class Radar extends Vue {
   }
   // 合并配置
   mergeOption () {
-    let obj:any = {
-      '1': 'Bad',
-      '2': 'Normal',
-      '3': 'Good'
-    }
+    let i = -1
     let nameArr: string[] = [
-      'Activity',
-      'Violations',
-      'Earnings',
-      'Data',
-      'Interactive'
+      'activity',
+      'interactiveness',
+      'profileInfo',
+      'earnings',
+      'non-compliance'
     ]
     if (this.chartData.length === 0) {
       this.isEmpty = true
@@ -81,15 +77,24 @@ export default class Radar extends Vue {
     }
     this.isEmpty = false
     let defaultOpt = cloneDeep(chartOptions[this.type])
+    console.log(this.$t('you'))
+    console.log(defaultOpt)
+    defaultOpt.legend.data = [this.$t('you'), this.$t('next')]
     defaultOpt.series[0].data[0].value = this.chartData[0].value
+    defaultOpt.series[0].data[0].name = this.$t('next')
     defaultOpt.series[0].data[1].value = this.chartData[1].value
+    defaultOpt.series[0].data[1].name = this.$t('you')
+    nameArr.forEach((item, index) => {
+      defaultOpt.radar.indicator[index].name = this.$t(item)
+    })
     defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
-      return value + ' ' + obj[this.chartData[1].level[value]] + '\n' + '{b|Beat ' + this.chartData[1].win[value] + '% of}' + '\n' + '{b|anchors}'
+      ++i
+      return value + ' ' + this.$t('rateLevel.' + [this.chartData[1].level[nameArr[i]]]) + '\n' + '{b|' + this.$t('win1') + ' ' + this.chartData[1].win[nameArr[i]] + '% }' + '\n' + '{b|' + this.$t('win2') + '}'
     }
     defaultOpt.tooltip.formatter = (data) => {
       // console.log(data)
       return data.name + '<br />' + nameArr.map((item, index) => {
-        return item + ': ' + data.value[index] + '<br />'
+        return this.$t(item) + ': ' + data.value[index] + '<br />'
       }).join('')
     }
     // console.log(defaultOpt)
