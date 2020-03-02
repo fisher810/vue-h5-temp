@@ -1,3 +1,4 @@
+import Message from '../common/messageBox/index'
 import axios from 'axios'
 import Models from '../api-models/index'
 import {
@@ -36,7 +37,7 @@ let checkStatus = (response: any, apiName: string) => {
   } else {
     return {
       status: apiName + '请求失败，错误码：' + ((response && response.status) ? response.status : 0),
-      msg: '请求失败',
+      message: 'error: API ' + response.status,
       codeString: 'error'
     }
   }
@@ -44,7 +45,7 @@ let checkStatus = (response: any, apiName: string) => {
 let checkCode = (response: any, apiName: string) => {
   if (response && response.code !== 0) {
     console.error(response.message || '系统错误')
-    console.log(response)
+    Message(response.message || response)
   }
   return response
 }
