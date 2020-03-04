@@ -1,7 +1,7 @@
 <!--
  * @Author: fisher
  * @Date: 2020-02-24 14:14:44
- * @LastEditTime: 2020-02-28 22:14:04
+ * @LastEditTime: 2020-03-04 18:51:32
  * @LastEditors: your name
  * @Description:
  * @FilePath: /assessment/src/common/charts/Radar.vue
@@ -87,6 +87,7 @@ export default class Radar extends Vue {
     nameArr.forEach((item, index) => {
       defaultOpt.radar.indicator[index].name = this.$t(item)
     })
+    defaultOpt.radar.splitNumber = this.chartData[1].segment || 0
     defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
       ++i
       return value + ' ' + this.$t('rateLevel.' + [this.chartData[1].level[nameArr[i]]]) + '\n' + '{b|' + this.$t('win1') + ' ' + this.chartData[1].win[nameArr[i]] + '% }' + '\n' + '{b|' + this.$t('win2') + '}'

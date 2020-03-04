@@ -222,7 +222,7 @@ let radar = {
   },
   radar: {
     // shape: 'circle',
-    splitNumber: 3,
+    splitNumber: 0,
     axisLine: {
       lineStyle: {
         color: 'rgba(0,0,0,.07)'
@@ -251,13 +251,13 @@ let radar = {
       }
     },
     indicator: [
-      { name: '', max: 100 },
-      { name: '', max: 100 },
-      { name: '', max: 100 },
-      { name: '', max: 100 },
-      { name: '', max: 100 }
+      { name: '', max: 105 },
+      { name: '', max: 105 },
+      { name: '', max: 105 },
+      { name: '', max: 105 },
+      { name: '', max: 105 }
     ],
-    radius: 60,
+    radius: 70,
     // 雷达图背景的颜色，在这儿随便设置了一个颜色，完全不透明度为0，就实现了透明背景
     splitArea: {
       show: true,

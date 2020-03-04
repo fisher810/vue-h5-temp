@@ -1,7 +1,7 @@
 /*
  * @Author: fisher
  * @Date: 2020-02-20 11:24:54
- * @LastEditTime: 2020-02-27 16:22:37
+ * @LastEditTime: 2020-03-04 19:34:06
  * @LastEditors: your name
  * @Description:
  * @FilePath: /assessment/src/api-models/index.ts
@@ -31,6 +31,10 @@ export default {
   // 获取主播历史价格变动列表
   getPrice: {
     url: '/api/h5/{version}/goddessPriceHistory/{userId}',
+    method: 'get'
+  },
+  getProfileRate: {
+    url: '/api/h5/{version}/goddessInformationIntegrity',
     method: 'get'
   },
   // 获取主播能力评定介绍信息

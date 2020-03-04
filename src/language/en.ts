@@ -1,7 +1,7 @@
 /*
  * @Author: fisher
  * @Date: 2020-02-20 11:24:54
- * @LastEditTime: 2020-02-28 21:33:22
+ * @LastEditTime: 2020-03-04 19:18:53
  * @LastEditors: your name
  * @Description:
  * @FilePath: /assessment/src/language/en.ts
@@ -13,7 +13,7 @@ module.exports = {
   'noData': 'No Data',
   'topTips': 'Data is updated every 24 hours based on behavioural data from the last 7 days.',
   'title1': 'Ranked Top',
-  'currentPrice': 'Current video call price',
+  'currentPrice': 'Current video call rate: {price} coins/min',
   'priceChange': 'Historical price stats',
   'rankedTips': 'Tip: When you are ranked in the top {rate}%, your video call rate will increase to {price} coins/min.',
   'title2': 'Ability Interpretation',
@@ -33,16 +33,16 @@ module.exports = {
   'next': 'Next livestreamer status',
   'clickProfile': 'complete your profile',
   'chartTips': {
-    '1': '1. Your profile is incomplete. To improve your status,',
-    '2': '2. We have detected numerous recent instances of non-compliance. To improve your status, ensure that you comply with the platform rules.',
-    '3': '3. Your earnings are low. To improve your status, answer more calls and add more friends.',
-    '4': '4. You are not very interactive. To improve your status, like and interact with other users.',
-    '5': '5. Your activity level is low. To improve your status, log in every day and increase you daily call duration.'
+    '1': 'Your profile is incomplete. To improve your status,',
+    '2': 'We have detected numerous recent instances of non-compliance. To improve your status, ensure that you comply with the platform rules.',
+    '3': 'Your earnings are low. To improve your status, answer more calls and add more friends.',
+    '4': 'You are not very interactive. To improve your status, like and interact with other users.',
+    '5': 'Your activity level is low. To improve your status, log in every day and increase you daily call duration.'
   },
   'title3': 'Basic Tasks',
   'taskBt': 'START',
   'taskTips': {
-    '1': 'Complete basic tasks',
+    '1': 'Your personal details are {rate}% complete',
     '2': 'Answer video calls from other users to earn rewards',
     '3': 'Use the Flash Chat function to call users and earn rewards',
     '4': 'Receive gifts from other users during video calls or IM chat conversations'

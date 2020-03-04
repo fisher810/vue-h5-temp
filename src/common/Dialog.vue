@@ -1,7 +1,7 @@
 <!--
  * @Author: fisher
  * @Date: 2020-02-25 10:25:08
- * @LastEditTime: 2020-02-28 13:05:28
+ * @LastEditTime: 2020-03-04 11:22:12
  * @LastEditors: your name
  * @Description:
  * @FilePath: /assessment/src/common/Dialog.vue
@@ -11,9 +11,9 @@
 @import '../assets/style/vars.scss';
 .dialog-mask {
   background-color: rgba(0,0,0, .5);
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 9999;

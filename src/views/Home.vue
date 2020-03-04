@@ -120,7 +120,9 @@
       color: #99A9BD;
       font-size: px2rem(14);
       li {
-        line-height: 20px;
+        line-height: px2rem(20);
+        list-style-type: decimal;
+        list-style-position: inside;
       }
       .text-href {
         color: #FA6400;
@@ -154,7 +156,7 @@
       font-size: px2rem(16);
       flex-grow: 1;
       p {
-        line-height: 21px;
+        line-height: px2rem(21);
       }
     }
   }
@@ -275,7 +277,7 @@
     color: #99A9BD;
     margin-top: px2rem(8);
     p {
-      line-height: 18px;
+      line-height: px2rem(18);
     }
   }
 }
@@ -292,7 +294,7 @@
     </div>
     <div class="main-count">
       <h2 class="big-per">{{currentTop}}%</h2>
-      <div class="current-price">{{$t('currentPrice')}}: {{currentPrice}} coin/min</div>
+      <div class="current-price">{{$t('currentPrice').replace('{price}', currentPrice)}}</div>
       <p class="click-href" @click="priceDialogShow = true">{{$t('priceChange')}}>></p>
     </div>
     <div class="progress-warp">
@@ -301,7 +303,7 @@
         <span class="bar-inner" v-for="(item, index) in new Array(progressColumn)" :key="index"></span>
       </div>
     </div>
-    <p class="progress-des">
+    <p class="progress-des" v-show="(nextTop + '') !== '0'">
       {{$t('rankedTips').replace('{rate}', nextTop).replace('{price}', nextPrice)}}
     </p>
     <div class="chart-warp">
@@ -310,12 +312,12 @@
         <div class="radar-render">
           <Radar :chartData="radarData"></Radar>
         </div>
-        <ul class="chart-des">
-          <li>{{$t('chartTips.1')}} <span class="text-href" @click="appDeepLink('profile/profileEdit')">{{$t('clickProfile')}} >></span></li>
-          <li>{{$t('chartTips.2')}}</li>
-          <li>{{$t('chartTips.3')}}</li>
-          <li>{{$t('chartTips.4')}}</li>
-          <li>{{$t('chartTips.5')}}</li>
+        <ul class="chart-des" v-show="chartDesPan.profileInfo < 100 || chartDesPan.nonCompliance === 1 || chartDesPan.earnings === 1 || chartDesPan.interactiveness === 1 || chartDesPan.activity === 1">
+          <li v-show="chartDesPan.profileInfo < 100">{{$t('chartTips.1')}} <span class="text-href" @click="appDeepLink('profile/profileEdit')">{{$t('clickProfile')}} >></span></li>
+          <li v-show="chartDesPan.nonCompliance === 1">{{$t('chartTips.2')}}</li>
+          <li v-show="chartDesPan.earnings === 1">{{$t('chartTips.3')}}</li>
+          <li v-show="chartDesPan.interactiveness === 1">{{$t('chartTips.4')}}</li>
+          <li v-show="chartDesPan.activity === 1">{{$t('chartTips.5')}}</li>
         </ul>
       </div>
     </div>
@@ -324,10 +326,10 @@
       <dl class="task-row">
         <dt class="task-icon"><img src="../assets/images/icon1.png" alt=""></dt>
         <dd class="task-content">
-          <p>{{$t('taskTips.1')}}</p>
+          <p>{{$t('taskTips.1').replace('{rate}', chartDesPan.profileInfo)}}</p>
           <!-- <p class="sub-t">Base Mission 0/200</p> -->
         </dd>
-        <dd class="task-r-botton" @click="appDeepLink('profile/profileEdit')">{{$t('taskBt')}}</dd>
+        <dd class="task-r-botton" v-show="chartDesPan.profileInfo < 100" @click="appDeepLink('profile/profileEdit')">{{$t('taskBt')}}</dd>
       </dl>
       <dl class="task-row">
         <dt class="task-icon"><img src="../assets/images/icon2.png" alt=""></dt>
@@ -462,9 +464,16 @@ export default class Home extends Vue {
   appId:number = 2000
   platformType: number = 2
   userId: string = ''
-  loadingHttp:number = 5
+  loadingHttp:number = 6
   loadingArr: number[] = []
   queryJson: any = {}
+  chartDesPan: any = {
+    'activity': 0,
+    'interactiveness': 0,
+    'profileInfo': 0,
+    'earnings': 0,
+    'non-compliance': 0
+  }
   created () {
     let queryJson = queryToJson(window.location.search.substr(1), true)
     this.queryJson = queryJson
@@ -472,11 +481,7 @@ export default class Home extends Vue {
     this.appId = queryJson.appId
     this.platformType = queryJson.platformType
     this.userId = (queryJson.userId || queryJson.userId1) + ''
-    if (queryJson.language === 'zh_CN') {
-      this.$i18n.locale = 'zh_CN'
-    } else {
-      this.$i18n.locale = 'en'
-    }
+    this.$i18n.locale = this.setLanguage(queryJson.language)
     this.getHttpData(queryJson)
   }
   mounted () {
@@ -490,6 +495,23 @@ export default class Home extends Vue {
     }
   }
   formatDate = formatDate
+  setLanguage (lang: string) {
+    const LANGUAGE: string[] = ['en', 'ar', 'ru', 'tr', 'zh']
+    let language = 'en'
+    if (lang !== '' && LANGUAGE.some(item => lang.includes(item))) {
+      if (LANGUAGE.includes(lang)) {
+        language = lang
+      } else {
+        LANGUAGE.some(item => {
+          if (lang.includes(item)) {
+            language = item
+            return true
+          }
+        })
+      }
+    }
+    return language
+  }
   perDialogClose () {
     this.perDialogShow = false
   }
@@ -519,6 +541,7 @@ export default class Home extends Vue {
   getHttpData (queryJson) {
     this.loading = true
     this.getTime(queryJson)
+    this.getProfileRate(queryJson)
     this.getProfile(queryJson)
     this.getRadarData(queryJson)
     this.getPrice(queryJson)
@@ -538,6 +561,19 @@ export default class Home extends Vue {
           this.currentDate = resData.nowTime
           this.endDate = resData.startTime
         }
+      }
+      this.loadingArr.push(1)
+    })
+  }
+  getProfileRate (query) {
+    api.getProfileRate({
+      params: {
+        ...query
+      }
+    }).then(res => {
+      console.log(res)
+      if (!res.code) {
+        this.chartDesPan.profileInfo = res ? 100 : 0
       }
       this.loadingArr.push(1)
     })
@@ -577,6 +613,10 @@ export default class Home extends Vue {
       console.log(res)
       if (res.code === 0) {
         let resData = res.data
+        this.chartDesPan.activity = resData.activeLevel
+        this.chartDesPan.interactiveness = resData.interactLevel
+        this.chartDesPan.earnings = resData.benefitLevel
+        this.chartDesPan.nonCompliance = resData.violateLevel
         this.radarData = [
           {
             value: [
@@ -595,6 +635,7 @@ export default class Home extends Vue {
               resData.benefit,
               resData.violate
             ],
+            segment: resData.segment,
             level: {
               'activity': resData.activeLevel,
               'interactiveness': resData.interactLevel,
@@ -603,11 +644,11 @@ export default class Home extends Vue {
               'non-compliance': resData.violateLevel
             },
             win: {
-              'activity': 100 - resData.active,
-              'interactiveness': 100 - resData.interact,
-              'profileInfo': 100 - resData.improve,
-              'earnings': 100 - resData.benefit,
-              'non-compliance': 100 - resData.violate
+              'activity': resData.active,
+              'interactiveness': resData.interact,
+              'profileInfo': resData.improve,
+              'earnings': resData.benefit,
+              'non-compliance': resData.violate
             }
           }
         ]

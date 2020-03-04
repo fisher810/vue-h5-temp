@@ -20,7 +20,6 @@ let Message = function (conf: any) {
   let instance = getMessage()
   let duration = 3000
   if (typeof conf === 'string') {
-    console.log(conf)
     instance.text = conf
   } else {
     instance.text = conf.text

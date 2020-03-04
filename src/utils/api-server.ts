@@ -21,7 +21,6 @@ const def = {
   }],
   transformResponse: [function (data: any) {
     // return data
-    // console.log(data)
     return process.env.NODE_ENV === 'test' ? data : decryptData(data)
   }],
   headers: {
@@ -36,16 +35,14 @@ let checkStatus = (response: any, apiName: string) => {
     return typeof response.data === 'string' ? JSON.parse(response.data) : response.data
   } else {
     return {
-      status: apiName + '请求失败，错误码：' + ((response && response.status) ? response.status : 0),
-      message: 'error: API ' + response.status,
-      codeString: 'error'
+      code: 9999,
+      message: 'error: ' + (response ? (response.status || JSON.stringify(response)) : 'Server Error!')
     }
   }
 }
 let checkCode = (response: any, apiName: string) => {
-  if (response && response.code !== 0) {
-    console.error(response.message || '系统错误')
-    Message(response.message || response)
+  if (response && (typeof response.code !== 'undefined' && response.code !== 0)) {
+    Message(response.message || 'Server Error!')
   }
   return response
 }
