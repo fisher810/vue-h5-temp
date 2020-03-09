@@ -10,13 +10,16 @@
 module.exports = {
   'timeTitle': 'Yayıncı yeni ücretlendirme sistemi çok yakında aktif olacaktır.',
   'timeDesc': 'Sistemin aktif olması için kalan süre',
-  'noData': 'No Data',
+  'noData': 'Veri yok',
   'topTips': 'Hesaplama Yöntemi: Son 7 günlük verilerinize göre seviyeniz hesaplanır. Her 24 saatte bir yenilenir. ',
   'title1': 'Güncel sıralamada en iyi içinde yer alıyorsunuz',
-  'currentPrice': 'Güncel video sohbeti ücreti: {price} Altın Para/Dakika',
+  'unit': 'Altın Para/Dakika',
+  'unit1': '/Dakika',
+  'currentPriceNo': 'Güncellemeden sonraki video sohbeti ücreti: {price} ',
+  'currentPrice': 'Güncel video sohbeti ücreti: {price} ',
   'priceChange': 'Geçmiş ücret değişiklikleri',
   'rankedTips': 'Hatırlatma: En iyi {rate}% seviyesine yükseldiğinizde tüm video sohbetlerden dakikada {price} Altın Para kazanacaksınız!',
-  'title2': '{price}',
+  'title2': 'Yetenek Değerlendirmesi',
   'activity': 'Aktiflik Durumu',
   'non-compliance': 'Kural İhlalleri',
   'earnings': 'Gelir Durumu',
@@ -31,7 +34,7 @@ module.exports = {
   'win2': 'yayıncıdan daha iyisin',
   'you': 'Senin güncel durumun',
   'next': 'Bir üst seviyedeki yayıncının durumu',
-  'clickProfile': 'profilinizi tamamlayın',
+  'clickProfile': 'Hemen tamamla',
   'chartTips': {
     '1': 'Profiliniz tamamlanmamış. Güncel durumunuzu geliştirmek için',
     '2': 'Son zamanlarda birçok kural ihlali yaptınız. Güncel durumunuzu iyileştirmek ve video sohbeti ücretinizi arttırmak için uygulama kurallarına daha fazla dikkat etmeniz gerekmektedir. ',
@@ -40,12 +43,14 @@ module.exports = {
     '5': 'Aktiflik durumunuz düşük. Güncel durumunuzu iyileştirmek ve video sohbeti ücretinizi arttırmak için her gün giriş yapın ve günlük konuşma süresinizi arttırın.'
   },
   'title3': 'Temel görevler',
-  'taskBt': 'profilinizi tamamlayın',
+  'taskBt': 'Hemen tamamla',
   'taskTips': {
     '1': 'Kişisel bilgilerin %{rate} tamamlandı',
     '2': 'Diğer kullanıcılardan gelen video sohbeti aramalarını cevaplayıp görev ödülünü almak',
     '3': 'Flash Chat özelliğini kullanarak diğer kullanıcıları arayıp görev ödülünü almak',
-    '4': 'Diğer kullanıcılardan hediye alarak görev ödülünü elde etmek'
+    '4': 'Diğer kullanıcılardan hediye alarak görev ödülünü elde etmek',
+    '5': 'Diğer kullanıcılar tarafından şikayet edilip kural ihlali yaptığınız kesinleşirse seviyeniz düşürülecektir.',
+    '6': 'Aramalara daha çok cevap vermeniz seviyenizi arttıracaktır. Aynı şekilde arama kaçırıp aramalara daha az cevap vermeniz durumunda da seviyeniz düşecektir.'
   },
   'dialogAbout': {
     'title': 'Yayıncıların Seviyeleri Hakkında',

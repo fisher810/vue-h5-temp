@@ -95,7 +95,7 @@ export default class Radar extends Vue {
     defaultOpt.tooltip.formatter = (data) => {
       // console.log(data)
       return data.name + '<br />' + nameArr.map((item, index) => {
-        return this.$t(item) + ': ' + data.value[index] + '<br />'
+        return this.$t(item) + ': ' + (100 - data.value[index]) + '%<br />'
       }).join('')
     }
     // console.log(defaultOpt)

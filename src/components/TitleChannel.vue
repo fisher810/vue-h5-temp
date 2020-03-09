@@ -22,7 +22,10 @@
     align-items: center;
     height: px2rem(35);
     width: fit-content;
-    padding: 0 px2rem(30)
+    padding: 0 px2rem(30);
+    max-width: 90%;
+    text-align: center;
+    line-height: px2rem(15);
   }
 }
 </style>

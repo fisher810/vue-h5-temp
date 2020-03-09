@@ -63,6 +63,7 @@
     .current-price {
       font-size: px2rem(16);
       margin-top: px2rem(-7);
+      max-width: 90%;
     }
     .click-href {
       color: #B14B00;
@@ -175,6 +176,8 @@
     font-size: px2rem(14);
     border-radius: px2rem(16);
     flex-shrink: 0;
+    text-align: center;
+    line-height: px2rem(14);
     &.Completed {
       background: #C7CCCF;
     }
@@ -280,6 +283,26 @@
       line-height: px2rem(18);
     }
   }
+  .no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: px2rem(14);
+    color: #c1c1c1;
+    img {
+      width: px2rem(220);
+      height: px2rem(143);
+      display: block;
+      margin-bottom: px2rem(10);
+    }
+  }
+  .coin-img {
+    width: 18px;
+    height: 18px;
+    margin: 0 px2rem(5);
+    vertical-align: text-bottom;
+  }
 }
 </style>
 <template>
@@ -294,7 +317,8 @@
     </div>
     <div class="main-count">
       <h2 class="big-per">{{currentTop}}%</h2>
-      <div class="current-price">{{$t('currentPrice').replace('{price}', currentPrice)}}</div>
+      <div class="current-price" v-if="showCurrentPrice">{{$t('currentPrice').replace('{price}', currentPrice)}}<img class="coin-img" src="../assets/images/coin.png"> {{$t('unit1')}}</div>
+      <div class="current-price" v-if="!showCurrentPrice">{{$t('currentPriceNo').replace('{price}', currentPrice)}}<img class="coin-img" src="../assets/images/coin.png">{{$t('unit1')}}</div>
       <p class="click-href" @click="priceDialogShow = true">{{$t('priceChange')}}>></p>
     </div>
     <div class="progress-warp">
@@ -338,29 +362,29 @@
         </dd>
       </dl>
       <dl class="task-row">
-        <dt class="task-icon"><img src="../assets/images/icon3.png" alt=""></dt>
+        <dt class="task-icon"><img src="../assets/images/icon6.png" alt=""></dt>
         <dd class="task-content">
           <p>{{$t('taskTips.3')}}</p>
         </dd>
       </dl>
       <dl class="task-row">
-        <dt class="task-icon"><img src="../assets/images/icon4.png" alt=""></dt>
+        <dt class="task-icon"><img src="../assets/images/icon5.png" alt=""></dt>
         <dd class="task-content">
           <p>{{$t('taskTips.4')}}</p>
         </dd>
       </dl>
-      <!-- <dl class="task-row">
-        <dt class="task-icon"><img src="../assets/images/icon5.png" alt=""></dt>
+      <dl class="task-row">
+        <dt class="task-icon"><img src="../assets/images/icon3.png" alt=""></dt>
         <dd class="task-content">
-          <p>In the event of a violation or being reported and a violation does occur,the growth value will be deducted</p>
+          <p>{{$t('taskTips.5')}}</p>
         </dd>
       </dl>
       <dl class="task-row">
-        <dt class="task-icon"><img src="../assets/images/icon6.png" alt=""></dt>
+        <dt class="task-icon"><img src="../assets/images/icon4.png" alt=""></dt>
         <dd class="task-content">
-          <p>Reward growth value when answer rate is high,deduct growth value when it is low</p>
+          <p>{{$t('taskTips.6')}}</p>
         </dd>
-      </dl> -->
+      </dl>
     </div>
     <Loading :loading="loading" />
     <Dialog :dialogShow="perDialogShow" @dialog-close="perDialogClose" :dialog-title="$t('dialogAbout.title')">
@@ -376,7 +400,7 @@
           </li>
           <li class="row-td" v-for="(item, index) in ruleData" :key="index">
             <p>>{{item.start}}% ~ ≤{{item.end}}%</p>
-            <p>{{item.price}} coins/min</p>
+            <p>{{item.price}} {{$t('unit')}}</p>
           </li>
         </ul>
       </div>
@@ -408,16 +432,20 @@
     </Dialog>
     <Dialog :dialogShow="priceDialogShow" @dialog-close="priceDialogClose" :dialog-title="$t('dialogPrice.title')">
       <div class="dialog-price-list">
+        <div class="no-data" v-show="!priceData.length">
+          <img src="../assets/images/no-data.png" alt="">
+          <p>{{$t('noData')}}</p>
+        </div>
         <dl class="price-item" v-for="(item, index) in priceData" :key="index">
           <dt class="price-item-t">
-            <span class="price-t" :class="{'up': item.change === 2, 'down': item.change === 1}">{{item.price}} Coins/Min</span>
+            <span class="price-t" :class="{'up': item.change === 2, 'down': item.change === 1}">{{item.price}} {{$t('unit')}}</span>
             <span class="price-date">{{formatDate(new Date(item.time), 5)}}</span>
           </dt>
           <dd class="price-item-c">
             <p v-if="item.type === 3 || item.type === 4">{{$t('dialogPrice.1')}}</p>
             <p v-if="item.type === 2 || item.type === 4">{{$t('dialogPrice.2')}}</p>
             <p v-if="item.type === 1 || item.type === 2">{{$t('dialogPrice.3')}}</p>
-            <p v-if="item.type === 5">{{$t('dialogPrice.4').replace('{price}', currentPrice)}}</p>
+            <p v-if="item.type === 5">{{$t('dialogPrice.4').replace('{price}', item.price)}}</p>
           </dd>
         </dl>
       </div>
@@ -453,6 +481,7 @@ export default class Home extends Vue {
   taskDialogShow: boolean = false
   priceDialogShow: boolean = false
   showCountDown: boolean = false
+  showCurrentPrice: boolean = false
   currentDate: number = 0
   endDate: number = 0
   currentTop: string = ''
@@ -464,7 +493,7 @@ export default class Home extends Vue {
   appId:number = 2000
   platformType: number = 2
   userId: string = ''
-  loadingHttp:number = 6
+  loadingHttp:number = 5
   loadingArr: number[] = []
   queryJson: any = {}
   chartDesPan: any = {
@@ -482,6 +511,7 @@ export default class Home extends Vue {
     this.platformType = queryJson.platformType
     this.userId = (queryJson.userId || queryJson.userId1) + ''
     this.$i18n.locale = this.setLanguage(queryJson.language)
+    this.getTime(queryJson)
     this.getHttpData(queryJson)
   }
   mounted () {
@@ -523,6 +553,7 @@ export default class Home extends Vue {
   }
   countDownEnd () {
     this.showCountDown = false
+    this.showCurrentPrice = true
     this.loadingArr = []
     this.getHttpData(this.queryJson)
   }
@@ -540,7 +571,6 @@ export default class Home extends Vue {
   // 请求数据
   getHttpData (queryJson) {
     this.loading = true
-    this.getTime(queryJson)
     this.getProfileRate(queryJson)
     this.getProfile(queryJson)
     this.getRadarData(queryJson)
@@ -560,9 +590,10 @@ export default class Home extends Vue {
           this.showCountDown = true
           this.currentDate = resData.nowTime
           this.endDate = resData.startTime
+        } else {
+          this.showCurrentPrice = true
         }
       }
-      this.loadingArr.push(1)
     })
   }
   getProfileRate (query) {

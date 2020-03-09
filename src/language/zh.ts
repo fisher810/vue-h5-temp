@@ -13,9 +13,12 @@ module.exports = {
   'noData': '暂时未查到数据',
   'topTips': '数据标准：根据近7天的行为数据计算，24小时更新一次',
   'title1': '排名占比',
-  'currentPrice': '当前视频价格：{price} Coins/min',
+  'unit': 'Coins/min',
+  'unit1': '/min',
+  'currentPriceNo': '开放后全新价格：{price} ',
+  'currentPrice': '当前视频价格：{price} ',
   'priceChange': '历史价格变动',
-  'rankedTips': 'Tips：排名占比提升至TOP{rate}%内，视频电话价格将提升为{price}Conis/分钟',
+  'rankedTips': 'Tips：排名占比提升至TOP{rate}%内，视频电话价格将提升为{price} Conis/min',
   'title2': '能力解读',
   'activity': '活跃度',
   'non-compliance': '违规度',
@@ -40,12 +43,14 @@ module.exports = {
     '5': '活跃度较低，建议您保持每天登录活跃和增加每日视频通话时长哦'
   },
   'title3': '基础任务',
-  'taskBt': '完成',
+  'taskBt': '去完成',
   'taskTips': {
     '1': '个人信息{rate}%完善',
     '2': '接听用户视频来电获得收益',
     '3': '使用闪聊功能呼叫用户获得收益',
-    '4': '视频过程或IM聊天时收到对方赠送礼物'
+    '4': '视频过程或IM聊天时收到对方赠送礼物',
+    '5': '出现违规行为或被举报且确实存在违规时将被扣除成长值',
+    '6': '来电接听率较高时奖励成长值，较低时扣减成长值；'
   },
   'dialogAbout': {
     'title': '主播能力评定介绍',
@@ -60,6 +65,6 @@ module.exports = {
     '1': '近期表现不错，继续保持哦',
     '2': '减少违规行为的产生可以更快提升价格哦',
     '3': '提升活跃度和通话时长才能获得更高的价格哦',
-    '4': '由于平台价格调整，你所在的排名区间的视频通话价格已调整为 {price}Coins/min'
+    '4': '由于平台价格调整，你所在的排名区间的视频通话价格已调整为{price} Coins/min'
   }
 }

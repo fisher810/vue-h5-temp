@@ -12,10 +12,13 @@ module.exports = {
   'timeDesc': 'remaining until the function becomes available',
   'noData': 'No Data',
   'topTips': 'Data is updated every 24 hours based on behavioural data from the last 7 days.',
-  'title1': 'Ranked Top',
-  'currentPrice': 'Current video call rate: {price} coins/min',
+  'title1': 'Ranked In The Top',
+  'unit': 'Coins/min',
+  'unit1': '/min',
+  'currentPriceNo': 'New price after launch: {price} ',
+  'currentPrice': 'Current video call rate: {price} ',
   'priceChange': 'Historical price stats',
-  'rankedTips': 'Tip: When you are ranked in the top {rate}%, your video call rate will increase to {price} coins/min.',
+  'rankedTips': 'Tip: When you are ranked in the top {rate}%, your video call rate will increase to {price} Coins/min.',
   'title2': 'Ability Interpretation',
   'activity': 'Activity',
   'non-compliance': 'Non-compliance',
@@ -31,7 +34,7 @@ module.exports = {
   'win2': 'of livestreamers',
   'you': 'Your status',
   'next': 'Next livestreamer status',
-  'clickProfile': 'complete your profile',
+  'clickProfile': 'Complete Now',
   'chartTips': {
     '1': 'Your profile is incomplete. To improve your status,',
     '2': 'We have detected numerous recent instances of non-compliance. To improve your status, ensure that you comply with the platform rules.',
@@ -40,12 +43,14 @@ module.exports = {
     '5': 'Your activity level is low. To improve your status, log in every day and increase you daily call duration.'
   },
   'title3': 'Basic Tasks',
-  'taskBt': 'START',
+  'taskBt': 'Complete Now',
   'taskTips': {
     '1': 'Your personal details are {rate}% complete',
     '2': 'Answer video calls from other users to earn rewards',
     '3': 'Use the Flash Chat function to call users and earn rewards',
-    '4': 'Receive gifts from other users during video calls or IM chat conversations'
+    '4': 'Receive gifts from other users during video calls or IM chat conversations',
+    '5': 'Your score will drop if you are reported by other users and we discover that you violated the platform rules',
+    '6': 'Your score will increase if you answer more calls (conversely, your score will decrease if you answer fewer calls).'
   },
   'dialogAbout': {
     'title': 'About livestreamer rankings',
@@ -60,6 +65,6 @@ module.exports = {
     '1': "You're doing a great job. Keep up the good work!",
     '2': 'Comply with the platform rules to increase your price more quickly!',
     '3': 'Increase the active time and call duration to get higher prices.',
-    '4': 'The video call rate for your ranking level has been changed to {price}coins/min.'
+    '4': 'The video call rate for your ranking level has been changed to {price} Coins/min.'
   }
 }
