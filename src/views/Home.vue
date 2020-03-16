@@ -350,10 +350,10 @@
       <dl class="task-row">
         <dt class="task-icon"><img src="../assets/images/icon1.png" alt=""></dt>
         <dd class="task-content">
-          <p>{{$t('taskTips.1').replace('{rate}', chartDesPan.profileInfo)}}</p>
+          <p>{{$t('taskTips.1').replace('{rate}', '100')}}</p>
           <!-- <p class="sub-t">Base Mission 0/200</p> -->
         </dd>
-        <dd class="task-r-botton" v-show="chartDesPan.profileInfo < 100" @click="appDeepLink('profile/profileEdit')">{{$t('taskBt')}}</dd>
+        <dd class="task-r-botton" v-show="chartDesPan.profileInfo < 100" @click="appDeepLink('profile')">{{$t('taskBt')}}</dd>
       </dl>
       <dl class="task-row">
         <dt class="task-icon"><img src="../assets/images/icon2.png" alt=""></dt>
@@ -561,9 +561,10 @@ export default class Home extends Vue {
     enum AppName {
       '2-20000' = 'livu://com.videochat.livu/',
       '2-19999' = 'tumile://com.rcplatform.livechat/',
-      '2-6666' = 'yaar://com.videochat.yaar/',
+      '2-66666' = 'yaar://com.videochat.yaar/',
       '1-20000' = 'livu://videochatiOS90001/'
     }
+    // console.log(this.platformType + '-' + this.appId)
     let src = AppName[this.platformType + '-' + this.appId] + page + '/' + this.userId
     // console.log(src)
     window.location.href = src

@@ -42,7 +42,7 @@ let checkStatus = (response: any, apiName: string) => {
 }
 let checkCode = (response: any, apiName: string) => {
   if (response && (typeof response.code !== 'undefined' && response.code !== 0)) {
-    Message(response.message || 'Server Error!')
+    Message(response.message || response.error || 'Server Error!')
   }
   return response
 }
@@ -63,7 +63,7 @@ let restParams = (opt: any) => {
 let getSign = (config: any) => {
   let newTimestamp = new Date().getTime()
   let { deviceId, loginToken, nonce, userId } = config.params
-  let joinUrl = config.baseURL.replace('https:', 'http:') + config.url + loginToken + deviceId + nonce + newTimestamp + userId
+  let joinUrl = config.baseURL + config.url + loginToken + deviceId + nonce + newTimestamp + userId
   console.log(joinUrl)
   let sign = require('crypto').createHash('md5').update(joinUrl).digest('hex').toUpperCase()
   config.params.sign = sign
