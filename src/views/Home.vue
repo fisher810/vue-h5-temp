@@ -490,7 +490,7 @@ export default class Home extends Vue {
   nextPrice: string = '0'
   priceData: Array<any> = []
   ruleData: Array<any> = []
-  appId:number = 2000
+  appId:number = 20000
   platformType: number = 2
   userId: string = ''
   loadingHttp:number = 5
@@ -528,7 +528,7 @@ export default class Home extends Vue {
   setLanguage (lang: string) {
     const LANGUAGE: string[] = ['en', 'ar', 'ru', 'tr', 'zh']
     let language = 'en'
-    if (lang !== '' && LANGUAGE.some(item => lang.includes(item))) {
+    if (lang && LANGUAGE.some(item => lang.includes(item))) {
       if (LANGUAGE.includes(lang)) {
         language = lang
       } else {
@@ -587,10 +587,12 @@ export default class Home extends Vue {
       console.log(res)
       if (res.code === 0) {
         let resData = res.data
-        if (resData.startTime - resData.nowTime > 0) {
+        // let end = new Date('2020-04-10 00:00').getTime()
+        let end = resData.startTime
+        if (end - resData.nowTime > 0) {
           this.showCountDown = true
           this.currentDate = resData.nowTime
-          this.endDate = resData.startTime
+          this.endDate = end
         } else {
           this.showCurrentPrice = true
         }

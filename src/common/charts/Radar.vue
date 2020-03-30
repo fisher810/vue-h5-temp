@@ -1,7 +1,7 @@
 <!--
  * @Author: fisher
  * @Date: 2020-02-24 14:14:44
- * @LastEditTime: 2020-03-04 18:51:32
+ * @LastEditTime: 2020-03-23 20:06:02
  * @LastEditors: your name
  * @Description:
  * @FilePath: /assessment/src/common/charts/Radar.vue
@@ -36,6 +36,7 @@
 <script lang="ts">
 
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { queryToJson } from '../../utils/utils'
 import echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/radar'
 import 'echarts/lib/component/legend'
@@ -47,9 +48,15 @@ import cloneDeep from 'lodash/cloneDeep'
 export default class Radar extends Vue {
   isEmpty: boolean = true
   type:string = 'radar'
+  language: string = ''
   chart:any
   @Prop({ default: {} })
   chartData !: Array<any>
+  created () {
+    let queryJson = queryToJson(window.location.search.substr(1), true)
+    this.language = queryJson.language || ''
+    console.log(this.language)
+  }
   mounted () {
     this.renderChart()
   }
@@ -88,9 +95,16 @@ export default class Radar extends Vue {
       defaultOpt.radar.indicator[index].name = this.$t(item)
     })
     defaultOpt.radar.splitNumber = this.chartData[1].segment || 0
-    defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
-      ++i
-      return value + ' ' + this.$t('rateLevel.' + [this.chartData[1].level[nameArr[i]]]) + '\n' + '{b|' + this.$t('win1') + ' ' + this.chartData[1].win[nameArr[i]] + '% }' + '\n' + '{b|' + this.$t('win2') + '}'
+    if (this.language.includes('tr')) {
+      defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
+        ++i
+        return value + '\n' + this.$t('rateLevel.' + [this.chartData[1].level[nameArr[i]]]) + '\n' + '{b|' + this.$t('win1') + '\n' + this.chartData[1].win[nameArr[i]] + '% }' + '\n' + '{b|' + this.$t('win2') + '}'
+      }
+    } else {
+      defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
+        ++i
+        return value + ' ' + this.$t('rateLevel.' + [this.chartData[1].level[nameArr[i]]]) + '\n' + '{b|' + this.$t('win1') + ' ' + this.chartData[1].win[nameArr[i]] + '% }' + '\n' + '{b|' + this.$t('win2') + '}'
+      }
     }
     defaultOpt.tooltip.formatter = (data) => {
       // console.log(data)
