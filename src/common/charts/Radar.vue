@@ -1,7 +1,7 @@
 <!--
  * @Author: fisher
  * @Date: 2020-02-24 14:14:44
- * @LastEditTime: 2020-03-23 20:06:02
+ * @LastEditTime: 2020-04-03 16:35:38
  * @LastEditors: your name
  * @Description:
  * @FilePath: /assessment/src/common/charts/Radar.vue
@@ -95,17 +95,17 @@ export default class Radar extends Vue {
       defaultOpt.radar.indicator[index].name = this.$t(item)
     })
     defaultOpt.radar.splitNumber = this.chartData[1].segment || 0
-    if (this.language.includes('tr')) {
-      defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
-        ++i
-        return value + '\n' + this.$t('rateLevel.' + [this.chartData[1].level[nameArr[i]]]) + '\n' + '{b|' + this.$t('win1') + '\n' + this.chartData[1].win[nameArr[i]] + '% }' + '\n' + '{b|' + this.$t('win2') + '}'
-      }
-    } else {
-      defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
-        ++i
-        return value + ' ' + this.$t('rateLevel.' + [this.chartData[1].level[nameArr[i]]]) + '\n' + '{b|' + this.$t('win1') + ' ' + this.chartData[1].win[nameArr[i]] + '% }' + '\n' + '{b|' + this.$t('win2') + '}'
-      }
+    defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
+      ++i
+      return value + '\n' + this.$t('rateLevel.' + [this.chartData[1].level[nameArr[i]]]) + '\n' + '{b|' + this.$t('win1') + '\n' + this.chartData[1].win[nameArr[i]] + '% }' + '\n' + '{b|' + this.$t('win2') + '}'
     }
+    // if (this.language.includes('tr')) {
+    // } else {
+    //   defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
+    //     ++i
+    //     return value + ' ' + this.$t('rateLevel.' + [this.chartData[1].level[nameArr[i]]]) + '\n' + '{b|' + this.$t('win1') + ' ' + this.chartData[1].win[nameArr[i]] + '% }' + '\n' + '{b|' + this.$t('win2') + '}'
+    //   }
+    // }
     defaultOpt.tooltip.formatter = (data) => {
       // console.log(data)
       return data.name + '<br />' + nameArr.map((item, index) => {
