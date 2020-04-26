@@ -232,9 +232,9 @@ let radar = {
       textStyle: {
         color: '#333',
         backgroundColor: 'transparent',
-        fontSize: 12,
+        fontSize: 10,
         fontWeight: 'bold',
-        lineHeight: 16
+        lineHeight: 14
       },
       // formatter (value, indicator) {
       //   return value + '\n' + '{b|Beat 68% of}' + '\n' + '{b|anchors}'

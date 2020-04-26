@@ -21,7 +21,7 @@ module.exports = {
   'rankedTips': 'Tip: When you are ranked in the top {rate}%, your video call rate will increase to {price} Coins/min.',
   'title2': 'Ability Interpretation',
   'activity': 'Activity',
-  'non-compliance': 'Non-compliance',
+  'non-compliance': 'Violation',
   'earnings': 'Earnings',
   'profileInfo': 'Profile info',
   'interactiveness': 'Interactiveness',

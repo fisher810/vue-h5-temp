@@ -4,12 +4,13 @@ const webpack = require('webpack')
 module.exports = {
   entry: {
     library: [
-      'crypto',
       'crypto-js',
       'jsencrypt',
       'vue',
       'vue-i18n',
-      'vue-router',
+      'vue-router'
+    ],
+    echarts: [
       'echarts/lib/echarts',
       'echarts/lib/chart/radar',
       'echarts/lib/component/tooltip',
