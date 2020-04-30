@@ -37,7 +37,7 @@
   flex-shrink: 0;
 }
 .dialog-title {
-  font-size: px2rem(20);
+  font-size: px2rem(18);
   line-height: 22px;
   padding-top: px2rem(5);
   padding-bottom: px2rem(15);

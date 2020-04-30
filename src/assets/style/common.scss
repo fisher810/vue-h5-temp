@@ -19,3 +19,38 @@ body {
     min-width: 320px;
     margin: 0 auto;
 }
+
+.loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -.3rem;
+	margin-left: -.3rem;
+	width: .6rem;
+	height: .6rem;
+	border: 0.05rem solid #eeeeee;
+	border-top: 0.05rem solid #33adee;
+	border-radius: 50%;
+	animation: loading 1.2s infinite linear;
+}
+
+@-webkit-keyframes loading {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+@-moz-keyframes loading {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+@-ms-keyframes loading {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+@-o-keyframes loading {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}
+@keyframes loading {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
+}

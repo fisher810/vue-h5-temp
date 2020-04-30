@@ -1,5 +1,9 @@
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const webpack = require('webpack')
+const path = require('path')
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 const TerserPlugin = require('terser-webpack-plugin')
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -8,23 +12,17 @@ console.log(process.env.VUE_APP_API_URL)
 module.exports = {
   publicPath: './', // 公共路径
   productionSourceMap: process.env.NODE_ENV === 'development',
-  // chainWebpack (config) {
-  //   config.resolve.alias
-  //     .set('style', resolve('public/style'))
-  //     .set('api', resolve('src/api'))
-  //     .set('tools', resolve('src/tools'))
-  //     .set('components', resolve('src/components'))
-  //     .set('echarts', resolve('src/echarts'))
-  //     .set('echarts', resolve('node_modules/echarts'))
-  //   入口文件 hash
-  //   config.output.filename('js/[name].[hash:8].js').end()
-  //   chunk hash (路由)
-  //   config.output.chunkFilename('js/[name].[hash:8].js').end()
-  // },
   css: {
     extract: false
   },
   configureWebpack: {
+    // resolve: {
+    //   alias: {
+    //     '@': resolve('src'),
+    //     'vars': resolve('src/style/vars.scss'),
+    //     '_utils': resolve('src/helpers/utils')
+    //   }
+    // },
     optimization: {
       minimizer: [
         // 压缩js

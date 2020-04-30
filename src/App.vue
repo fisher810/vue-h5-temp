@@ -16,8 +16,6 @@
 <style lang="scss">
 @import './assets/style/vars.scss';
 body {
-  background: url('./assets/images/bg.jpg') no-repeat #FF5924 ;
-  background-size: 100% auto;
   font-family: $fontFamily;
 }
 </style>

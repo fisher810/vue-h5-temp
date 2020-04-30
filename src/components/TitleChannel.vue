@@ -13,25 +13,16 @@
   justify-content: center;
   width: 100%;
   .title-bg {
-    background-color: #8A3810;
-    color: #fff;
+    color: #1A1A1A;
     font-size: px2rem(16);
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: px2rem(35);
-    width: fit-content;
-    padding: 0 px2rem(30);
-    max-width: 90%;
-    text-align: center;
-    line-height: px2rem(15);
+    font-weight: bold;
+    font-style: italic;
   }
 }
 </style>
 <template>
   <div class="title-warp">
-    <div class="title-bg">{{title}}</div>
+    <div class="title-bg">{{title.toUpperCase()}}</div>
   </div>
 </template>
 

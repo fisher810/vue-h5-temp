@@ -1,3 +1,4 @@
+import echarts from 'echarts/lib/echarts'
 // const color = ['#37A2DA', '#32C5E9', '#67E0E3', '#9FE6B8', '#FFDB5C', '#ff9f7f', '#fb7293', '#E062AE', '#E690D1', '#e7bcf3', '#9d96f5', '#8378EA', '#96BFFF']
 let color = ['rgba(28, 45, 66, 0.22)', 'rgba(250, 100, 0, 1)', '#e69d87', '#8dc1a9', '#ea7e53', '#eedd78', '#73a373', '#73b9bc', '#7289ab', '#91ca8c', '#f49f42']
 const title = {
@@ -225,7 +226,7 @@ let radar = {
     splitNumber: 0,
     axisLine: {
       lineStyle: {
-        color: 'rgba(0,0,0,.07)'
+        color: 'rgba(255,255,255,1)'
       }
     },
     name: {
@@ -262,14 +263,14 @@ let radar = {
     splitArea: {
       show: true,
       areaStyle: {
-        color: 'rgba(0,0,0,0.03)' // 图表背景的颜色
+        color: 'rgba(167, 110, 23, .16)' // 图表背景的颜色
       }
     },
     splitLine: {
       show: true,
       lineStyle: {
         width: 1,
-        color: 'rgba(131,141,158,.1)' // 设置网格的颜色
+        color: 'rgba(255,255,255,1)' // 设置网格的颜色
       }
     }
   },
@@ -278,19 +279,13 @@ let radar = {
     symbol: 'circle', // 拐点的样式，还可以取值'rect','angle'等
     symbolSize: 4, // 拐点的大小
     // areaStyle: {normal: {}},
+    lineStyle: {
+      color: 'rgba(250, 100, 0, 1)'
+    },
     data: [
       {
         value: [],
-        name: 'Next level anchor status',
-        areaStyle: {
-          normal: {
-            color: 'rgba(28, 45, 66, 0.15)' // 选择区域颜色
-          }
-        }
-      },
-      {
-        value: [],
-        name: 'Your state',
+        name: '',
         areaStyle: {
           normal: {
             color: 'rgba(250, 100, 0, 0.54)' // 选择区域颜色

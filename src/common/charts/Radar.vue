@@ -18,11 +18,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 999;
-    font-size: 16px;
+    font-size: px2rem(18);
   }
   .chart-dom {
     width: 100%;
-    min-height: 350px;
+    min-height: px2rem(270);
   }
 }
 </style>
@@ -50,7 +50,7 @@ export default class Radar extends Vue {
   type:string = 'radar'
   language: string = ''
   chart:any
-  @Prop({ default: {} })
+  @Prop({ default: [] })
   chartData !: Array<any>
   created () {
     let queryJson = queryToJson(window.location.search.substr(1), true)
@@ -70,7 +70,6 @@ export default class Radar extends Vue {
   }
   // 合并配置
   mergeOption () {
-    let i = -1
     let nameArr: string[] = [
       'activity',
       'interactiveness',
@@ -84,21 +83,17 @@ export default class Radar extends Vue {
     }
     this.isEmpty = false
     let defaultOpt = cloneDeep(chartOptions[this.type])
-    console.log(this.$t('you'))
-    console.log(defaultOpt)
-    defaultOpt.legend.data = [this.$t('you'), this.$t('next')]
-    defaultOpt.series[0].data[0].value = this.chartData[0].value
-    defaultOpt.series[0].data[0].name = this.$t('next')
-    defaultOpt.series[0].data[1].value = this.chartData[1].value
-    defaultOpt.series[0].data[1].name = this.$t('you')
+    defaultOpt.legend.data = []
+    defaultOpt.series[0].data[0].value = this.chartData
+    defaultOpt.series[0].data[0].name = ''
     nameArr.forEach((item, index) => {
-      defaultOpt.radar.indicator[index].name = this.$t(item)
+      // defaultOpt.radar.indicator[index].name = this.$t(item)
+      defaultOpt.radar.indicator[index].name = item
     })
-    defaultOpt.radar.splitNumber = this.chartData[1].segment || 0
-    defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
-      ++i
-      return value + '\n' + this.$t('rateLevel.' + [this.chartData[1].level[nameArr[i]]]) + '\n' + '{b|' + this.$t('win1') + '\n' + this.chartData[1].win[nameArr[i]] + '% }' + '\n' + '{b|' + this.$t('win2') + '}'
-    }
+    defaultOpt.radar.splitNumber = this.chartData[1].segment || 3
+    // defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
+    //   ++i
+    //   return value
     // if (this.language.includes('tr')) {
     // } else {
     //   defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
@@ -108,11 +103,11 @@ export default class Radar extends Vue {
     // }
     defaultOpt.tooltip.formatter = (data) => {
       // console.log(data)
-      return data.name + '<br />' + nameArr.map((item, index) => {
+      return nameArr.map((item, index) => {
         return this.$t(item) + ': ' + (100 - data.value[index]) + '%<br />'
       }).join('')
     }
-    // console.log(defaultOpt)
+    console.log(defaultOpt)
     return defaultOpt
   }
   renderChart () {
