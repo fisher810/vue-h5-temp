@@ -7,8 +7,21 @@
  * @FilePath: /assessment/src/common/Loading.vue
  * @可以输入预定的版权声明、个性签名、空行等
  -->
+ <style lang='scss' scoped>
+  .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,.1);
+  }
+ </style>
 <template>
-  <div class="loading" v-show="loading">
+  <div class="loading-wrap" v-show="loading">
+    <div class="mask"></div>
+    <div class="loading">
+    </div>
   </div>
 </template>
 

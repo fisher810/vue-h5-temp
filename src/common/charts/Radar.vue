@@ -71,11 +71,11 @@ export default class Radar extends Vue {
   // 合并配置
   mergeOption () {
     let nameArr: string[] = [
-      'activity',
-      'interactiveness',
-      'profileInfo',
-      'earnings',
-      'non-compliance'
+      'radarDailyActivity',
+      'radarPersonData',
+      'radarViolation',
+      'radarPaymentBehavior',
+      'radarSocialInteraction'
     ]
     if (this.chartData.length === 0) {
       this.isEmpty = true
@@ -87,8 +87,8 @@ export default class Radar extends Vue {
     defaultOpt.series[0].data[0].value = this.chartData
     defaultOpt.series[0].data[0].name = ''
     nameArr.forEach((item, index) => {
-      // defaultOpt.radar.indicator[index].name = this.$t(item)
-      defaultOpt.radar.indicator[index].name = item
+      defaultOpt.radar.indicator[index].name = this.$t(item)
+      // defaultOpt.radar.indicator[index].name = item
     })
     defaultOpt.radar.splitNumber = this.chartData[1].segment || 3
     // defaultOpt.radar.name.formatter = (value: string, indicator: any) => {
@@ -104,7 +104,7 @@ export default class Radar extends Vue {
     defaultOpt.tooltip.formatter = (data) => {
       // console.log(data)
       return nameArr.map((item, index) => {
-        return this.$t(item) + ': ' + (100 - data.value[index]) + '%<br />'
+        return this.$t(item) + ': ' + data.value[index] + '%<br />'
       }).join('')
     }
     console.log(defaultOpt)

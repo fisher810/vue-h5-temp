@@ -8,43 +8,24 @@
  * @可以输入预定的版权声明、个性签名、空行等
  */
 export default {
-  // 获取主播能力成长值倒计时时间
-  getTime: {
-    url: '/api/h5/{version}/goddessAbilityAndPriceShowTime',
+  // 获取用户信誉详情
+  getReputationDetail: {
+    url: '/athena-reputation/api/{version}/userReputationDetail',
     method: 'get'
   },
-  // 获取主播能力评定总览页主播排名、价格等信息
-  getProfile: {
-    url: '/api/h5/{version}/goddessAbilityAndPriceProfile/{userId}',
+  // 获取主播信誉等级最低分数
+  getReputationIntroduce: {
+    url: '/athena-reputation/api/{version}/reputationIntroduce',
     method: 'get'
   },
-  // 获取主播能力评定总览页能力雷达图等信息
-  getRadarData: {
-    url: '/api/h5/{version}/goddessAbilityRadarMap/{userId}',
+  // 获取信誉等级说明
+  getReputationLevels: {
+    url: '/athena-reputation/api/{version}/reputationLevels',
     method: 'get'
   },
-  // 获取主播能力成长基础任务列表
-  // getTaskData: {
-  //   url: '/api/h5/{version}/goddessAbilityImproveTask/{userId}',
-  //   method: 'get'
-  // },
-  // 获取主播历史价格变动列表
-  getPrice: {
-    url: '/api/h5/{version}/goddessPriceHistory/{userId}',
-    method: 'get'
-  },
-  getProfileRate: {
-    url: '/api/h5/{version}/goddessInformationIntegrity',
-    method: 'get'
-  },
-  // 获取主播能力评定介绍信息
-  getRule: {
-    url: '/api/h5/{version}/goddessAbilityAndPriceRule',
+  // 获取主播信誉分数记录
+  getCreditChangeRecords: {
+    url: '/algo-athena-credit/api/{version}/UserCreditChangeRecords/{userId}',
     method: 'get'
   }
-  // 根据当前主播信息获取是否展示主播成长值tab选项
-  // getSwitch: {
-  //   url: '/api/{version}/goddess/getEntranceStatSwitch',
-  //   method: 'get'
-  // }
 }

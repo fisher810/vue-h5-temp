@@ -41,7 +41,7 @@ export function pad (num: string | number):string {
  * @param val 时间戳（例如：1477363297）
  * @param type 1：完整显示，2：不显示年,3:不显示分秒
  */
-export function formatDate (val:number, type:number = 1):string {
+export function formatDate (val:number, type:number = 1, splitStr:string | undefined = '-'):string {
   if (!val) {
     return ''
   }
@@ -55,25 +55,25 @@ export function formatDate (val:number, type:number = 1):string {
   let seconds:string = pad(date.getSeconds())
   switch (type) {
     case 1:
-      result = year + '-' + month + '-' + day + ' ' + housrs + ':' + minutes + ':' + seconds
+      result = year + splitStr + month + splitStr + day + ' ' + housrs + ':' + minutes + ':' + seconds
       break
     case 2:
-      result = month + '-' + day + ' ' + housrs + ':' + minutes
+      result = month + splitStr + day + ' ' + housrs + ':' + minutes
       break
     case 3:
-      result = year + '-' + month + '-' + day
+      result = year + splitStr + month + splitStr + day
       break
     case 4:
       result = minutes + ':' + seconds
       break
     case 5:
-      result = year + '-' + month + '-' + day + ' ' + housrs + ':' + minutes
+      result = year + splitStr + month + splitStr + day + ' ' + housrs + ':' + minutes
       break
     case 6:
       result = housrs + ':' + minutes + ':' + seconds
       break
     default:
-      result = year + '-' + month + '-' + day + ' ' + housrs + ':' + minutes + ':' + seconds
+      result = year + splitStr + month + splitStr + day + ' ' + housrs + ':' + minutes + ':' + seconds
       break
   }
   return result

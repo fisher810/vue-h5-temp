@@ -9,6 +9,35 @@ const TerserPlugin = require('terser-webpack-plugin')
 // const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 console.log(process.env.NODE_ENV)
 console.log(process.env.VUE_APP_API_URL)
+// 压js
+let terserSetting = () => {
+  let arr = []
+  if (process.env.NODE_ENV === 'production') {
+    arr.push(
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            warnings: false,
+            drop_debugger: true, // console
+            drop_console: true, // 注释console
+            pure_funcs: ['console.log'] // 移除console
+          }
+        },
+        sourceMap: false,
+        parallel: true
+      })
+    )
+    // arr.push(
+    //   new OptimizeCssAssetsPlugin({
+    //     assetNameRegExp: /\.optimize\.css$/g,
+    //     cssProcessor: require('cssnano'),
+    //     cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
+    //     canPrint: true
+    //   })
+    // )
+  }
+  return arr
+}
 module.exports = {
   publicPath: './', // 公共路径
   productionSourceMap: process.env.NODE_ENV === 'development',
@@ -24,49 +53,20 @@ module.exports = {
     //   }
     // },
     optimization: {
-      minimizer: [
-        // 压缩js
-        new TerserPlugin({
-          terserOptions: {
-            compress: {
-              warnings: false,
-              drop_debugger: true, // console
-              drop_console: true, // 注释console
-              pure_funcs: ['console.log'] // 移除console
-            }
-          },
-          sourceMap: false,
-          parallel: true
-        })
-        // new OptimizeCSSAssetsPlugin({
-        //   assetNameRegExp: /\.css$/g,
-        //   cssProcessor: require('cssnano'),
-        //   cssProcessorOptions: {
-        //     autoprefixer: false,
-        //     preset: [
-        //       'default',
-        //       {
-        //         discardComments: {
-        //           removeAll: true
-        //         }
-        //       }
-        //     ]
-        //   }
-        // })
-      ]
+      minimizer: terserSetting(),
       // runtimeChunk: 'single',
-      // splitChunks: {
-      //   chunks: 'all',
-      //   cacheGroups: {
-      //     utils: {
-      //       name: 'utils',
-      //       test: /[\\/]src[\\/]utils[\\/]/,
-      //       priority: 11,
-      //       minSize: 0,
-      //       minChunks: 1
-      //     }
-      //   }
-      // }
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          lib: {
+            name: 'lib',
+            test: /[\\/]node_modules[\\/]/,
+            priority: 11,
+            minSize: 0,
+            minChunks: 1
+          }
+        }
+      }
     },
     plugins: [
       // new MiniCssExtractPlugin({

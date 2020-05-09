@@ -19,7 +19,29 @@
   }
   .value {
     font-size: px2rem(80);
+    line-height: px2rem(55);
     font-weight: bold;
+    display: flex;
+    align-items: flex-start;
+    margin: px2rem(20) 0;
+    &.good::after {
+      content: '';
+      display: block;
+      background: url('../assets/images/b2.png') no-repeat;
+      background-size: 100%;
+      width: px2rem(21);
+      height: px2rem(23);
+      margin-left: px2rem(2);
+    }
+    &.best::after {
+      content: '';
+      display: block;
+      background: url('../assets/images/b1.png') no-repeat;
+      background-size: 100%;
+      width: px2rem(21);
+      height: px2rem(23);
+      margin-left: px2rem(2);
+    }
   }
   .value-des {
     text-align: center;
@@ -45,8 +67,8 @@
       </canvas>
       <div class="canvas-des">
         <p class="date">{{progressData.date || '-.-.-'}}</p>
-        <p class="value" :style="{color: colorObj[progressData.color][2]}">{{progressData.value}}</p>
-        <a href="javascript:;" class="value-button" :style="{'background-color': colorObj[progressData.color][2]}">{{progressData.color.toUpperCase()}}</a>
+        <p class="value" :class="{'best': progressData.color === 'best', 'good': progressData.color === 'good'}" :style="{color: colorObj[progressData.color][2]}">{{progressData.value}}</p>
+        <a href="javascript:;" class="value-button" :style="{'background-color': colorObj[progressData.color][2]}">{{$t(progressData.color)}}</a>
       </div>
       <div class="value-des">
         <slot></slot>
@@ -68,8 +90,9 @@ export default class CanvasProgress extends Vue {
   context: any
   width: number = 0
   height: number = 0
+  dpr: number = 2
   // 画笔大小
-  lineWidth: number = 15
+  lineWidth: number = 20
   // 开始的弧度 范围0.5-1.5 结束的弧度  范围1.5-2.5
   startAngle: number = 1
   endAngle: number = 2
@@ -79,7 +102,6 @@ export default class CanvasProgress extends Vue {
   }
   mounted () {
     this.renderCanvas()
-    this.renderProgress()
   }
   @Watch('progressData')
   onProgressDataChanged () {
@@ -91,13 +113,16 @@ export default class CanvasProgress extends Vue {
     let ctx = this.context = canvas.getContext('2d')
     let img = new Image()
     img.onload = () => {
-      ctx.drawImage(img, 65, 65, 183, 139)
+      ctx.drawImage(img, 75, 65, 183, 139)
     }
     img.src = require('../assets/images/pro-bg.png')
     this.width = wrap.clientWidth
     this.height = wrap.clientWidth / 2 + 40
-    canvas.setAttribute('width', this.width)
-    canvas.setAttribute('height', this.height)
+    canvas.style.width = this.width + 'px'
+    canvas.style.height = this.height + 'px'
+    canvas.setAttribute('width', this.width * this.dpr)
+    canvas.setAttribute('height', this.height * this.dpr)
+    ctx.scale(this.dpr, this.dpr)
     ctx.beginPath()
     ctx.arc(this.width / 2, this.height - 40, this.width / 2 - 30, this.startAngle * Math.PI, this.endAngle * Math.PI)
     ctx.lineWidth = this.lineWidth
@@ -111,6 +136,7 @@ export default class CanvasProgress extends Vue {
     ctx.fillText('100', this.width - 40, this.height - 10)
   }
   renderProgress () {
+    if (this.progressData.value === 0) return
     let myColor = this.progressData.color
     let ctx = this.context
     let width = this.width

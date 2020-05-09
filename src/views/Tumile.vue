@@ -4,8 +4,7 @@
   background: url('../assets/images/bg.jpg') no-repeat #FF5924 ;
   background-size: 100% auto;
   min-height: 100vh;
-  position: relative;
-  padding: px2rem(17);
+  padding: px2rem(15);
   font-size: px2rem(16);
   color: #1A1A1A;
   .row-block {
@@ -37,7 +36,7 @@
     height: px2rem(22);
   }
   .margin-top20 {
-    margin-top: px2rem(17);
+    margin-top: px2rem(15);
   }
   .circle-progress {
     width: 100%;
@@ -45,11 +44,19 @@
   .credit-read {
     font-size: px2rem(14);
     color: #191919;
+    padding-top: px2rem(5);
     li {
-      margin-top: px2rem(15);
-      line-height: px2rem(20);
+      margin-top: px2rem(8);
+      line-height: px2rem(18);
       list-style-type: decimal;
       list-style-position: inside;
+      p {
+        padding-left: px2rem(10);
+        color: #666;
+        &:first-child {
+          margin-top: px2rem(5);
+        }
+      }
     }
   }
   .srcoll-wrap {
@@ -73,7 +80,7 @@
     margin-right: px2rem(10);
     display: flex;
     flex-direction: column;
-    justify-items: center;
+    justify-content: space-between;
     align-items: center;
     padding: px2rem(5);
     &:first-child {
@@ -112,6 +119,8 @@
     text-align: center;
     font-size: px2rem(12);
     transform: scale(.8);
+    flex-shrink: 1;
+    min-height: px2rem(12);
     color: #F7B500;
     &.no-open {
       color: #AEB6BD;
@@ -158,7 +167,7 @@
       }
     }
     .task-content {
-      font-size: px2rem(16);
+      font-size: px2rem(14);
       flex-grow: 1;
       p {
         line-height: px2rem(21);
@@ -167,7 +176,8 @@
   }
   .sub-t {
     color: #F7B500;
-    font-size: px2rem(14);
+    margin-top: px2rem(3);
+    font-size: px2rem(12);
   }
   .task-r-botton {
     background: linear-gradient(90deg,#FFC200 0%,#FF5924 100%);
@@ -290,7 +300,7 @@
     color: #C7CCCF;
     height: px2rem(35);
     padding: 0 px2rem(10);
-    margin: px2rem(15) 0 px2rem(10) 0;
+    margin: px2rem(10) 0 0 0;
   }
   .medal-score {
     font-size: px2rem(14);
@@ -351,7 +361,7 @@
     margin-bottom: px2rem(8);
   }
   .rights-title {
-    font-size: px2rem(14);
+    font-size: px2rem(12);
     margin-bottom: px2rem(5);
   }
   .div-table {
@@ -371,6 +381,9 @@
         &:last-child {
           border-right: none;
         }
+        &:first-child {
+          border-left: none;
+        }
       }
     }
   }
@@ -378,141 +391,144 @@
     width: px2rem(21);
     height: px2rem(23);
   }
+  .level-task {
+    background-color: rgba(255,255,255,.2);
+    padding: px2rem(10);
+  }
+  .task-w-t {
+    font-size: px2rem(14);
+    font-weight: bold;
+    margin: px2rem(8) 0;
+  }
+  .task-ww-list {
+    li {
+      line-height: px2rem(18);
+      list-style-type: decimal;
+      list-style-position: inside;
+    }
+  }
 </style>
 <template>
   <div class="home">
     <div class="row-block">
       <div class="block-top">
-        <div @click="historyDialogShow = true">Credit history</div>
+        <div @click="historyDialogShow = true">{{$t('creditHistory')}}</div>
         <div @click="introduceDialogShow = true" class="help"></div>
       </div>
       <div class="circle-progress">
         <CanvasProgress :progressData="progressData">
           <template>
             <div>
-              Has exceeded the global 77% of users, please continue refueling!
+              {{$t('scoreTips').replace('{value}', beyondUser)}}
             </div>
           </template>
         </CanvasProgress>
       </div>
     </div>
     <div class="row-block margin-top20">
-      <Title title="Credit reading"></Title>
+      <Title :title="$t('title1')"></Title>
       <ul class="credit-read">
-        <li>The current credit score is good, please continue to maintain, upgrade to 5 star credit can get some privileges.</li>
-        <li>Please avoid pornography and other illegal behaviors in the video</li>
+        <li>{{readTips}}</li>
+        <li v-if="upTask.length">
+          {{$t('creditRead.upTask.upTips').replace('{value}', nextLowScore)}}
+          <p v-for="item in upTask" :key="item" v-html="'- ' + parseUpTask($t('creditRead.upTask.' + item.taskCode))"></p>
+        </li>
+        <li>{{$t('creditRead.globalTips')}}</li>
       </ul>
     </div>
     <div class="row-block scroll-box margin-top20">
-      <Title title="Reputation rights"></Title>
+      <Title :title="$t('title2')"></Title>
       <div class="srcoll-wrap">
         <div class="rights-list" @click="creditDialogShow = true">
           <dl class="rights-item">
             <dt class="icon-wrap">
-              <img src="../assets/images/icon1.png" alt="">
+              <img src="../assets/images/match_offer.png" alt="">
             </dt>
-            <dd class="mid-text">Matched queue acceleration</dd>
-            <dd class="footer-text">≥80</dd>
+            <dd class="mid-text">{{$t('creditList.match_offer')}}</dd>
+            <dd class="footer-text">≥{{creditScore.match_offer}}</dd>
           </dl>
           <dl class="rights-item">
             <dt class="icon-wrap">
-              <img src="../assets/images/icon2.png" alt="">
+              <img src="../assets/images/per_day_free_coin.png" alt="">
             </dt>
-            <dd class="mid-text">Higher ranking, more</dd>
-            <dd class="footer-text">≥80</dd>
+            <dd class="mid-text">{{$t('creditList.per_day_free_coin')}}</dd>
+            <dd class="footer-text">≥{{creditScore.per_day_free_coin}}</dd>
           </dl>
           <dl class="rights-item">
             <dt class="icon-wrap">
-              <img src="../assets/images/icon3.png" alt="">
+              <img src="../assets/images/exclusive_picture_frame.png" alt="">
             </dt>
-            <dd class="mid-text">Exclusive badge identification</dd>
-            <dd class="footer-text no-open">Not opened</dd>
+            <dd class="mid-text">{{$t('creditList.exclusive_picture_frame')}}</dd>
+            <dd class="footer-text">≥{{creditScore.exclusive_picture_frame}}</dd>
           </dl>
           <dl class="rights-item">
             <dt class="icon-wrap">
-              <img src="../assets/images/icon4.png" alt="">
+              <img src="../assets/images/match_queue_first.png" alt="">
             </dt>
-            <dd class="mid-text">Matched queue acceleration</dd>
-            <dd class="footer-text">≥80</dd>
+            <dd class="mid-text">{{$t('creditList.match_queue_first')}}</dd>
+            <dd class="footer-text">≥{{creditScore.match_queue_first}}</dd>
           </dl>
           <dl class="rights-item">
             <dt class="icon-wrap">
-              <img src="../assets/images/icon5.png" alt="">
+              <img src="../assets/images/top_of_discovery_list.png" alt="">
             </dt>
-            <dd class="mid-text">Matched queue acceleration</dd>
-            <dd class="footer-text">≥80</dd>
+            <dd class="mid-text">{{$t('creditList.top_of_discovery_list')}}</dd>
+            <dd class="footer-text">≥{{creditScore.top_of_discovery_list}}</dd>
           </dl>
           <dl class="rights-item">
             <dt class="icon-wrap">
-              <img src="../assets/images/icon6.png" alt="">
+              <img src="../assets/images/reputation_mark.png" alt="">
             </dt>
-            <dd class="mid-text">Matched queue acceleration</dd>
-            <dd class="footer-text">≥80</dd>
+            <dd class="mid-text">{{$t('creditList.reputation_mark')}}</dd>
+            <dd class="footer-text"></dd>
           </dl>
           <dl class="rights-item center">
-            <dd class="mid-text no-open">More benefits, stay tuned</dd>
+            <dd class="mid-text no-open">{{$t('creditList.moreCredit')}}</dd>
           </dl>
           <div class="scroll-bug"></div>
         </div>
       </div>
     </div>
     <div class="row-block margin-top20">
-      <Title title="How to improve credit score"></Title>
+      <Title :title="$t('title3')"></Title>
       <ul class="tab-wrap">
-        <li :class="{active: currentTab === 1}" @click="currentTab = 1">Task</li>
-        <li :class="{active: currentTab === 2}" @click="currentTab = 2">Strategy</li>
+        <li :class="{active: currentTab === 1}" @click="currentTab = 1">{{$t('tab1')}}</li>
+        <li :class="{active: currentTab === 2}" @click="currentTab = 2">{{$t('tab2')}}</li>
       </ul>
       <div class="task-container" v-show="currentTab === 1">
-        <h2 class="tab-row-title">New task（Perfect the account）</h2>
-        <dl class="task-row">
+        <h2 class="tab-row-title" v-show="accountTask.length">{{$t('taskCategory.category1')}}</h2>
+        <dl class="task-row" v-for="item in accountTask" :key="item.taskCode">
           <dd class="task-content">
-            <p>Personal data 100% perfect</p>
-            <p class="sub-t">+2 credit points</p>
+            <p>{{$t('taskList.' + item.name).replace('{value}', item.taskNum)}}</p>
+            <p class="sub-t">+{{item.count}} {{$t('taskList.creditPoints')}}</p>
           </dd>
-          <dd class="task-r-botton" @click="appDeepLink('profile')">START</dd>
+          <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.start')}}</dd>
+          <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.complete')}}</dd>
         </dl>
-        <dl class="task-row">
+        <h2 class="tab-row-title mt" v-show="rechargeTask.length">{{$t('taskCategory.category2')}}</h2>
+        <dl class="task-row" v-for="item in rechargeTask" :key="item.taskCode">
           <dd class="task-content">
-            <p>KYC real-name authentication</p>
-            <p class="sub-t">+2 credit points</p>
+            <p>{{$t('taskList.' + item.name).replace('{value}', item.taskNum)}}</p>
+            <p class="sub-t">+{{item.count}} {{$t('taskList.creditPoints')}}</p>
           </dd>
-          <dd class="task-r-botton" @click="appDeepLink('profile')">START</dd>
+         <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.start')}}</dd>
+          <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.complete')}}</dd>
         </dl>
-        <dl class="task-row">
+        <h2 class="tab-row-title mt" v-show="activeTask.length">{{$t('taskCategory.category3')}}</h2>
+        <dl class="task-row" v-for="item in activeTask" :key="item.taskCode">
           <dd class="task-content">
-            <p>Third-party social account binding</p>
-            <p class="sub-t">+2 credit points</p>
+            <p>{{$t('taskList.' + item.name).replace('{value}', item.taskNum)}}</p>
+            <p class="sub-t">+{{item.count}} {{$t('taskList.creditPoints')}}</p>
           </dd>
-          <dd class="task-r-botton" @click="appDeepLink('profile')">START</dd>
+          <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.start')}}</dd>
+          <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.complete')}}</dd>
         </dl>
-        <dl class="task-row">
+        <h2 class="tab-row-title mt" v-show="dailyTask.length">{{$t('taskCategory.category4')}}</h2>
+        <dl class="task-row" v-for="item in dailyTask" :key="item.taskCode">
           <dd class="task-content">
-            <p>Bind to email or mobile phone number</p>
-            <p class="sub-t">+2 credit points</p>
+            <p>{{$t('taskList.' + item.name)}}</p>
+            <p class="sub-t">+{{item.count}} {{$t('taskList.' + item.name + '_tips')}}</p>
           </dd>
-          <dd class="task-r-botton" @click="appDeepLink('profile')">START</dd>
-        </dl>
-        <h2 class="tab-row-title mt">New task（Perfect the account）</h2>
-        <dl class="task-row">
-          <dd class="task-content">
-            <p>Personal data 100% perfect</p>
-            <p class="sub-t">+2 credit points</p>
-          </dd>
-          <dd class="task-r-botton completed" @click="appDeepLink('profile')">COMPLETE</dd>
-        </dl>
-        <dl class="task-row">
-          <dd class="task-content">
-            <p>KYC real-name authentication</p>
-            <p class="sub-t">+2 credit points</p>
-          </dd>
-          <dd class="task-r-botton" @click="appDeepLink('profile')">START</dd>
-        </dl>
-        <dl class="task-row">
-          <dd class="task-content">
-            <p>Third-party social account binding</p>
-            <p class="sub-t">+2 credit points</p>
-          </dd>
-          <dd class="task-r-botton" @click="appDeepLink('profile')">START</dd>
         </dl>
       </div>
       <!-- tab2 -->
@@ -521,21 +537,29 @@
           <Radar :chartData="radarData" v-if="currentTab === 2"></Radar>
         </div>
         <dl class="strategy-task">
-          <dt>Personal information</dt>
-          <dd>Very good: if the credit status is very good, then the prompt copy is "the current credit score is very good, please continue to maintain</dd>
+          <dt>{{$t('explain.t1')}}</dt>
+          <dd>{{$t('explain.des1')}}</dd>
         </dl>
-        <dl class="strategy-task">
-          <dt>Personal information</dt>
-          <dd>Very good: if the credit status is very good, then the prompt copy is "the current credit score is very good, please continue to maintain</dd>
+         <dl class="strategy-task">
+          <dt>{{$t('explain.t2')}}</dt>
+          <dd>{{$t('explain.des2')}}</dd>
         </dl>
-        <dl class="strategy-task">
-          <dt>Personal information</dt>
-          <dd>Very good: if the credit status is very good, then the prompt copy is "the current credit score is very good, please continue to maintain</dd>
+         <dl class="strategy-task">
+          <dt>{{$t('explain.t3')}}</dt>
+          <dd>{{$t('explain.des3')}}</dd>
+        </dl>
+         <dl class="strategy-task">
+          <dt>{{$t('explain.t4')}}</dt>
+          <dd>{{$t('explain.des4')}}</dd>
+        </dl>
+         <dl class="strategy-task">
+          <dt>{{$t('explain.t5')}}</dt>
+          <dd>{{$t('explain.des5')}}</dd>
         </dl>
       </div>
-      <p class="footer-c">More credit from QA</p>
+      <!-- <p class="footer-c">More credit from QA</p> -->
     </div>
-    <Dialog :dialogShow="historyDialogShow" @dialog-close="historyDialogClose" dialog-title="Credit History">
+    <Dialog :dialogShow="historyDialogShow" @dialog-close="historyDialogClose" :dialog-title="$t('dialog1.title')">
       <div class="history-dialog">
         <!-- <div class="no-data">
           <img src="../assets/images/no-data.png" alt="">
@@ -552,138 +576,88 @@
             <p class="total-num">89</p>
           </dd>
         </dl>
-        <dl class="history-item">
-          <dt class="item-left">
-            <p class="item-add">+4</p>
-            <p class="item-des">Description: daily active behavior reward honor points</p>
-            <p class="item-date">2020.02.23 10:22:21</p>
-          </dt>
-          <dd class="item-right">
-            <p class="total-name">Total score</p>
-            <p class="total-num">89</p>
-          </dd>
-        </dl>
-        <dl class="history-item">
-          <dt class="item-left">
-            <p class="item-add">+4</p>
-            <p class="item-des">Description: daily active behavior reward honor points</p>
-            <p class="item-date">2020.02.23 10:22:21</p>
-          </dt>
-          <dd class="item-right">
-            <p class="total-name">Total score</p>
-            <p class="total-num">89</p>
-          </dd>
-        </dl>
-        <dl class="history-item">
-          <dt class="item-left">
-            <p class="item-add">+4</p>
-            <p class="item-des">Description: daily active behavior reward honor points</p>
-            <p class="item-date">2020.02.23 10:22:21</p>
-          </dt>
-          <dd class="item-right">
-            <p class="total-name">Total score</p>
-            <p class="total-num">89</p>
-          </dd>
-        </dl>
       </div>
     </Dialog>
-    <Dialog :dialogShow="introduceDialogShow" @dialog-close="introduceDialogClose" dialog-title="Reputation sub-introduction">
+    <Dialog :dialogShow="introduceDialogShow" @dialog-close="introduceDialogClose" :dialog-title="$t('dialog2.title')">
       <div class="introduce-dialog">
         <!-- <div class="no-data">
           <img src="../assets/images/no-data.png" alt="">
           <p>{{$t('noData')}}</p>
         </div> -->
         <div class="introduce-item">
-          <h2 class="info-title">Introduce</h2>
-          <p>Credit value is a system built by the platform to judge the user's credit status. Combining with the user's video call history, violation record, consumption record, personal information and social behavior record, the total credit value of the user is judged.</p>
+          <h2 class="info-title">{{$t('dialog2.p1title')}}</h2>
+          <p>{{$t('dialog2.p1des')}}</p>
         </div>
         <div class="introduce-item">
-          <h2 class="info-title">Calculation method</h2>
-          <p>1、Credit value is a system built by the platform to judge the user's credit status.</p>
-          <p>2、Combining with the user's video call history, violation record, consumption record, personal information and social behavior record, the total credit value of the user is judged.</p>
+          <h2 class="info-title">{{$t('dialog2.p2title')}}</h2>
+          <p v-html="$t('dialog2.p2des')"></p>
         </div>
         <div class="introduce-item">
-          <h2 class="info-title">Class rules and interests</h2>
-          <div class="medal-info">
-            <h2 class="medal-score best">BEST ≥90-100</h2>
-            <div class="medal-img">Medal award
-              <div class="medal-box"><img src="../assets/images/b1.png" alt=""></div>
+          <h2 class="info-title">{{$t('dialog2.p3title')}}</h2>
+          <div class="level-wrap" v-for="item in levelList" :key="item.id">
+            <div class="medal-info">
+              <h2 :class="'medal-score ' + item.levelName">{{$t('dialog2.' + item.levelName)}} {{item.level === 1 ? '&lt;' + item.highScore : '≥' + item.lowScore + ' - ' + (item.level === 5 ? '' : '&lt;') + item.highScore}}</h2>
+              <div class="medal-img" v-if="item.levelName === 'best'">
+                <div class="medal-box"><img src="../assets/images/b1.png" alt=""></div>
+              </div>
+              <div class="medal-img"  v-if="item.levelName === 'good'">
+                <div class="medal-box"><img src="../assets/images/b2.png" alt=""></div>
+              </div>
+            </div>
+            <div class="level-task">
+              <div class="task-ww" v-if="item.upgradeTask.length">
+                <h2 class="task-w-t">{{$t('dialog2.upTask')}}</h2>
+                <ul class="task-ww-list">
+                  <li v-for="itemData in item.upgradeTask" :key="itemData.functionName">{{$t('dialog2.task.' + itemData.functionName).replace('{value}', itemData.num)}}</li>
+                </ul>
+              </div>
+              <div class="task-ww" v-if="item.rewardMeasures.length && item.punishmentMeasures.length">
+                <h2 class="task-w-t">{{$t('dialog2.reward')}}</h2>
+                <ul class="task-ww-list">
+                  <li v-for="itemData in item.rewardMeasures" :key="itemData.functionName">{{$t('creditList.' + itemData.functionName)}}</li>
+                  <li v-for="itemData in item.punishmentMeasures" :key="itemData.punishmentMeasures">{{$t('dialog2.punishment.' + itemData.functionName)}}</li>
+                </ul>
+              </div>
             </div>
           </div>
-          <p>1、Credit </p>
-          <div class="medal-info">
-            <h2 class="medal-score good">BEST ≥60-80</h2>
-            <div class="medal-img">Medal award
-              <div class="medal-box"><img src="../assets/images/b2.png" alt=""></div>
-            </div>
-          </div>
-          <p>1、Credit </p>
-          <div class="medal-info">
-            <h2 class="medal-score just">JUST ≥40-60</h2>
-          </div>
-          <p>1、Credit </p>
-          <div class="medal-info">
-            <h2 class="medal-score poor">POOR ≥20-40</h2>
-          </div>
-          <p>1、Credit </p>
-          <div class="medal-info">
-            <h2 class="medal-score bad">BAD ≥0-20</h2>
-          </div>
-          <p>1、Credit </p>
         </div>
       </div>
     </Dialog>
-    <Dialog :dialogShow="creditDialogShow" @dialog-close="creditDialogClose" dialog-title="Reputation rights">
+    <Dialog :dialogShow="creditDialogShow" @dialog-close="creditDialogClose" :dialog-title="$t('dialog3.title')">
       <div class="credit-dialog">
         <!-- <div class="no-data">
           <img src="../assets/images/no-data.png" alt="">
           <p>{{$t('noData')}}</p>
         </div> -->
-        <div class="credit-rights-item">
+        <div class="credit-rights-item" v-for="item in Object.keys(creditScore)" :key="item">
           <dl class="rights-item">
             <dt class="icon-wrap">
-              <img src="../assets/images/icon1.png" alt="">
+              <img :src="require('../assets/images/' + item + '.png')" alt="">
             </dt>
-            <dd class="mid-text">Matched queue acceleration</dd>
-            <dd class="footer-text">≥80</dd>
+            <dd class="mid-text">{{$t('creditList.' + item)}}</dd>
+            <dd class="footer-text">≥{{creditScore[item]}}</dd>
           </dl>
           <div class="rights-item-right">
-            <h2 class="rights-num">≥80</h2>
-            <h2 class="rights-title">Description of interests:</h2>
-            <p>1、Credit value is a system built by the platform to judge the user's credit status.</p>
-            <p>2、Combining with the user's video call history, violation record, </p>
-            <div class="div-table">
+            <h2 class="rights-num">≥{{creditScore[item]}}</h2>
+            <h2 class="rights-title">{{$t('creditList.' + item + '_require').replace('{value}', creditScore[item])}}</h2>
+            <p>{{$t('creditList.' + item + '_explain')}}</p>
+            <div class="div-table" v-if="item === 'reputation_mark'">
               <ul class="ul-tr">
-                <li>SCORE</li>
-                <li>STATE</li>
-                <li>MEDAL</li>
+                <li>{{$t('dialog3.score')}}</li>
+                <li>{{$t('dialog3.status')}}</li>
+                <li>{{$t('dialog3.medal')}}</li>
               </ul>
               <ul class="ul-tr">
-                <li>60-80</li>
-                <li>GOOD</li>
-                <li><img src="../assets/images/b2.png" class="medal-img-box" alt=""></li>
-              </ul>
-              <ul class="ul-tr">
-                <li>80-100</li>
-                <li>BEST</li>
+                <li>{{'≥' + (levelList[0] && levelList[0].lowScore) + ' - ' + (levelList[0] && levelList[0].highScore)}}</li>
+                <li>{{$t('best')}}</li>
                 <li><img src="../assets/images/b1.png" class="medal-img-box" alt=""></li>
               </ul>
+              <ul class="ul-tr">
+                <li>{{'≥' + (levelList[1] && levelList[1].lowScore) + ' - &lt;' + (levelList[1] && levelList[1].highScore)}}</li>
+                <li>{{$t('good')}}</li>
+                <li><img src="../assets/images/b2.png" class="medal-img-box" alt=""></li>
+              </ul>
             </div>
-          </div>
-        </div>
-        <div class="credit-rights-item">
-          <dl class="rights-item">
-            <dt class="icon-wrap">
-              <img src="../assets/images/icon2.png" alt="">
-            </dt>
-            <dd class="mid-text">Matched queue acceleration</dd>
-            <dd class="footer-text">≥80</dd>
-          </dl>
-          <div class="rights-item-right">
-            <h2 class="rights-num">≥80</h2>
-            <h2 class="rights-title">Description of interests:</h2>
-            <p>1、Credit value is a system built by the platform to judge the user's credit status.</p>
-            <p>2、Combining with the user's video call history, violation record, </p>
           </div>
         </div>
       </div>
@@ -711,18 +685,48 @@ import CanvasProgress from '../components/CanvasProgress.vue'
   }
 })
 export default class Home extends Vue {
-  radarData: Array<any> = [45, 67, 34, 78, 90]
+  radarData: Array<any> = []
   loading:boolean = false
   queryJson: any = {}
   appId:number = 20000
   platformType: number = 2
   userId: string = ''
   progressData: any = {
-    value: 17,
+    value: 0,
     color: 'bad',
-    date: '2020-02-02'
+    date: ''
   }
+  // 超过多少用户
+  beyondUser: number = 0
+  // 冻结功能
+  frozenList: Array<string> = []
+  // 升级任务
+  upTask: Array<any> = []
+  // 下级最低分
+  nextLowScore: number = 0
+  // 信誉权益各分
+  creditScore: any = {
+    'match_offer': 0,
+    'per_day_free_coin': 0,
+    'exclusive_picture_frame': 0,
+    'match_queue_first': 0,
+    'top_of_discovery_list': 0
+  }
+  // 新手任务(完善账户)
+  accountTask: Array<any> = []
+  // 新手任务(充值付费)
+  rechargeTask: Array<any> = []
+  // 新手任务(活跃互动)
+  activeTask: Array<any> = []
+  // 日常行为任务
+  dailyTask: Array<any> = []
+  // 等级说明
+  levelList: Array<any> = []
+  // tab
   currentTab: number = 1
+  // 跳转绑定邮箱手机
+  accountType: string = ''
+  // dialog
   historyDialogShow: boolean = false
   introduceDialogShow: boolean = false
   creditDialogShow: boolean = false
@@ -730,15 +734,21 @@ export default class Home extends Vue {
     let queryJson = queryToJson(window.location.search.substr(1), true)
     this.queryJson = queryJson
     console.log(queryJson)
+    console.log(typeof queryJson.accountType)
+    this.accountType = queryJson.accountType === '3' ? 'as/enter' : (queryJson.accountType === '2' ? 'as/email' : 'as/phone')
     this.appId = queryJson.appId
     this.platformType = queryJson.platformType
     this.userId = (queryJson.userId || queryJson.userId1) + ''
     this.$i18n.locale = this.setLanguage(queryJson.language)
-    // this.getHttpData(queryJson)
+    this.getHttpData(queryJson)
   }
   mounted () {
     // enum Type { day = 1, week = 2, month = 3 }
     // document.title as string = this.$t(Type[this.type] + this.incomeType.replace(/^(\w)/, ($1) => $1.toUpperCase()) + 'Title')
+  }
+  get readTips () {
+    let status = this.progressData.color
+    return status === 'bad' && this.frozenList.length > 0 ? (this.$t('creditRead.' + status + 'Has') as string).replace('{func}', () => this.frozenList.map(item => this.$t('creditRead.frozen.' + item)).join('、')) : this.$t('creditRead.' + status)
   }
   @Watch('loadingArr')
   formatDate = formatDate
@@ -755,7 +765,7 @@ export default class Home extends Vue {
     }
     return language
   }
-  appDeepLink (page) {
+  appDeepLink (page: string, open: boolean | undefined = true) {
     enum AppName {
       '2-20000' = 'livu://com.videochat.livu/',
       '2-19999' = 'tumile://com.rcplatform.livechat/',
@@ -763,9 +773,28 @@ export default class Home extends Vue {
       '1-20000' = 'livu://videochatiOS90001/'
     }
     // console.log(this.platformType + '-' + this.appId)
-    let src = AppName[this.platformType + '-' + this.appId] + page + '/' + this.userId
-    // console.log(src)
-    window.location.href = src
+    // let src = AppName[this.platformType + '-' + this.appId] + page + '/' + this.userId
+    let src = AppName[this.platformType + '-' + this.appId] + page
+    console.log(src)
+    if (open) {
+      window.location.href = src
+    } else {
+      return src
+    }
+  }
+  /**
+   * 格式化升级任务
+   */
+  parseUpTask (str: string) {
+    const LINK = {
+      'email': this.accountType,
+      'account': 'social',
+      'info': 'profile',
+      'kyc': 'auth/kyc'
+    }
+    return str.replace(/\{\((.+)\)\((.*)\)\}/, (...arg) => {
+      return '<span onclick="window.location.href = \'' + this.appDeepLink(LINK[arg[1]], false) + '\'" style="color: #FF5924" target="_blank">' + arg[2] + '</span>'
+    })
   }
   /**
    * close dialog
@@ -781,31 +810,146 @@ export default class Home extends Vue {
   }
   // 请求数据
   getHttpData (queryJson) {
-    this.getProfileRate(queryJson)
+    this.getReputationDetail(queryJson)
+    this.getReputationIntroduce(queryJson)
+    this.getCreditChangeRecords(queryJson)
+    this.getReputationLevels(queryJson)
   }
-  getProfileRate (query) {
-    api.getProfileRate({
+  /**
+   * 处理任务列表
+   */
+  handleTask (task: Array<any> = []) {
+    const accountTask = ['person_data', 'kyc_real_name', 'third_account', 'mobile_email_account']
+    const rechargeTask = ['first_recharge', 'first_send_gift']
+    const activeTask = ['video_call', 'add_friend', 'continue_login']
+    const dailyTask = ['daily_behavior', 'report_violations']
+    const LINK = {
+      'person_data': 'profile',
+      'kyc_real_name': 'auth/kyc',
+      'third_account': 'social',
+      'mobile_email_account': this.accountType,
+      'first_recharge': 'store',
+      'first_send_gift': 'match',
+      'video_call': 'match',
+      'add_friend': 'match'
+    }
+    task.forEach(item => {
+      let obj = {
+        complete: item.complete,
+        name: item.taskCode,
+        count: item.rewardScore || 0,
+        taskNum: item.taskNum || 0,
+        link: LINK[item.taskCode]
+      }
+      accountTask.includes(item.taskCode) && this.accountTask.push(obj)
+      rechargeTask.includes(item.taskCode) && this.accountTask.push(obj)
+      activeTask.includes(item.taskCode) && this.accountTask.push(obj)
+      dailyTask.includes(item.taskCode) && this.accountTask.push(obj)
+    })
+  }
+  /**
+   * 获取基本数据
+   */
+  getReputationDetail (query) {
+    this.loading = true
+    api.getReputationDetail({
       params: {
         ...query
       }
     }).then(res => {
-      console.log(res)
-      if (!res.code) {
+      console.log('getReputationDetail', res)
+      if (res.code === 0) {
+        enum StatusName {
+          'bad' = 1,
+          'poor' = 2,
+          'just' = 3,
+          'good' = 4,
+          'best' = 5,
+        }
+        let resData = res.data
+        const deleteData: String[] = ['risk_warning', 'match_weight_reduction', 'block_account']
+        this.progressData = {
+          value: resData.score || 0,
+          color: StatusName[resData.status || 1],
+          date: formatDate(resData.assessmentTime, 3, '.')
+        }
+        this.beyondUser = resData.beyondUser || 0
+        this.frozenList = (JSON.parse(resData.current.punishmentMeasures) || []).filter(item => !deleteData.includes(item.functionName))
+        this.nextLowScore = resData.current.lowScore
+        this.upTask = resData.nudoUpgradeTask
+        this.handleTask(resData.taskList)
+        this.radarData = [
+          resData.radarDailyActivity || 0,
+          resData.radarPersonData || 0,
+          resData.radarViolation || 0,
+          resData.radarPaymentBehavior || 0,
+          resData.radarSocialInteraction || 0
+        ]
+      }
+      this.loading = false
+    })
+  }
+  /**
+   * 信誉分
+   */
+  getReputationIntroduce (query) {
+    api.getReputationIntroduce({
+      params: {
+        ...query
+      }
+    }).then(res => {
+      console.log('getReputationIntroduce', res)
+      if (res.code === 0) {
+        res.data.forEach(item => {
+          this.$set(this.creditScore, item.functionName, item.lowScore || 0)
+        })
       }
     })
   }
-  // 获取雷达图数据
-  getRadarData (query) {
-    api.getRadarData({
+  /**
+   * 信誉分历史
+   */
+  getCreditChangeRecords (query) {
+    api.getCreditChangeRecords({
       params: {
+        pageNo: 1,
+        pageSize: 10,
         ...query
       },
       restParams: {
-        userId: this.userId
+        userId: query.userId
       }
     }).then(res => {
-      console.log(res)
+      console.log('getCreditChangeRecords', res)
       if (res.code === 0) {
+      }
+    })
+  }
+  /**
+   * 信誉等级说明
+   */
+  getReputationLevels (query) {
+    api.getReputationLevels({
+      params: {
+        ...query
+      }
+    }).then(res => {
+      console.log('getReputationLevels', res)
+      if (res.code === 0) {
+        enum StatusName {
+          'bad' = 1,
+          'poor' = 2,
+          'just' = 3,
+          'good' = 4,
+          'best' = 5,
+        }
+        this.levelList = res.data.map(item => {
+          item.punishmentMeasures = JSON.parse(item.punishmentMeasures) || []
+          item.rewardMeasures = JSON.parse(item.rewardMeasures) || []
+          item.upgradeTask = JSON.parse(item.upgradeTask) || []
+          item.levelName = StatusName[item.level]
+          return item
+        })
       }
     })
   }
