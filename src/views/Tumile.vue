@@ -38,6 +38,9 @@
   .margin-top20 {
     margin-top: px2rem(15);
   }
+  .margin-btm20 {
+    margin-bottom: px2rem(15);
+  }
   .circle-progress {
     width: 100%;
   }
@@ -251,6 +254,7 @@
   }
   .item-left {
     padding-right: px2rem(10);
+    flex-grow: 1;
   }
   .item-add {
     font-size: px2rem(16);
@@ -407,9 +411,75 @@
       list-style-position: inside;
     }
   }
+  .list-no-more {
+    margin-top: px2rem(10);
+    text-align: center;
+    font-size: px2rem(12);
+  }
+  .history-list-loading {
+    position: fixed;
+    bottom: px2rem(10);
+    left: 0;
+    width: 100%;
+    .loading {
+      margin-top: -.1.5rem;
+      margin-left: -.1.5rem;
+      width: .3rem;
+      height: .3rem;
+      border: 0.03rem solid #eeeeee;
+      border-top: 0.03rem solid #33adee;
+    }
+  }
+  .get-coins-w {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .get-coing-bt {
+      width: fit-content;
+      padding:0 px2rem(8);
+      &.disabled {
+        background: $grey-2;
+      }
+    }
+  }
+  .coins-icon {
+    display: flex;
+    align-items: center;
+    text-justify: center;
+    .coins-img {
+      width: px2rem(50);
+      height: px2rem(50);
+      flex-shrink: 0;
+      margin-top: px2rem(4);
+      img {
+        max-width: 100%;
+      }
+    }
+    .coins-explain {
+      margin: 0 px2rem(8);
+      font-size: px2rem(12);
+      .title {
+        color: #FA6400;
+        font-size: px2rem(16);
+        margin-bottom: px2rem(3);
+      }
+    }
+  }
 </style>
 <template>
   <div class="home">
+    <div class="row-block margin-btm20" v-if="getCoinsData.receiveReputation && !getCoinsData.todayReceive">
+        <div class="get-coins-w">
+          <dl class="coins-icon">
+            <dt class="coins-img"><img src="../assets/images/coins.png" alt=""></dt>
+            <dd class="coins-explain">
+              <p class="title">{{$t('backTitle')}}</p>
+              <p>{{$t('backDes')}}</p>
+            </dd>
+          </dl>
+          <div class="task-r-botton get-coing-bt" :class="{'disabled': coinsLock}" @click="getCoins">{{$t('getCoins').replace('{value}', getCoinsData.coinNum)}}</div>
+        </div>
+    </div>
     <div class="row-block">
       <div class="block-top">
         <div @click="historyDialogShow = true">{{$t('creditHistory')}}</div>
@@ -433,7 +503,7 @@
           {{$t('creditRead.upTask.upTips').replace('{value}', nextLowScore)}}
           <p v-for="item in upTask" :key="item" v-html="'- ' + parseUpTask($t('creditRead.upTask.' + item.taskCode))"></p>
         </li>
-        <li>{{$t('creditRead.globalTips')}}</li>
+        <li v-if="violationList.length">{{$t('creditRead.globalTips').replace('{value}', violationList.map(item => $t('creditRead.' + item)).join('、'))}}</li>
       </ul>
     </div>
     <div class="row-block scroll-box margin-top20">
@@ -502,28 +572,28 @@
             <p>{{$t('taskList.' + item.name).replace('{value}', item.taskNum)}}</p>
             <p class="sub-t">+{{item.count}} {{$t('taskList.creditPoints')}}</p>
           </dd>
-          <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.start')}}</dd>
-          <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.complete')}}</dd>
+          <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.' + item.linkText)}}</dd>
+          <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.' + item.linkText + 'Complete')}}</dd>
         </dl>
-        <h2 class="tab-row-title mt" v-show="rechargeTask.length">{{$t('taskCategory.category2')}}</h2>
+        <h2 class="tab-row-title mt" v-if="rechargeTask.length">{{$t('taskCategory.category2')}}</h2>
         <dl class="task-row" v-for="item in rechargeTask" :key="item.taskCode">
           <dd class="task-content">
             <p>{{$t('taskList.' + item.name).replace('{value}', item.taskNum)}}</p>
             <p class="sub-t">+{{item.count}} {{$t('taskList.creditPoints')}}</p>
           </dd>
-         <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.start')}}</dd>
-          <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.complete')}}</dd>
+         <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.' + item.linkText)}}</dd>
+          <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.' + item.linkText + 'Complete')}}</dd>
         </dl>
-        <h2 class="tab-row-title mt" v-show="activeTask.length">{{$t('taskCategory.category3')}}</h2>
+        <h2 class="tab-row-title mt" v-if="activeTask.length">{{$t('taskCategory.category3')}}</h2>
         <dl class="task-row" v-for="item in activeTask" :key="item.taskCode">
           <dd class="task-content">
             <p>{{$t('taskList.' + item.name).replace('{value}', item.taskNum)}}</p>
             <p class="sub-t">+{{item.count}} {{$t('taskList.creditPoints')}}</p>
           </dd>
-          <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.start')}}</dd>
-          <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.complete')}}</dd>
+          <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.' + item.linkText)}}</dd>
+          <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.' + item.linkText + 'Complete')}}</dd>
         </dl>
-        <h2 class="tab-row-title mt" v-show="dailyTask.length">{{$t('taskCategory.category4')}}</h2>
+        <h2 class="tab-row-title mt" v-if="dailyTask.length">{{$t('taskCategory.category4')}}</h2>
         <dl class="task-row" v-for="item in dailyTask" :key="item.taskCode">
           <dd class="task-content">
             <p>{{$t('taskList.' + item.name)}}</p>
@@ -559,30 +629,32 @@
       </div>
       <!-- <p class="footer-c">More credit from QA</p> -->
     </div>
-    <Dialog :dialogShow="historyDialogShow" @dialog-close="historyDialogClose" :dialog-title="$t('dialog1.title')">
+    <Dialog :dialogShow="historyDialogShow" @dialog-scroll="historyScroll" name="history" @dialog-close="historyDialogClose" :dialog-title="$t('dialog1.title')">
       <div class="history-dialog">
-        <!-- <div class="no-data">
+        <div class="no-data" v-show="!historyList.length">
           <img src="../assets/images/no-data.png" alt="">
-          <p>{{$t('noData')}}</p>
-        </div> -->
-        <dl class="history-item">
+        </div>
+        <dl class="history-item" v-for="item in historyList" :key="item.afterScore">
           <dt class="item-left">
-            <p class="item-add">+4</p>
-            <p class="item-des">Description: daily active behavior reward honor points</p>
-            <p class="item-date">2020.02.23 10:22:21</p>
+            <p class="item-add">{{item.beforeScore > item.afterScore ? '-' : '+'}}{{item.changeScore}}</p>
+            <p class="item-des">{{parseHistoryTaskName(item)}}</p>
+            <p class="item-date">{{formatDate(item.createTime)}}</p>
           </dt>
           <dd class="item-right">
-            <p class="total-name">Total score</p>
-            <p class="total-num">89</p>
+            <p class="total-name">{{$t('dialog1.total')}}</p>
+            <p class="total-num">{{item.afterScore}}</p>
           </dd>
         </dl>
+        <div class="history-list-loading" v-show="historyLoading">
+          <div class="loading"></div>
+        </div>
+        <div class="list-no-more" v-show="noMoreDate">{{$t('listNo')}}</div>
       </div>
     </Dialog>
     <Dialog :dialogShow="introduceDialogShow" @dialog-close="introduceDialogClose" :dialog-title="$t('dialog2.title')">
       <div class="introduce-dialog">
         <!-- <div class="no-data">
           <img src="../assets/images/no-data.png" alt="">
-          <p>{{$t('noData')}}</p>
         </div> -->
         <div class="introduce-item">
           <h2 class="info-title">{{$t('dialog2.p1title')}}</h2>
@@ -627,7 +699,6 @@
       <div class="credit-dialog">
         <!-- <div class="no-data">
           <img src="../assets/images/no-data.png" alt="">
-          <p>{{$t('noData')}}</p>
         </div> -->
         <div class="credit-rights-item" v-for="item in Object.keys(creditScore)" :key="item">
           <dl class="rights-item">
@@ -667,8 +738,9 @@
 </template>
 
 <script lang="ts">
+import Message from '../common/messageBox/index'
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { queryToJson, formatDate } from '../utils/utils'
+import { queryToJson, formatDate, triggerService } from '../utils/utils'
 import api from '../utils/api-server'
 import Loading from '../common/Loading.vue'
 import Title from '../components/TitleChannel.vue'
@@ -686,7 +758,9 @@ import CanvasProgress from '../components/CanvasProgress.vue'
 })
 export default class Home extends Vue {
   radarData: Array<any> = []
+  getCoinsData: any = {}
   loading:boolean = false
+  coinsLock:boolean = false
   queryJson: any = {}
   appId:number = 20000
   platformType: number = 2
@@ -712,6 +786,8 @@ export default class Home extends Vue {
     'match_queue_first': 0,
     'top_of_discovery_list': 0
   }
+  // 违规列表
+  violationList: Array<any> = []
   // 新手任务(完善账户)
   accountTask: Array<any> = []
   // 新手任务(充值付费)
@@ -726,6 +802,12 @@ export default class Home extends Vue {
   currentTab: number = 1
   // 跳转绑定邮箱手机
   accountType: string = ''
+  // 信誉分历史分页
+  historyList: Array<any> = []
+  historyPage: number = 1
+  historyPageSize: number = 4
+  noMoreDate: boolean = false
+  historyLoading: boolean = false
   // dialog
   historyDialogShow: boolean = false
   introduceDialogShow: boolean = false
@@ -734,7 +816,7 @@ export default class Home extends Vue {
     let queryJson = queryToJson(window.location.search.substr(1), true)
     this.queryJson = queryJson
     console.log(queryJson)
-    console.log(typeof queryJson.accountType)
+    // console.log(typeof queryJson.accountType)
     this.accountType = queryJson.accountType === '3' ? 'as/enter' : (queryJson.accountType === '2' ? 'as/email' : 'as/phone')
     this.appId = queryJson.appId
     this.platformType = queryJson.platformType
@@ -743,14 +825,12 @@ export default class Home extends Vue {
     this.getHttpData(queryJson)
   }
   mounted () {
-    // enum Type { day = 1, week = 2, month = 3 }
-    // document.title as string = this.$t(Type[this.type] + this.incomeType.replace(/^(\w)/, ($1) => $1.toUpperCase()) + 'Title')
+    triggerService({ eventId: '3-3-12-1', 'freeName2': 'assessment' })
   }
   get readTips () {
     let status = this.progressData.color
     return status === 'bad' && this.frozenList.length > 0 ? (this.$t('creditRead.' + status + 'Has') as string).replace('{func}', () => this.frozenList.map(item => this.$t('creditRead.frozen.' + item)).join('、')) : this.$t('creditRead.' + status)
   }
-  @Watch('loadingArr')
   formatDate = formatDate
   setLanguage (lang: string) {
     const LANGUAGE: string[] = ['en', 'ar', 'ru', 'tr', 'zh']
@@ -765,6 +845,12 @@ export default class Home extends Vue {
     }
     return language
   }
+  /**
+   * 获取金币
+   */
+  getCoins () {
+    this.getCoinsApi(this.queryJson)
+  }
   appDeepLink (page: string, open: boolean | undefined = true) {
     enum AppName {
       '2-20000' = 'livu://com.videochat.livu/',
@@ -775,8 +861,8 @@ export default class Home extends Vue {
     // console.log(this.platformType + '-' + this.appId)
     // let src = AppName[this.platformType + '-' + this.appId] + page + '/' + this.userId
     let src = AppName[this.platformType + '-' + this.appId] + page
-    console.log(src)
     if (open) {
+      console.log(src)
       window.location.href = src
     } else {
       return src
@@ -789,7 +875,7 @@ export default class Home extends Vue {
     const LINK = {
       'email': this.accountType,
       'account': 'social',
-      'info': 'profile',
+      'info': 'profile/profileEdit',
       'kyc': 'auth/kyc'
     }
     return str.replace(/\{\((.+)\)\((.*)\)\}/, (...arg) => {
@@ -814,6 +900,21 @@ export default class Home extends Vue {
     this.getReputationIntroduce(queryJson)
     this.getCreditChangeRecords(queryJson)
     this.getReputationLevels(queryJson)
+    this.getViolationConfigs(queryJson)
+  }
+  /**
+   * 历吏中的任务名
+   */
+  parseHistoryTaskName (item:any) {
+    const TYPE = +item.displayType
+    const TASK_NAME = item.changeSubType
+    const TASK_NUM = item.taskNum
+    let str = this.$t('dialog1.explain.exp' + TYPE)
+    if (TYPE === 1) {
+      let task = (this.$t('taskList.' + TASK_NAME) as string).replace('{value}', TASK_NUM)
+      str = (this.$t('dialog1.explain.exp' + TYPE) as string).replace('{value}', task)
+    }
+    return str
   }
   /**
    * 处理任务列表
@@ -824,10 +925,14 @@ export default class Home extends Vue {
     const activeTask = ['video_call', 'add_friend', 'continue_login']
     const dailyTask = ['daily_behavior', 'report_violations']
     const LINK = {
-      'person_data': 'profile',
+      'person_data': 'profile/profileEdit',
+      'person_data_type': 'perfect',
       'kyc_real_name': 'auth/kyc',
+      'kyc_real_name_type': 'auth',
       'third_account': 'social',
+      'third_account_type': 'bind',
       'mobile_email_account': this.accountType,
+      'mobile_email_type': 'bind',
       'first_recharge': 'store',
       'first_send_gift': 'match',
       'video_call': 'match',
@@ -839,13 +944,25 @@ export default class Home extends Vue {
         name: item.taskCode,
         count: item.rewardScore || 0,
         taskNum: item.taskNum || 0,
-        link: LINK[item.taskCode]
+        link: LINK[item.taskCode],
+        linkText: LINK[item.taskCode + '_type'] || 'default'
       }
       accountTask.includes(item.taskCode) && this.accountTask.push(obj)
       rechargeTask.includes(item.taskCode) && this.accountTask.push(obj)
       activeTask.includes(item.taskCode) && this.accountTask.push(obj)
       dailyTask.includes(item.taskCode) && this.accountTask.push(obj)
     })
+  }
+  /**
+   * 滚动加载更多
+   */
+  historyScroll (e) {
+    // console.log(e.target.scrollTop, e.target.clientHeight, e.target.scrollHeight)
+    let target = e.target
+    if (target.scrollTop + target.clientHeight >= target.scrollHeight && !this.noMoreDate) {
+      this.historyLoading = true
+      this.getCreditChangeRecords(this.queryJson)
+    }
   }
   /**
    * 获取基本数据
@@ -868,16 +985,20 @@ export default class Home extends Vue {
         }
         let resData = res.data
         const deleteData: String[] = ['risk_warning', 'match_weight_reduction', 'block_account']
+        this.getCoinsData = resData.receiveCoinDto
+        console.log(this.getCoinsData)
         this.progressData = {
           value: resData.score || 0,
           color: StatusName[resData.status || 1],
           date: formatDate(resData.assessmentTime, 3, '.')
         }
         this.beyondUser = resData.beyondUser || 0
-        this.frozenList = (JSON.parse(resData.current.punishmentMeasures) || []).filter(item => !deleteData.includes(item.functionName))
-        this.nextLowScore = resData.current.lowScore
-        this.upTask = resData.nudoUpgradeTask
-        this.handleTask(resData.taskList)
+        if (resData.current) {
+          this.frozenList = (JSON.parse(resData.current.punishmentMeasures) || []).filter(item => !deleteData.includes(item.functionName))
+          this.nextLowScore = resData.current.lowScore
+        }
+        this.upTask = resData.nudoUpgradeTask || []
+        this.handleTask(resData.taskList || [])
         this.radarData = [
           resData.radarDailyActivity || 0,
           resData.radarPersonData || 0,
@@ -907,13 +1028,34 @@ export default class Home extends Vue {
     })
   }
   /**
+   * 获取金币
+   */
+  getCoinsApi (query) {
+    if (this.coinsLock) return
+    this.coinsLock = true
+    api.getCoins({
+      params: {
+        messageId: 40000,
+        userCold: this.getCoinsData.coinNum,
+        ...query
+      }
+    }).then(res => {
+      console.log('getCoinsApi', res)
+      if (res.code === 0) {
+        Message((this.$t('coinsSuccess') as string).replace('{value}', this.getCoinsData.coinNum))
+        this.$set(this.getCoinsData, 'todayReceive', true)
+      }
+      this.coinsLock = false
+    })
+  }
+  /**
    * 信誉分历史
    */
   getCreditChangeRecords (query) {
     api.getCreditChangeRecords({
       params: {
-        pageNo: 1,
-        pageSize: 10,
+        pageNo: this.historyPage,
+        pageSize: this.historyPageSize,
         ...query
       },
       restParams: {
@@ -922,6 +1064,32 @@ export default class Home extends Vue {
     }).then(res => {
       console.log('getCreditChangeRecords', res)
       if (res.code === 0) {
+        if (!res.data.length) {
+          this.noMoreDate = true
+        } else {
+          res.data.forEach(item => this.historyList.push(item))
+          this.historyPage++
+        }
+      }
+      this.historyLoading = false
+    })
+  }
+  /**
+   * 违规记录
+   */
+  getViolationConfigs (query) {
+    api.getViolationConfigs({
+      params: {
+        ...query
+      }
+    }).then(res => {
+      console.log('getViolationConfigs', res)
+      if (res.code === 0) {
+        res.data.forEach(item => {
+          if (!this.violationList.includes(item.violationClassic)) {
+            this.violationList.push(item.violationClassic)
+          }
+        })
       }
     })
   }

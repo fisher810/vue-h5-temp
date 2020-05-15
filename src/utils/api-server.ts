@@ -34,6 +34,9 @@ let checkStatus = (response: any, apiName: string) => {
   if (response && (response.status === 200 || response.status === 304 || response.status === 400)) {
     return typeof response.data === 'string' ? JSON.parse(response.data) : response.data
   } else {
+    if (apiName === 'triggerService') {
+      return { code: 0, data: 'success' }
+    }
     return {
       code: 9999,
       message: 'error: ' + (response ? (response.status || JSON.stringify(response)) : 'Server Error!')
@@ -51,6 +54,11 @@ let restParams = (opt: any) => {
   if (opt.url.indexOf('{version}') !== -1) {
     opt.url = opt.url.replace('{version}', VERSION)
   }
+  if (opt.api) {
+    // console.log(process.env)
+    opt.baseURL = process.env['VUE_APP_' + opt.api.toUpperCase() + '_API_URL']
+  }
+  // console.log(opt)
   Object.keys(opt.restParams || {}).forEach(item => {
     let reg = new RegExp('\\{' + item + '\\}')
     opt.url = opt.url.replace(reg, opt.restParams[item])
@@ -64,7 +72,7 @@ let getSign = (config: any) => {
   let newTimestamp = new Date().getTime()
   let { deviceId, loginToken, nonce, userId } = config.params
   let joinUrl = config.baseURL + config.url + loginToken + deviceId + nonce + newTimestamp + userId
-  console.log(joinUrl)
+  // console.log(joinUrl)
   let sign = require('crypto').createHash('md5').update(joinUrl).digest('hex').toUpperCase()
   config.params.sign = sign
   config.params.timestamp = newTimestamp

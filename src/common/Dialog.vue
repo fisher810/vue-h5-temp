@@ -61,7 +61,7 @@
         <span>{{dialogTitle}}</span>
         <span class="close-dialog" @click="closeDialogFn"></span>
       </h2>
-      <div class="dialog-content">
+      <div class="dialog-content" ref="dialog">
         <slot></slot>
       </div>
     </div>
@@ -69,16 +69,25 @@
 </template>
 
 <script lang="ts">
+import { throttle } from 'lodash'
 import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator'
 @Component
 export default class Dialog extends Vue {
   curentHeight: number = 0
+  @Prop({ default: '' })
+  name!: string
   @Prop({ default: false })
   dialogShow!: boolean
   @Prop({ default: 'No Title' })
   dialogTitle!: string
+  mounted () {
+    (this.$refs.dialog as Element).addEventListener('scroll', throttle(this.dialogScrollFn, 500))
+    this.$once('hook:beforeDestroy', () => {
+      (this.$refs.dialog as Element).removeEventListener('scroll', throttle(this.dialogScrollFn, 500))
+    })
+  }
   @Watch('dialogShow')
-  onDialogShowChanged (val: boolean) {
+  onDialogShowChanged (val) {
     let bodySel = document.body
     let htmlSel = document.documentElement
     if (val) {
@@ -96,6 +105,11 @@ export default class Dialog extends Vue {
   closeDialogFn () {
     this.dialogShow = false
     this.dialogClose()
+  }
+  @Emit()
+  dialogScroll (e) {}
+  dialogScrollFn (e: Event) {
+    this.dialogScroll(e)
   }
 }
 </script>

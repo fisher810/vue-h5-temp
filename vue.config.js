@@ -9,6 +9,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 // const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 console.log(process.env.NODE_ENV)
 console.log(process.env.VUE_APP_API_URL)
+console.log(process.env.VUE_APP_OLD_API_URL)
 // 压js
 let terserSetting = () => {
   let arr = []

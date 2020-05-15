@@ -10,14 +10,16 @@ html {
     }
     @media screen and (min-width: 540px) {
         font-size: 108px;
-    }
+		}
+		height: 100%;
 }
 
 // body 也增加最大最小宽度限制，避免默认100%宽度的 block 元素跟随 body 而过大过小
 body {
     max-width: 800px;
     min-width: 320px;
-    margin: 0 auto;
+		margin: 0 auto;
+		height: 100%;
 }
 
 .loading {

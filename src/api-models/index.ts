@@ -27,5 +27,21 @@ export default {
   getCreditChangeRecords: {
     url: '/algo-athena-credit/api/{version}/UserCreditChangeRecords/{userId}',
     method: 'get'
+  },
+  // 获取违规记录记录
+  getViolationConfigs: {
+    url: '/algo-athena-credit/api/{version}/violationConfigs',
+    method: 'get'
+  },
+  // 获取金币
+  getCoins: {
+    url: '/api/h5/{version}/messages/golds',
+    method: 'get',
+    api: 'old'
+  },
+  triggerService: {
+    url: process.env.NODE_ENV === 'production' ? '/api/1000/addUserRequestBuryRecordAll' : '/api/h5/1/addUserRequestBuryRecordAll',
+    method: 'post',
+    api: 'old'
   }
 }
