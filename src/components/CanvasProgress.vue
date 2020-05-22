@@ -5,7 +5,7 @@
   position: relative;
   .canvas-des {
     position: absolute;
-    top: px2rem(60);
+    top: px2rem(70);
     left: 0;
     width: 100%;
     display: flex;
@@ -18,34 +18,26 @@
     font-size: px2rem(14);
   }
   .value {
-    font-size: px2rem(80);
-    line-height: px2rem(55);
-    font-weight: bold;
     display: flex;
     align-items: flex-start;
     margin: px2rem(20) 0;
-    &.good::after {
-      content: '';
-      display: block;
-      background: url('../assets/images/b2.png') no-repeat;
-      background-size: 100%;
-      width: px2rem(21);
-      height: px2rem(23);
-      margin-left: px2rem(2);
+    .value-c {
+      font-size: px2rem(80);
+      line-height: px2rem(55);
+      font-weight: bold;
     }
-    &.best::after {
-      content: '';
-      display: block;
-      background: url('../assets/images/b1.png') no-repeat;
-      background-size: 100%;
+    .reputation {
       width: px2rem(21);
       height: px2rem(23);
       margin-left: px2rem(2);
+      img {
+        max-width: 100%;
+      }
     }
   }
   .value-des {
     text-align: center;
-    padding-top: px2rem(40);
+    padding-top: px2rem(30);
     color: #1A1A1A;
   }
   .value-button {
@@ -53,10 +45,13 @@
     justify-content: center;
     align-items: center;
     width: px2rem(155);
+    padding: 0 px2rem(10);
     height: px2rem(40);
     border-radius: px2rem(40);
     color: #fff;
-    font-size: px2rem(20);
+    font-size: px2rem(18);
+    line-height: px2rem(14);
+    text-align: center;
   }
 }
 </style>
@@ -67,7 +62,10 @@
       </canvas>
       <div class="canvas-des">
         <p class="date">{{progressData.date || '-.-.-'}}</p>
-        <p class="value" :class="{'best': progressData.color === 'best', 'good': progressData.color === 'good'}" :style="{color: colorObj[progressData.color][2]}">{{progressData.value}}</p>
+        <div class="value">
+          <p class="value-c" :style="{color: colorObj[progressData.color][2]}">{{showValue}}</p>
+          <p class="reputation" v-if="progressData.reputationImage"><img :src="progressData.reputationImage" alt=""></p>
+        </div>
         <a href="javascript:;" class="value-button" :style="{'background-color': colorObj[progressData.color][2]}">{{$t(progressData.color)}}</a>
       </div>
       <div class="value-des">
@@ -88,6 +86,7 @@ export default class CanvasProgress extends Vue {
     best: ['#3F46DD', '#00EA9B', '#00C784']
   }
   context: any
+  showValue: number = 0
   width: number = 0
   height: number = 0
   dpr: number = 2
@@ -105,7 +104,14 @@ export default class CanvasProgress extends Vue {
   }
   @Watch('progressData')
   onProgressDataChanged () {
-    this.renderProgress()
+    this.renderProgress(this.progressData.value)
+    let timer = setInterval(() => {
+      if (this.showValue >= this.progressData.value) {
+        clearInterval(timer)
+      } else {
+        this.showValue++
+      }
+    }, 10)
   }
   renderCanvas () {
     let canvas: any = document.getElementById('progress-c')
@@ -113,11 +119,11 @@ export default class CanvasProgress extends Vue {
     let ctx = this.context = canvas.getContext('2d')
     let img = new Image()
     img.onload = () => {
-      ctx.drawImage(img, 75, 65, 183, 139)
+      ctx.drawImage(img, 85, 75, 183, 139)
     }
     img.src = require('../assets/images/pro-bg.png')
     this.width = wrap.clientWidth
-    this.height = wrap.clientWidth / 2 + 40
+    this.height = wrap.clientWidth / 2 + 50
     canvas.style.width = this.width + 'px'
     canvas.style.height = this.height + 'px'
     canvas.setAttribute('width', this.width * this.dpr)
@@ -135,23 +141,39 @@ export default class CanvasProgress extends Vue {
     ctx.fillText('0', 25, this.height - 10)
     ctx.fillText('100', this.width - 40, this.height - 10)
   }
-  renderProgress () {
-    if (this.progressData.value === 0) return
+  renderProgress (value: number) {
+    if (value <= 0) return
     let myColor = this.progressData.color
     let ctx = this.context
     let width = this.width
     let height = this.height
-    let endAngle = (1.5 - this.startAngle) / 150 * (this.progressData.value * 3) + this.startAngle
-    ctx.beginPath()
-    ctx.arc(width / 2, height - 40, width / 2 - 30, this.startAngle * Math.PI, endAngle * Math.PI) // 进度绘制
-    ctx.lineWidth = this.lineWidth
-    ctx.shadowBlur = 0
-    ctx.lineCap = 'round'
-    let g = ctx.createLinearGradient(0, height / 2, width, height / 2) // 创建渐变对象  渐变开始点和渐变结束点
-    g.addColorStop(0, this.colorObj[myColor][0]) // 添加颜色点
-    g.addColorStop(myColor === 'poor' || myColor === 'just' ? 0.3 : 0.6, this.colorObj[myColor][1]) // 添加颜色点
-    ctx.strokeStyle = g // 使用渐变对象作为圆环的颜色
-    ctx.stroke()
+    this.setIntervalAn(value, 10, (v) => {
+      let endAngle = (1.5 - this.startAngle) / 150 * (v * 3) + this.startAngle
+      ctx.beginPath()
+      ctx.arc(width / 2, height - 40, width / 2 - 30, this.startAngle * Math.PI, endAngle * Math.PI) // 进度绘制
+      ctx.lineWidth = this.lineWidth
+      ctx.shadowBlur = 0
+      ctx.lineCap = 'round'
+      let g = ctx.createLinearGradient(0, height / 2, width, height / 2) // 创建渐变对象  渐变开始点和渐变结束点
+      g.addColorStop(0, this.colorObj[myColor][0]) // 添加颜色点
+      g.addColorStop(myColor === 'poor' || myColor === 'just' ? 0.3 : 0.6, this.colorObj[myColor][1]) // 添加颜色点
+      ctx.strokeStyle = g // 使用渐变对象作为圆环的颜色
+      ctx.stroke()
+    })
+  }
+  /**
+   * 动画
+   */
+  setIntervalAn (initValue: number, delay: number = 10, fn: Function) {
+    let i = 1
+    let timer = setInterval(() => {
+      if (i >= initValue) {
+        clearInterval(timer)
+      } else {
+        fn.call(this, i)
+        i++
+      }
+    }, delay)
   }
 }
 </script>

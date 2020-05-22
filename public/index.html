@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>Sunshine Credit Score</title>
+    <title>Community Impact Score</title>
     <script>
+      setTheme()
       function getUrlVars(url) {
           var hash;
           var myJson = {};
@@ -16,6 +17,16 @@
               myJson[hash[0]] = hash[1];
           }
           return myJson;
+      }
+      function setTheme() {
+          var query = getUrlVars(window.location.href)
+          var theme = {
+              '20000': 'livu',
+              '19999': 'tumile',
+              '66666': 'yaar'
+          }
+          theme[query.appId] && window.document.documentElement.setAttribute('data-theme', theme[query.appId])
+
       }
       function ajaxFn(ajaxObject) {
           var method = ajaxObject.method || "get"

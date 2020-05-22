@@ -16,18 +16,17 @@ import tumile from './Tumile.vue'
   }
 })
 export default class Home extends Vue {
-  appType: string = ''
+  appType: string = 'tumile'
   created () {
-    let queryJson = queryToJson(window.location.search.substr(1), true)
-    console.log(queryJson)
-    this.appType = this.getAppName(queryJson.platformType) || 'tumile'
+    // let queryJson = queryToJson(window.location.search.substr(1), true)
+    // console.log(queryJson)
+    // this.appType = this.getAppName(queryJson.appId) || 'tumile'
   }
   getAppName (type: string) {
-    enum AppName {
-      '2-20000' = 'livu',
-      '2-19999' = 'tumile',
-      '2-66666' = 'yaar',
-      '1-20000' = 'livu'
+    const AppName = {
+      '20000': 'livu',
+      '19999': 'tumile',
+      '66666': 'yaar'
     }
     return AppName[type]
   }

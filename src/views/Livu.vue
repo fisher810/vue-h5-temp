@@ -1,7 +1,7 @@
 <style scoped lang="scss">
 @import '../assets/style/vars.scss';
 .home {
-  background: url('../assets/images/bg.jpg') no-repeat #FF5924 ;
+  background: url('../assets/images/bg-tumile.jpg') no-repeat #FF5924 ;
   background-size: 100% auto;
   min-height: 100vh;
   position: relative;

@@ -7,45 +7,35 @@ $fontFamily: system-ui,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,Helvetic
 // }
 
 // rem 单位换算：定为 75px 只是方便运算，750px-75px、640-64px、1080px-108px，如此类推
-$vw_fontsize: 75; // iPhone 6尺寸的根元素大小基准值
+$vw_fontSize: 75; // iPhone 6尺寸的根元素大小基准值
 @function px2rem($px) {
-     @return ($px / $vw_fontsize ) * 1rem;
-}
+     @return ($px / $vw_fontSize ) * 1rem;
+};
 
-// font size
-$small: 12px;
-$normal: 14px;
-$medium: 16px;
-$large: 18px;
-$huge: 24px;
-$giant: 28px;
-
-// z-index
-$z-level-1: 997;
-$z-level-2: 998;
-$z-level-3: 999;
-
-// color
-$primary: #6B10FF;
-$success: #67c23a;
-$warning: #e6a23c;
-$danger: #f56c6c;
-$info: #909399;
-$background: #2f3d45;
-// grey color
-$black: #000000;
-$grey-0: #303133;
-$grey-1: #606266;
-$grey-2: #909399;
-$grey-3: #c0c4cc;
-$grey-4: #dedfe6;  // 用于边框
-$grey-5: #e4e7ed;
-$grey-6: #ebeef5;
-$grey-7: #f2f6fc;
-$grey-8: #f0f0f0;
-$white: #ffffff;
-
-$fcoin-1: #202229;
-$fcoin-2: #323640;
+$theme-tumile: (
+     primary: #FF5924,
+     dark-primary: darken(#FF5924, 20%),
+     light-primary: lighten(#FF5924, 10%),
+     light-primary-1: rgba(167, 48, 8, 0.26),
+     // body-bg: url('../images/bg-tumile.jpg')
+     body-bg:linear-gradient(180deg,#FFC200 0%,#FF5924 100%),
+     linear-bg: linear-gradient(90deg,#FFC200 0%,#FF5924 100%)
+);
+$theme-yaar: (
+     primary: #00C784,
+     dark-primary: darken(#00C784, 20%),
+     light-primary: lighten(#00C784, 10%),
+     light-primary-1: rgba(6, 161, 110, 0.26),
+     body-bg: linear-gradient(180deg,#00C784 0%,#5986FF 100%),
+     linear-bg: linear-gradient(90deg,#00C784 0%,#5986FF 100%)
+);
+$theme-livu: (
+     primary: #6C11FF,
+     dark-primary: darken(#6C11FF, 20%),
+     light-primary: lighten(#6C11FF, 10%),
+     light-primary-1: rgba(107,16,255, .26),
+     body-bg: linear-gradient(180deg,#b761fd 0%,#6C11FF 100%),
+     linear-bg: linear-gradient(90deg,#b761fd 0%,#6C11FF 100%)
+);
 
 

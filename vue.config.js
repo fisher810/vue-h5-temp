@@ -66,6 +66,13 @@ module.exports = {
             minSize: 0,
             minChunks: 1
           }
+          // language: {
+          //   name: 'language',
+          //   test: /[\\/]src[\\/]language[\\/]/,
+          //   priority: 12,
+          //   minSize: 0,
+          //   minChunks: 1
+          // }
         }
       }
     },

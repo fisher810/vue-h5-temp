@@ -18,16 +18,23 @@ Vue.prototype.$message = Message
 Vue.use(VueI18n)
 const i18n = new VueI18n({
   locale: 'en', // 语言标识 //this.$i18n.locale // 通过切换locale的值来实现语言切换
-  messages: {
-    'zh': require('./language/zh'),
-    'en': require('./language/en'),
-    'ar': require('./language/ar'),
-    'ru': require('./language/ru'),
-    'tr': require('./language/tr')
-  }
+  messages: getLanguage() as any
 })
 new Vue({
   router,
   i18n,
   render: h => h(App)
 }).$mount('#app')
+
+// 获取语言
+function getLanguage () {
+  const langFiles = require.context('./language', false, /\.ts$/)
+  let obj: Object = {}
+  langFiles.keys().forEach(item => {
+    let res = item.match(/\/(.+)\..+$/)
+    if (res) {
+      obj[res[1]] = require('./language/' + res[1])
+    }
+  })
+  return obj
+}

@@ -22,11 +22,11 @@
   font-size: 16px;
   text-align: center;
   transition: all .5s linear;
-  opacity: 0;
+  z-index: 9999;
 }
 </style>
 <template>
-  <div class="message-box" :style="{'opacity': show && text !== '' ? 1 : 0}">
+  <div class="message-box" v-show="show">
     {{text}}
   </div>
 </template>

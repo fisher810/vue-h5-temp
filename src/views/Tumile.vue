@@ -1,12 +1,15 @@
 <style scoped lang="scss">
-@import '../assets/style/vars.scss';
+@import '../assets/style/theme.mixin.scss';
 .home {
-  background: url('../assets/images/bg.jpg') no-repeat #FF5924 ;
+  @include body-bg(body-bg);
+  background-repeat: no-repeat;
   background-size: 100% auto;
   min-height: 100vh;
   padding: px2rem(15);
   font-size: px2rem(16);
   color: #1A1A1A;
+  position: relative;
+  z-index: 9;
   .row-block {
     background-color: #fff;
     border-radius: px2rem(7);
@@ -30,7 +33,9 @@
     z-index: 99;
   }
   .help {
-    background: url('../assets/images/help_icon.png') no-repeat;
+    @include bg-color(light-primary);
+    border-radius: 50%;
+    background-image: url('../assets/images/help_icon.png');
     background-size: 100%;
     width: px2rem(22);
     height: px2rem(22);
@@ -79,7 +84,7 @@
     width: px2rem(80);
     flex-shrink: 0;
     background-color: #fff;
-    box-shadow:0 0 px2rem(8) rgba(127,53,8,0.26);
+    box-shadow:0px 0px 7px 0px rgba(0,0,0,.14);
     margin-right: px2rem(10);
     display: flex;
     flex-direction: column;
@@ -124,7 +129,7 @@
     transform: scale(.8);
     flex-shrink: 1;
     min-height: px2rem(12);
-    color: #F7B500;
+    @include font-color(primary);
     &.no-open {
       color: #AEB6BD;
     }
@@ -134,8 +139,11 @@
     margin-top: px2rem(15);
     li {
       flex: 1;
+      display: flex;
       padding-bottom: px2rem(10);
       border-bottom: solid 1px #C7CCCF;
+      justify-content: center;
+      align-items: center;
       text-align: center;
       font-size: px2rem(16);
       color: #D7D7D7;
@@ -158,7 +166,7 @@
   }
   .task-row {
       background-color: #fff;
-      box-shadow:0px 0px 10px 0px rgba(127,53,8,0.26);
+      @include box-shadow(light-primary-1);
       border-radius: px2rem(5);
       display: flex;
       align-items: center;
@@ -178,14 +186,15 @@
     }
   }
   .sub-t {
-    color: #F7B500;
+    @include font-color(primary);
     margin-top: px2rem(3);
     font-size: px2rem(12);
   }
   .task-r-botton {
-    background: linear-gradient(90deg,#FFC200 0%,#FF5924 100%);
+    @include linear-bg(linear-bg);
     width: px2rem(85);
-    height: px2rem(32);
+    min-height: px2rem(32);
+    padding: 0 px2rem(7);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -194,7 +203,7 @@
     border-radius: px2rem(16);
     flex-shrink: 0;
     text-align: center;
-    line-height: px2rem(14);
+    line-height: px2rem(12);
     &.completed {
       color: #C7CCCF;
       background: none;
@@ -202,7 +211,7 @@
   }
   .strategy-task {
     background-color: #fff;
-    box-shadow:0px 0px 10px 0px rgba(127,53,8,0.26);
+    @include box-shadow(light-primary-1);
     border-radius: px2rem(5);
     padding: px2rem(10);
     margin-bottom: px2rem(12);
@@ -220,7 +229,7 @@
     }
   }
   .footer-c {
-    color: #7F3408;
+    @include font-color(dark-primary);
     font-size: px2rem(12);
     text-align: center;
     padding-top: px2rem(20);
@@ -240,7 +249,7 @@
     }
   }
   .history-item {
-    background: linear-gradient(90deg,#FFC200 0%,#FF5924 100%);
+    @include linear-bg(linear-bg);
     border-radius: px2rem(5);
     padding: px2rem(15);
     margin-top: px2rem(10);
@@ -279,7 +288,7 @@
     font-size: px2rem(40);
   }
   .introduce-item {
-    background: linear-gradient(90deg,#FFC200 0%,#FF5924 100%);
+    @include linear-bg(linear-bg);
     border-radius: px2rem(5);
     padding: px2rem(15);
     margin-top: px2rem(10);
@@ -337,7 +346,7 @@
     }
   }
   .credit-rights-item {
-    background: linear-gradient(90deg,#FFC200 0%,#FF5924 100%);
+    @include linear-bg(linear-bg);
     border-radius: px2rem(5);
     padding: px2rem(15);
     margin-top: px2rem(10);
@@ -369,7 +378,7 @@
     margin-bottom: px2rem(5);
   }
   .div-table {
-    background-color: #AE4A00;
+    @include bg-color(dark-primary);
     font-size: px2rem(14);
     margin-top: px2rem(10);
     .ul-tr {
@@ -378,10 +387,12 @@
         flex: 1;
         display: flex;
         justify-content: center;
+        font-size: px2rem(12);
         align-items: center;
+        text-align: center;
         height: px2rem(28);
-        border-left: solid 1px #FF5924;
-        border-bottom: solid 1px #FF5924;
+        border-left: solid 1px rgba(255,255,255, .5);
+        border-bottom: solid 1px rgba(255,255,255, .5);
         &:last-child {
           border-right: none;
         }
@@ -436,9 +447,11 @@
     align-items: center;
     .get-coing-bt {
       width: fit-content;
+      max-width: px2rem(90);
       padding:0 px2rem(8);
+      background: linear-gradient(90deg,#FFC200 0%,#FF5924 100%);
       &.disabled {
-        background: $grey-2;
+        background: #909399;
       }
     }
   }
@@ -459,15 +472,31 @@
       margin: 0 px2rem(8);
       font-size: px2rem(12);
       .title {
-        color: #FA6400;
+        // @include font-color(primary);
+        color: #FF5924;
         font-size: px2rem(16);
         margin-bottom: px2rem(3);
       }
     }
   }
+  .fix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: .9;
+    img {
+      max-width: 100%;
+    }
+  }
 </style>
 <template>
   <div class="home">
+    <div class="fix-bg">
+      <img src="../assets/images/bg.png" alt="">
+    </div>
     <div class="row-block margin-btm20" v-if="getCoinsData.receiveReputation && !getCoinsData.todayReceive">
         <div class="get-coins-w">
           <dl class="coins-icon">
@@ -482,8 +511,8 @@
     </div>
     <div class="row-block">
       <div class="block-top">
-        <div @click="historyDialogShow = true">{{$t('creditHistory')}}</div>
-        <div @click="introduceDialogShow = true" class="help"></div>
+        <div @click="openHistory">{{$t('creditHistory')}}</div>
+        <div @click="openIntroduce" class="help"></div>
       </div>
       <div class="circle-progress">
         <CanvasProgress :progressData="progressData">
@@ -509,7 +538,7 @@
     <div class="row-block scroll-box margin-top20">
       <Title :title="$t('title2')"></Title>
       <div class="srcoll-wrap">
-        <div class="rights-list" @click="creditDialogShow = true">
+        <div class="rights-list" @click="openCredit">
           <dl class="rights-item">
             <dt class="icon-wrap">
               <img src="../assets/images/match_offer.png" alt="">
@@ -550,7 +579,7 @@
               <img src="../assets/images/reputation_mark.png" alt="">
             </dt>
             <dd class="mid-text">{{$t('creditList.reputation_mark')}}</dd>
-            <dd class="footer-text"></dd>
+            <dd class="footer-text">≥{{creditScore.reputation_mark}}</dd>
           </dl>
           <dl class="rights-item center">
             <dd class="mid-text no-open">{{$t('creditList.moreCredit')}}</dd>
@@ -563,7 +592,7 @@
       <Title :title="$t('title3')"></Title>
       <ul class="tab-wrap">
         <li :class="{active: currentTab === 1}" @click="currentTab = 1">{{$t('tab1')}}</li>
-        <li :class="{active: currentTab === 2}" @click="currentTab = 2">{{$t('tab2')}}</li>
+        <li :class="{active: currentTab === 2}" @click="showTabTwo">{{$t('tab2')}}</li>
       </ul>
       <div class="task-container" v-show="currentTab === 1">
         <h2 class="tab-row-title" v-show="accountTask.length">{{$t('taskCategory.category1')}}</h2>
@@ -572,7 +601,7 @@
             <p>{{$t('taskList.' + item.name).replace('{value}', item.taskNum)}}</p>
             <p class="sub-t">+{{item.count}} {{$t('taskList.creditPoints')}}</p>
           </dd>
-          <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.' + item.linkText)}}</dd>
+          <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link, item.name)">{{$t('taskList.' + item.linkText)}}</dd>
           <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.' + item.linkText + 'Complete')}}</dd>
         </dl>
         <h2 class="tab-row-title mt" v-if="rechargeTask.length">{{$t('taskCategory.category2')}}</h2>
@@ -581,7 +610,7 @@
             <p>{{$t('taskList.' + item.name).replace('{value}', item.taskNum)}}</p>
             <p class="sub-t">+{{item.count}} {{$t('taskList.creditPoints')}}</p>
           </dd>
-         <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.' + item.linkText)}}</dd>
+         <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link, item.name)">{{$t('taskList.' + item.linkText)}}</dd>
           <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.' + item.linkText + 'Complete')}}</dd>
         </dl>
         <h2 class="tab-row-title mt" v-if="activeTask.length">{{$t('taskCategory.category3')}}</h2>
@@ -590,7 +619,7 @@
             <p>{{$t('taskList.' + item.name).replace('{value}', item.taskNum)}}</p>
             <p class="sub-t">+{{item.count}} {{$t('taskList.creditPoints')}}</p>
           </dd>
-          <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link)">{{$t('taskList.' + item.linkText)}}</dd>
+          <dd class="task-r-botton" v-if="!item.complete && item.link" @click="appDeepLink(item.link, item.name)">{{$t('taskList.' + item.linkText)}}</dd>
           <dd class="task-r-botton completed" v-if="item.complete">{{$t('taskList.' + item.linkText + 'Complete')}}</dd>
         </dl>
         <h2 class="tab-row-title mt" v-if="dailyTask.length">{{$t('taskCategory.category4')}}</h2>
@@ -627,7 +656,7 @@
           <dd>{{$t('explain.des5')}}</dd>
         </dl>
       </div>
-      <!-- <p class="footer-c">More credit from QA</p> -->
+      <!-- <p class="footer-c">{{$t('moreTips')}}</p> -->
     </div>
     <Dialog :dialogShow="historyDialogShow" @dialog-scroll="historyScroll" name="history" @dialog-close="historyDialogClose" :dialog-title="$t('dialog1.title')">
       <div class="history-dialog">
@@ -636,7 +665,7 @@
         </div>
         <dl class="history-item" v-for="item in historyList" :key="item.afterScore">
           <dt class="item-left">
-            <p class="item-add">{{item.beforeScore > item.afterScore ? '-' : '+'}}{{item.changeScore}}</p>
+            <p class="item-add">{{item.beforeScore > item.afterScore ? '-' : (item.beforeScore === item.afterScore ? '' : '+')}}{{item.changeScore}}</p>
             <p class="item-des">{{parseHistoryTaskName(item)}}</p>
             <p class="item-date">{{formatDate(item.createTime)}}</p>
           </dt>
@@ -668,12 +697,9 @@
           <h2 class="info-title">{{$t('dialog2.p3title')}}</h2>
           <div class="level-wrap" v-for="item in levelList" :key="item.id">
             <div class="medal-info">
-              <h2 :class="'medal-score ' + item.levelName">{{$t('dialog2.' + item.levelName)}} {{item.level === 1 ? '&lt;' + item.highScore : '≥' + item.lowScore + ' - ' + (item.level === 5 ? '' : '&lt;') + item.highScore}}</h2>
-              <div class="medal-img" v-if="item.levelName === 'best'">
-                <div class="medal-box"><img src="../assets/images/b1.png" alt=""></div>
-              </div>
-              <div class="medal-img"  v-if="item.levelName === 'good'">
-                <div class="medal-box"><img src="../assets/images/b2.png" alt=""></div>
+              <h2 :class="'medal-score ' + item.levelName">{{$t(item.levelName)}} {{item.level === 1 ? '&lt;' + item.highScore : '≥' + item.lowScore + ' - ' + (item.level === 5 ? '≤' : '&lt;') + item.highScore}}</h2>
+              <div class="medal-img" v-if="item.reputationImage">
+                <div class="medal-box"><img :src="item.reputationImage" alt=""></div>
               </div>
             </div>
             <div class="level-task">
@@ -719,14 +745,14 @@
                 <li>{{$t('dialog3.medal')}}</li>
               </ul>
               <ul class="ul-tr">
-                <li>{{'≥' + (levelList[0] && levelList[0].lowScore) + ' - ' + (levelList[0] && levelList[0].highScore)}}</li>
+                <li>{{'≥' + (levelList[0] && levelList[0].lowScore) + ' - ≤' + (levelList[0] && levelList[0].highScore)}}</li>
                 <li>{{$t('best')}}</li>
-                <li><img src="../assets/images/b1.png" class="medal-img-box" alt=""></li>
+                <li><img :src="levelList[0] && levelList[0].reputationImage" class="medal-img-box" alt=""></li>
               </ul>
               <ul class="ul-tr">
                 <li>{{'≥' + (levelList[1] && levelList[1].lowScore) + ' - &lt;' + (levelList[1] && levelList[1].highScore)}}</li>
                 <li>{{$t('good')}}</li>
-                <li><img src="../assets/images/b2.png" class="medal-img-box" alt=""></li>
+                <li><img :src="levelList[1] && levelList[1].reputationImage" class="medal-img-box" alt=""></li>
               </ul>
             </div>
           </div>
@@ -757,6 +783,7 @@ import CanvasProgress from '../components/CanvasProgress.vue'
   }
 })
 export default class Home extends Vue {
+  theme: string = 'tumile'
   radarData: Array<any> = []
   getCoinsData: any = {}
   loading:boolean = false
@@ -784,7 +811,8 @@ export default class Home extends Vue {
     'per_day_free_coin': 0,
     'exclusive_picture_frame': 0,
     'match_queue_first': 0,
-    'top_of_discovery_list': 0
+    'top_of_discovery_list': 0,
+    'reputation_mark': 0
   }
   // 违规列表
   violationList: Array<any> = []
@@ -805,7 +833,7 @@ export default class Home extends Vue {
   // 信誉分历史分页
   historyList: Array<any> = []
   historyPage: number = 1
-  historyPageSize: number = 4
+  historyPageSize: number = 5
   noMoreDate: boolean = false
   historyLoading: boolean = false
   // dialog
@@ -814,6 +842,7 @@ export default class Home extends Vue {
   creditDialogShow: boolean = false
   created () {
     let queryJson = queryToJson(window.location.search.substr(1), true)
+    this.theme = this.getAppName(queryJson.appId)
     this.queryJson = queryJson
     console.log(queryJson)
     // console.log(typeof queryJson.accountType)
@@ -825,15 +854,27 @@ export default class Home extends Vue {
     this.getHttpData(queryJson)
   }
   mounted () {
-    triggerService({ eventId: '3-3-12-1', 'freeName2': 'assessment' })
+    triggerService({ eventId: '3-3-14-1', 'freeName2': 'creditScore' })
   }
   get readTips () {
     let status = this.progressData.color
-    return status === 'bad' && this.frozenList.length > 0 ? (this.$t('creditRead.' + status + 'Has') as string).replace('{func}', () => this.frozenList.map(item => this.$t('creditRead.frozen.' + item)).join('、')) : this.$t('creditRead.' + status)
+    return status === 'bad' && this.frozenList.length > 0 ? (this.$t('creditRead.' + status + 'Has') as string).replace('{func}', () => this.frozenList.map((item: any) => this.$t('creditRead.frozen.' + item.functionName)).join('、')) : this.$t('creditRead.' + status)
   }
   formatDate = formatDate
+  getAppName (type: string) {
+    const AppName = {
+      '20000': 'livu',
+      '19999': 'tumile',
+      '66666': 'yaar'
+    }
+    return AppName[type]
+  }
   setLanguage (lang: string) {
-    const LANGUAGE: string[] = ['en', 'ar', 'ru', 'tr', 'zh']
+    const LANGUAGE: any[] = require.context('../language', false, /\.ts$/).keys().map(item => {
+      const res = item.match(/\/(.+)\..+$/)
+      return res && res[1]
+    })
+    console.log(LANGUAGE)
     let language = 'en'
     if (lang) {
       LANGUAGE.some(item => {
@@ -851,18 +892,30 @@ export default class Home extends Vue {
   getCoins () {
     this.getCoinsApi(this.queryJson)
   }
-  appDeepLink (page: string, open: boolean | undefined = true) {
+  appDeepLink (page: string, name: string | undefined, open: boolean | undefined = true) {
     enum AppName {
       '2-20000' = 'livu://com.videochat.livu/',
       '2-19999' = 'tumile://com.rcplatform.livechat/',
       '2-66666' = 'yaar://com.videochat.yaar/',
       '1-20000' = 'livu://videochatiOS90001/'
     }
+    if (name) {
+      const triggerIdEmum = {
+        'person_data': '3-3-14-6',
+        'kyc_real_name': '3-3-14-7',
+        'third_account': '3-3-14-8',
+        'mobile_email_account': '3-3-14-13',
+        'first_recharge': '3-3-14-9',
+        'first_send_gift': '3-3-14-10',
+        'video_call': '3-3-14-11',
+        'add_friend': '3-3-14-12'
+      }
+      triggerService({ eventId: triggerIdEmum[name] })
+    }
     // console.log(this.platformType + '-' + this.appId)
     // let src = AppName[this.platformType + '-' + this.appId] + page + '/' + this.userId
     let src = AppName[this.platformType + '-' + this.appId] + page
     if (open) {
-      console.log(src)
       window.location.href = src
     } else {
       return src
@@ -872,6 +925,11 @@ export default class Home extends Vue {
    * 格式化升级任务
    */
   parseUpTask (str: string) {
+    const themeColor = {
+      'tumile': '#FF5924',
+      'yaar': '#00C784',
+      'livu': '#6C11FF'
+    }
     const LINK = {
       'email': this.accountType,
       'account': 'social',
@@ -879,8 +937,30 @@ export default class Home extends Vue {
       'kyc': 'auth/kyc'
     }
     return str.replace(/\{\((.+)\)\((.*)\)\}/, (...arg) => {
-      return '<span onclick="window.location.href = \'' + this.appDeepLink(LINK[arg[1]], false) + '\'" style="color: #FF5924" target="_blank">' + arg[2] + '</span>'
+      return '<span onclick="window.location.href = \'' + this.appDeepLink(LINK[arg[1]], '', false) + '\'" style="color: ' + themeColor[this.theme] + '" target="_blank">' + arg[2] + '</span>'
     })
+  }
+  /**
+   * 跳tab
+   */
+  showTabTwo () {
+    this.currentTab = 2
+    triggerService({ eventId: '3-3-14-4' })
+  }
+  /**
+   * open dialog
+   */
+  openHistory () {
+    this.historyDialogShow = true
+    triggerService({ eventId: '3-3-14-3' })
+  }
+  openIntroduce () {
+    this.introduceDialogShow = true
+    triggerService({ eventId: '3-3-14-2' })
+  }
+  openCredit () {
+    this.creditDialogShow = true
+    triggerService({ eventId: '3-3-14-5' })
   }
   /**
    * close dialog
@@ -948,9 +1028,9 @@ export default class Home extends Vue {
         linkText: LINK[item.taskCode + '_type'] || 'default'
       }
       accountTask.includes(item.taskCode) && this.accountTask.push(obj)
-      rechargeTask.includes(item.taskCode) && this.accountTask.push(obj)
-      activeTask.includes(item.taskCode) && this.accountTask.push(obj)
-      dailyTask.includes(item.taskCode) && this.accountTask.push(obj)
+      rechargeTask.includes(item.taskCode) && this.rechargeTask.push(obj)
+      activeTask.includes(item.taskCode) && this.activeTask.push(obj)
+      dailyTask.includes(item.taskCode) && this.dailyTask.push(obj)
     })
   }
   /**
@@ -959,7 +1039,8 @@ export default class Home extends Vue {
   historyScroll (e) {
     // console.log(e.target.scrollTop, e.target.clientHeight, e.target.scrollHeight)
     let target = e.target
-    if (target.scrollTop + target.clientHeight >= target.scrollHeight && !this.noMoreDate) {
+    // console.log(target.scrollTop + target.clientHeight, target.scrollHeight)
+    if (target.scrollTop + target.clientHeight >= target.scrollHeight - 10 && !this.noMoreDate) {
       this.historyLoading = true
       this.getCreditChangeRecords(this.queryJson)
     }
@@ -990,7 +1071,8 @@ export default class Home extends Vue {
         this.progressData = {
           value: resData.score || 0,
           color: StatusName[resData.status || 1],
-          date: formatDate(resData.assessmentTime, 3, '.')
+          date: formatDate(resData.assessmentTime, 3, '.'),
+          reputationImage: resData.reputationImage
         }
         this.beyondUser = resData.beyondUser || 0
         if (resData.current) {
@@ -1002,7 +1084,7 @@ export default class Home extends Vue {
         this.radarData = [
           resData.radarDailyActivity || 0,
           resData.radarPersonData || 0,
-          resData.radarViolation || 0,
+          Math.abs(+resData.radarViolation) || 0,
           resData.radarPaymentBehavior || 0,
           resData.radarSocialInteraction || 0
         ]
@@ -1044,6 +1126,14 @@ export default class Home extends Vue {
       if (res.code === 0) {
         Message((this.$t('coinsSuccess') as string).replace('{value}', this.getCoinsData.coinNum))
         this.$set(this.getCoinsData, 'todayReceive', true)
+      } else if (res.code === 10080) {
+        Message(this.$t('coinsError1'))
+        this.$set(this.getCoinsData, 'todayReceive', true)
+      } else if (res.code === 10079) {
+        Message(this.$t('coinsError2'))
+        this.$set(this.getCoinsData, 'todayReceive', true)
+      } else {
+        Message(this.$t('coinsError'))
       }
       this.coinsLock = false
     })
@@ -1068,7 +1158,11 @@ export default class Home extends Vue {
           this.noMoreDate = true
         } else {
           res.data.forEach(item => this.historyList.push(item))
-          this.historyPage++
+          if (res.data.length < this.historyPageSize) {
+            this.noMoreDate = true
+          } else {
+            this.historyPage++
+          }
         }
       }
       this.historyLoading = false
@@ -1112,6 +1206,7 @@ export default class Home extends Vue {
           'best' = 5,
         }
         this.levelList = res.data.map(item => {
+          item.highScore > 100 && (item.highScore = 100)
           item.punishmentMeasures = JSON.parse(item.punishmentMeasures) || []
           item.rewardMeasures = JSON.parse(item.rewardMeasures) || []
           item.upgradeTask = JSON.parse(item.upgradeTask) || []

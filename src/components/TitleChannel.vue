@@ -17,6 +17,7 @@
     font-size: px2rem(16);
     font-weight: bold;
     font-style: italic;
+    text-align: center;
   }
 }
 </style>
