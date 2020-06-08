@@ -40,7 +40,7 @@ export default {
     api: 'old'
   },
   triggerService: {
-    url: process.env.NODE_ENV === 'production' ? '/api/1000/addUserRequestBuryRecordAll' : '/api/h5/1/addUserRequestBuryRecordAll',
+    url: '/api/h5/1/addUserRequestBuryRecordAll',
     method: 'post',
     api: 'old'
   }

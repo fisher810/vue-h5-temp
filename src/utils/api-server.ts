@@ -1,10 +1,10 @@
 import Message from '../common/messageBox/index'
 import axios from 'axios'
 import Models from '../api-models/index'
-import {
-  encryptData,
-  decryptData
-} from './crypto'
+// import {
+//   encryptData,
+//   decryptData
+// } from './crypto'
 interface Obj {
   [key: string]: any
 }
@@ -16,15 +16,17 @@ const def = {
   // baseURL: process.env.NODE_ENV === 'dev' ? '' : process.env.VUE_APP_API_URL,
   baseURL: process.env.VUE_APP_API_URL,
   transformRequest: [function (data: any) {
-    // return JSON.stringify(data)
-    return process.env.NODE_ENV === 'test' ? JSON.stringify(data) : JSON.stringify(encryptData(data))
+    return JSON.stringify(data)
+    // return process.env.NODE_ENV === 'test' ? JSON.stringify(data) : JSON.stringify(encryptData(data))
   }],
   transformResponse: [function (data: any) {
-    // return data
-    return process.env.NODE_ENV === 'test' ? data : decryptData(data)
+    return data
+    // return process.env.NODE_ENV === 'test' ? data : decryptData(data)
   }],
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Athena-Response-Encryption': 'disabled',
+    'Athena-Request-Decryption': 'disabled'
   },
   timeout: 50000,
   responseType: 'json'

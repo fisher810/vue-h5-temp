@@ -4,8 +4,6 @@ const webpack = require('webpack')
 module.exports = {
   entry: {
     library: [
-      'crypto-js',
-      'jsencrypt',
       'vue',
       'vue-i18n',
       'vue-router'

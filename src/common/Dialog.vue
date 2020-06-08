@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { throttle } from 'lodash'
+import throttle from 'lodash/throttle'
 import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator'
 @Component
 export default class Dialog extends Vue {

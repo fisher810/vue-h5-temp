@@ -359,6 +359,7 @@
     .rights-item {
       box-shadow: none;
       border-radius: px2rem(5);
+      margin-right: 0;
       justify-content: center;
       &:first-child {
         margin-left: 0;
@@ -368,6 +369,7 @@
   .rights-item-right {
     color: #fff;
     font-size: px2rem(12);
+    padding: 0 px2rem(10);
   }
   .rights-num {
     font-size: px2rem(22);
@@ -493,7 +495,7 @@
   }
 </style>
 <template>
-  <div class="home">
+  <div class="home" :dir="$i18n.locale == 'ar' ? 'rtl' : 'ltr'">
     <div class="fix-bg">
       <img src="../assets/images/bg.png" alt="">
     </div>
@@ -626,7 +628,7 @@
         <dl class="task-row" v-for="item in dailyTask" :key="item.taskCode">
           <dd class="task-content">
             <p>{{$t('taskList.' + item.name)}}</p>
-            <p class="sub-t">+{{item.count}} {{$t('taskList.' + item.name + '_tips')}}</p>
+            <p class="sub-t">+N {{$t('taskList.' + item.name + '_tips')}}</p>
           </dd>
         </dl>
       </div>
@@ -709,7 +711,7 @@
                   <li v-for="itemData in item.upgradeTask" :key="itemData.functionName">{{$t('dialog2.task.' + itemData.functionName).replace('{value}', itemData.num)}}</li>
                 </ul>
               </div>
-              <div class="task-ww" v-if="item.rewardMeasures.length && item.punishmentMeasures.length">
+              <div class="task-ww" v-if="item.rewardMeasures.length || item.punishmentMeasures.length">
                 <h2 class="task-w-t">{{$t('dialog2.reward')}}</h2>
                 <ul class="task-ww-list">
                   <li v-for="itemData in item.rewardMeasures" :key="itemData.functionName">{{$t('creditList.' + itemData.functionName)}}</li>
@@ -823,7 +825,14 @@ export default class Home extends Vue {
   // 新手任务(活跃互动)
   activeTask: Array<any> = []
   // 日常行为任务
-  dailyTask: Array<any> = []
+  dailyTask: Array<any> = [
+    {
+      name: 'daily_behavior'
+    },
+    {
+      name: 'report_violations'
+    }
+  ]
   // 等级说明
   levelList: Array<any> = []
   // tab
@@ -1030,7 +1039,7 @@ export default class Home extends Vue {
       accountTask.includes(item.taskCode) && this.accountTask.push(obj)
       rechargeTask.includes(item.taskCode) && this.rechargeTask.push(obj)
       activeTask.includes(item.taskCode) && this.activeTask.push(obj)
-      dailyTask.includes(item.taskCode) && this.dailyTask.push(obj)
+      // dailyTask.includes(item.taskCode) && this.dailyTask.push(obj)
     })
   }
   /**
@@ -1077,7 +1086,7 @@ export default class Home extends Vue {
         this.beyondUser = resData.beyondUser || 0
         if (resData.current) {
           this.frozenList = (JSON.parse(resData.current.punishmentMeasures) || []).filter(item => !deleteData.includes(item.functionName))
-          this.nextLowScore = resData.current.lowScore
+          this.nextLowScore = resData.current.highScore
         }
         this.upTask = resData.nudoUpgradeTask || []
         this.handleTask(resData.taskList || [])
