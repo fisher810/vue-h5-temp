@@ -21,11 +21,11 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    margin: px2rem(20) 0;
+    margin: px2rem(10) 0;
     width: 90%;
     .value-c {
       font-size: px2rem(80);
-      line-height: px2rem(55);
+      line-height: px2rem(80);
       font-weight: bold;
       width: 100%;
       text-align: center;
