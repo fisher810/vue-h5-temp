@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': '더 이상은 없어',
+  'noData': '보상 및 위약금 없음',
   'backTitle': '다시 오신 것을 환영합니다',
   'backDes': '커뮤니티 점수 보상이 들어왔습니다, 지금 보상을 받으세요!',
   'getCoins': '{value}코인 받기',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': '점수가 아주 낮습니다. 현재 {func} 기능을 사용할 수 없습니다, 미션을 완료하면 점수가 개선됩니다',
     'bad': '점수가 아주 낮습니다. 미션을 완료하면 점수가 개선됩니다.',
+    'poorHas': '점수가 약간 낮습니다. 현재 {func} 기능을 사용할 수 없습니다, 미션을 완료하면 점수가 개선됩니다',
     'poor': '점수가 약간 낮습니다. 미션을 완수하면 점수가 개선됩니다',
     'just': '더 잘할 수 있어요. 미션을 완료하면 점수가 개선됩니다',
     'good': '잘했어요! 앞으로도 잘해 나가서, 계속 업그레이드하세요.',
@@ -100,7 +102,7 @@ module.exports = {
     'third_account': '외부 소셜 미디어 계정 연결',
     'mobile_email_account': '이메일 주소 또는 전화번호 추가',
     'first_recharge': '최초 충전',
-    'first_send_gift': '최초 충전을 완료하고 무료 기프트를 받으세요',
+    'first_send_gift': '누군가에게 처음으로 금화 선물을주십시오',
     'video_call': '사용자 {value}명과 영상 통화를 하세요',
     'add_friend': '친구 {value}명 추가',
     'continue_login': '{value}일 연속 로그인',

@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': 'No more',
+  'noData': 'No rewards and penalties',
   'backTitle': 'Welcome back',
   'backDes': 'Your community score reward has been credited, claim your reward now!',
   'getCoins': 'Claim {value} coins',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': 'Your score is very low, you currently cannot use the {func} functions, complete missions that will improve your score',
     'bad': 'Your score is very low, complete missions that will improve your score.',
+    'poorHas': 'Your score is  a bit low, you currently cannot use the {func} functions, complete missions that will improve your score',
     'poor': 'Your score is a bit low, complete missions that will improve your score',
     'just': 'You can do better, complete missions that will improve your score',
     'good': 'Nice job! Keep up the good work, and continue to upgrade.',
@@ -100,7 +102,7 @@ module.exports = {
     'third_account': 'Link to third-party social media account',
     'mobile_email_account': 'Add email address or phone number',
     'first_recharge': 'First top-up',
-    'first_send_gift': 'Receive a free gift when you complete your first top-up',
+    'first_send_gift': 'Give someone a gold coin gift for the first time',
     'video_call': 'Make video calls with {value} users',
     'add_friend': 'Add {value} friends',
     'continue_login': 'Log in on {value} consecutive days',

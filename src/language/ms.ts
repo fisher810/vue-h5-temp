@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': 'Tidak lebih',
+  'noData': 'Tiada ganjaran dan penalti',
   'backTitle': 'Selamat kembali',
   'backDes': 'Ganjaran skor komuniti anda telah dikreditkan, tuntut ganjaran anda sekarang!',
   'getCoins': 'Tuntut {value} syiling',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': 'Skor anda sangat rendah, pada masa ini anda tidak dapat menggunakan fungsi {func}, lengkapkan misi yang akan menambah baik skor anda',
     'bad': 'Skor anda sangat rendah, lengkapkan misi yang akan menambah baik skor anda.',
+    'poorHas': 'Skor anda agar rendah,  pada masa ini anda tidak dapat menggunakan fungsi {func}, lengkapkan misi yang akan menambah baik skor anda',
     'poor': 'Skor anda agar rendah, lengkapkan misi yang akan menambah baik skor anda',
     'just': 'Anda boleh melakukan lebih baik, lengkapkan misi yang akan menambah baik skor anda',
     'good': 'Kerja yang bagus! Teruskan berusaha dan teruskan untuk menaik taraf.',
@@ -100,7 +102,7 @@ module.exports = {
     'third_account': 'Pautkan kepada akaun media sosial pihak ketiga',
     'mobile_email_account': 'Tambah alamat e-mel atau nombor telefon',
     'first_recharge': 'Tambah nilai pertama',
-    'first_send_gift': 'Terima hadiah percuma apabila anda melengkapkan tambah nilai pertama anda',
+    'first_send_gift': 'Beri hadiah duit syiling kepada seseorang untuk pertama kalinya',
     'video_call': 'Buat panggilan video dengan {value} pengguna',
     'add_friend': 'Tambah {value} rakan',
     'continue_login': 'Log masuk {value} hari berturut-turut',

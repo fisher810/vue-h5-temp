@@ -20,12 +20,13 @@
       }
       function setTheme() {
           var query = getUrlVars(window.location.href)
-          var theme = {
+          var themeMap = {
               '20000': 'livu',
               '19999': 'tumile',
               '66666': 'yaar'
           }
-          theme[query.appId] && window.document.documentElement.setAttribute('data-theme', theme[query.appId])
+          var theme = themeMap[query.appId] || 'livu'
+          window.document.documentElement.setAttribute('data-theme', theme)
 
       }
       function ajaxFn(ajaxObject) {

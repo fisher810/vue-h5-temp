@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': 'Daha fazla yok',
+  'noData': 'Ödül ve ceza yok',
   'backTitle': 'Tekrar hoşgeldiniz',
   'backDes': 'Topluluk puanı ödülünüz yatırıldı, ödülünüzü şimdi alın!',
   'getCoins': '{value} para alın',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': 'Puanınız çok düşük, şu anda {func} işlevlerini kullanamazsınız, puanınızı artıracak görevleri tamamlayın',
     'bad': 'Puanınız çok düşük, puanınızı artıracak görevleri tamamlayın.',
+    'poorHas': 'Puanınız biraz düşük, şu anda {func} işlevlerini kullanamazsınız, puanınızı artıracak görevleri tamamlayın',
     'poor': 'Puanınız biraz düşük, puanınızı artıracak görevleri tamamlayın',
     'just': 'Puanınızı arttıracak görevleri tamamlayarak daha iyisini yapabilirsiniz',
     'good': 'Aferin! İyi iş çıkarmaya ve yükseltmeye devam edin.',
@@ -100,7 +102,7 @@ module.exports = {
     'third_account': 'Üçüncü taraf sosyal medya hesabına bağlantı',
     'mobile_email_account': 'E-posta adresi veya telefon numarası ekle',
     'first_recharge': 'İlk yükleme',
-    'first_send_gift': 'İlk yüklemenizi tamamladığınızda ücretsiz bir hediye alın',
+    'first_send_gift': 'Birisine ilk kez altın para hediye et',
     'video_call': '{value} kullanıcıyla video görüşmesi yapın',
     'add_friend': '{value} arkadaş ekleyin',
     'continue_login': 'Ardışık {value} gün giriş yapın',

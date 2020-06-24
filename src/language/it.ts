@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': 'Non piu',
+  'noData': 'Nessun premio e penalità',
   'backTitle': 'Ben tornato',
   'backDes': 'Il premio per il tuo punteggio community è stato accreditato: richiedilo adesso!',
   'getCoins': 'Richiedi {value} gettoni',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': 'Il tuo punteggio è un molto basso; al momento non puoi usare le funzioni {func}; completa le missioni per migliorare il tuo punteggio.',
     'bad': 'Il tuo punteggio è un molto basso; completa le missioni per migliorare il tuo punteggio.',
+    'poorHas': 'Il tuo punteggio è un po\' basso; al momento non puoi usare le funzioni {func}; completa le missioni per migliorare il tuo punteggio.',
     'poor': 'Il tuo punteggio è un po\' basso; completa le missioni per migliorare il tuo punteggio.',
     'just': 'Puoi fare di meglio; completa le missioni per migliorare il tuo punteggio.',
     'good': 'Ottimo lavoro! Continua così e migliora sempre di più.',
@@ -100,7 +102,7 @@ module.exports = {
     'third_account': 'Collega un account social di terze parti',
     'mobile_email_account': 'Aggiungi un indirizzo e-mail o un numero di telefono',
     'first_recharge': 'Prima ricarica',
-    'first_send_gift': 'Ricevi un regalo gratuito quando completi la tua prima ricarica',
+    'first_send_gift': 'Fai a qualcuno un regalo in oro per la prima volta',
     'video_call': 'Effettua videochiamate con {value} utenti',
     'add_friend': 'Aggiungi {value} amici',
     'continue_login': 'Effettua l\'accesso per {value} giorni consecutivi',

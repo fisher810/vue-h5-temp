@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': 'No más',
+  'noData': 'Sin recompensas ni penalizaciones.',
   'backTitle': 'Dar una buena acogida',
   'backDes': '¡Se ha concedido tu recompensa de puntos de la comunidad, reclama ahora tu recompensa!',
   'getCoins': 'Reclama {value} monedas',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': 'Tu puntuación es muy baja, actualmente no puedes usar las funciones {func}, completa misiones que aumentarán tu puntuación.',
     'bad': 'Tu puntuación es muy baja, completa misiones que aumentarán tu puntuación.',
+    'poorHas': 'Tu puntuación es un poco baja, actualmente no puedes usar las funciones {func}, completa misiones que aumentarán tu puntuación.',
     'poor': 'Tu puntuación es un poco baja, completa misiones que aumentarán tu puntuación.',
     'just': 'Puedes hacerlo mejor, completa misiones que aumentarán tu puntuación.',
     'good': '¡Buen trabajo! Sigue haciendo un buen trabajo y continúa mejorando.',
@@ -100,7 +102,7 @@ module.exports = {
     'third_account': 'Vincular a cuenta de otras redes sociales',
     'mobile_email_account': 'Añadir dirección de correo electrónico o número de teléfono',
     'first_recharge': 'Primera recarga',
-    'first_send_gift': 'Recibe un regalo gratuito cuando completes tu primera recarga.',
+    'first_send_gift': 'Darle a alguien un regalo de monedas de oro por primera vez',
     'video_call': 'Hacer llamadas de vídeo con xxx usuarios',
     'add_friend': 'Añadir xx amigos',
     'continue_login': 'Iniciar sesión xx días consecutivos',

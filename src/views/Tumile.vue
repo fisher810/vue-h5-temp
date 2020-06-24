@@ -532,7 +532,7 @@
         <li>{{readTips}}</li>
         <li v-if="upTask.length">
           {{$t('creditRead.upTask.upTips').replace('{value}', nextLowScore)}}
-          <p v-for="item in upTask" :key="item" v-html="'- ' + parseUpTask($t('creditRead.upTask.' + item.taskCode))"></p>
+          <p v-for="item in upTask" :key="item" v-show="item.link !== 'hide'" v-html="'- ' + parseUpTask($t('creditRead.upTask.' + item.taskCode))"></p>
         </li>
         <li v-if="violationList.length">{{$t('creditRead.globalTips').replace('{value}', violationList.map(item => $t('creditRead.' + item)).join('、'))}}</li>
       </ul>
@@ -598,7 +598,7 @@
       </ul>
       <div class="task-container" v-show="currentTab === 1">
         <h2 class="tab-row-title" v-show="accountTask.length">{{$t('taskCategory.category1')}}</h2>
-        <dl class="task-row" v-for="item in accountTask" :key="item.taskCode">
+        <dl class="task-row" v-for="item in accountTask" v-show="item.link !== 'hide'" :key="item.taskCode">
           <dd class="task-content">
             <p>{{$t('taskList.' + item.name).replace('{value}', item.taskNum)}}</p>
             <p class="sub-t">+{{item.count}} {{$t('taskList.creditPoints')}}</p>
@@ -705,6 +705,7 @@
               </div>
             </div>
             <div class="level-task">
+              <div v-show="!item.upgradeTask.length && !item.rewardMeasures.length && !item.punishmentMeasures.length">{{$t('noData')}}</div>
               <div class="task-ww" v-if="item.upgradeTask.length">
                 <h2 class="task-w-t">{{$t('dialog2.upTask')}}</h2>
                 <ul class="task-ww-list">
@@ -785,7 +786,7 @@ import CanvasProgress from '../components/CanvasProgress.vue'
   }
 })
 export default class Home extends Vue {
-  theme: string = 'tumile'
+  theme: string = 'livu'
   radarData: Array<any> = []
   getCoinsData: any = {}
   loading:boolean = false
@@ -850,12 +851,18 @@ export default class Home extends Vue {
   introduceDialogShow: boolean = false
   creditDialogShow: boolean = false
   created () {
+    const emailPhoneLink = {
+      '0': 'hide',
+      '1': 'as/phone',
+      '2': 'as/email',
+      '3': 'as/enter'
+    }
     let queryJson = queryToJson(window.location.search.substr(1), true)
     this.theme = this.getAppName(queryJson.appId)
     this.queryJson = queryJson
     console.log(queryJson)
     // console.log(typeof queryJson.accountType)
-    this.accountType = queryJson.accountType === '3' ? 'as/enter' : (queryJson.accountType === '2' ? 'as/email' : 'as/phone')
+    this.accountType = emailPhoneLink[queryJson.accountType] || ''
     this.appId = queryJson.appId
     this.platformType = queryJson.platformType
     this.userId = (queryJson.userId || queryJson.userId1) + ''
@@ -867,7 +874,7 @@ export default class Home extends Vue {
   }
   get readTips () {
     let status = this.progressData.color
-    return status === 'bad' && this.frozenList.length > 0 ? (this.$t('creditRead.' + status + 'Has') as string).replace('{func}', () => this.frozenList.map((item: any) => this.$t('creditRead.frozen.' + item.functionName)).join('、')) : this.$t('creditRead.' + status)
+    return (status === 'bad' || status === 'poor') && this.frozenList.length > 0 ? (this.$t('creditRead.' + status + 'Has') as string).replace('{func}', () => this.frozenList.map((item: any) => this.$t('creditRead.frozen.' + item.functionName)).join('、')) : this.$t('creditRead.' + status)
   }
   formatDate = formatDate
   getAppName (type: string) {

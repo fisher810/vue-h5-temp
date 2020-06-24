@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': 'Không còn nữa',
+  'noData': 'Không có phần thưởng và hình phạt',
   'backTitle': 'Chào mừng trở lại',
   'backDes': 'Phần thưởng điểm cộng đồng của bạn đã được ghi có, hãy lấy phần thưởng ngay bây giờ! ',
   'getCoins': 'Lấy {value} xu',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': 'Điểm của bạn rất thấp, hiện giờ bạn không thể sử dụng các chức năng {func}, hãy hoàn thành các nhiệm vụ để giúp cải thiện điểm số',
     'bad': 'Điểm của bạn rất thấp, hãy hoàn thành các nhiệm vụ để giúp cải thiện điểm số.',
+    'poorHas': 'Điểm của bạn khá thấp, hiện giờ bạn không thể sử dụng các chức năng {func}, hãy hoàn thành các nhiệm vụ để giúp cải thiện điểm số',
     'poor': 'Điểm của bạn khá thấp, hãy hoàn thành các nhiệm vụ để giúp cải thiện điểm số',
     'just': 'Bạn còn có thể làm tốt hơn, hãy hoàn thành các nhiệm vụ để giúp cải thiện điểm số',
     'good': 'Tốt lắm! Hãy tiếp tục phát huy và nâng cấp hơn nữa nhé.',
@@ -100,7 +102,7 @@ module.exports = {
     'third_account': 'Liên kết với tài khoản mạng xã hội thuộc bên thứ ba',
     'mobile_email_account': 'Thêm địa chỉ email hoặc số điện thoại',
     'first_recharge': 'Lượt nạp tiền điện tử đầu tiên',
-    'first_send_gift': 'Nhận quà miễn phí khi bạn hoàn thành lượt nạp tiền điện tử đầu tiên',
+    'first_send_gift': 'Lần đầu tiên tặng ai đó một món quà bằng vàng',
     'video_call': 'Thực hiện cuộc gọi video với {value} người dùng',
     'add_friend': 'Thêm {value} bạn',
     'continue_login': 'Đăng nhập {value} ngày liên tiếp',

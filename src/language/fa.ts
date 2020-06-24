@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': '沒有更多了',
+  'noData': '暫無獎勵或懲罰',
   'backTitle': '歡迎回來',
   'backDes': '今日的Community Score 獎勵到貨，請領取',
   'getCoins': '領取{value}金幣',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': '當前 Community Impact score極差，你暫無法使用{func}功能，請注意提升分数！',
     'bad': '當前 Community Impact score極差，請注意提升分数！',
+    'poorHas': '當前 Community Impact score較差，你暫無法使用{func}功能，請注意提升分数！',
     'poor': '當前 Community Impact score較差，請注意提升分数！',
     'just': '當前 Community Impact score一般，請注意提升分数！',
     'good': '當前 Community Impact score很好，請繼續保持，繼續提升可獲得更多權益哦~',

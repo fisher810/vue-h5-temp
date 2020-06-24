@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': 'Pas plus',
+  'noData': 'Aucune récompense ni pénalité',
   'backTitle': 'Nous saluons le retour',
   'backDes': 'Votre récompense de score de communauté a été créditée, récupérez votre récompense dès maintenant !',
   'getCoins': 'Récupérer {value} pièces',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': 'Votre score est très bas. Vous ne pouvez actuellement pas utiliser les fonctions {func}. Accomplissez des missions qui amélioreront votre score.',
     'bad': 'Votre score est très bas. Accomplissez des missions qui amélioreront votre score.',
+    'poorHas': 'Votre score est un peu bas. Vous ne pouvez actuellement pas utiliser les fonctions {func}. Accomplissez des missions qui amélioreront votre score.',
     'poor': 'Votre score est un peu bas. Accomplissez des missions qui amélioreront votre score.',
     'just': 'Vous pouvez faire mieux. Accomplissez des missions qui amélioreront votre score.',
     'good': 'Beau travail ! Continuez comme ça et améliorez-vous encore.',
@@ -100,7 +102,7 @@ module.exports = {
     'third_account': 'Associez votre compte à un compte de réseau social tiers.',
     'mobile_email_account': 'Ajoutez une adresse électronique ou un numéro de téléphone',
     'first_recharge': 'Premier rechargement',
-    'first_send_gift': 'Recevez un cadeau gratuit lorsque vous effectuez votre premier rechargement.',
+    'first_send_gift': 'Offrez à quelqu\'un un cadeau de pièce d\'or pour la première fois',
     'video_call': 'Effectuez des appels vidéo avec {value} utilisateurs.',
     'add_friend': 'Ajoutez {value} amis.',
     'continue_login': 'Connectez-vous pendant {value} jours d’affilée.',

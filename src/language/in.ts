@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': 'Tidak lagi',
+  'noData': 'Tidak ada hadiah dan penalti',
   'backTitle': 'Selamat datang kembali',
   'backDes': 'Hadiah skor komunitas Anda telah dikreditkan, klaim hadiah Anda sekarang!',
   'getCoins': 'Klaim {value} koin',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': 'Skor Anda sangat rendah. Saat ini Anda tidak dapat menggunakan fungsi {func}. Selesaikan misi yang akan meningkatkan skor Anda',
     'bad': 'Skor Anda sangat rendah, selesaikan misi yang akan meningkatkan skor Anda.',
+    'poorHas': 'Skor Anda agak rendah. Saat ini Anda tidak dapat menggunakan fungsi {func}. Selesaikan misi yang akan meningkatkan skor Anda',
     'poor': 'Skor Anda agak rendah. Selesaikan misi yang akan meningkatkan skor Anda',
     'just': 'Anda bisa lebih baik lagi. Selesaikan misi yang akan meningkatkan skor Anda',
     'good': 'Bagus! Tingkatkan terus pekerjaan yang bagus ini, dan lanjutkan dengan pemutakhiran.',
@@ -100,7 +102,7 @@ module.exports = {
     'third_account': 'Tautkan ke akun media sosial pihak ketiga',
     'mobile_email_account': 'Tambahkan alamat email atau nomor ponsel',
     'first_recharge': 'Pengisian ulang pertama',
-    'first_send_gift': 'Dapatkan hadiah gratis ketika Anda menyelesaikan pengisian ulang pertama Anda',
+    'first_send_gift': 'Berikan seseorang hadiah koin emas untuk pertama kalinya',
     'video_call': 'Lakukan panggilan video dengan {value} pengguna',
     'add_friend': 'Tambahkan {value} teman',
     'continue_login': 'Masuk selama {value} hari berturut-turut',

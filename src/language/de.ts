@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': 'Nicht mehr',
+  'noData': 'Keine Belohnungen und Strafen',
   'backTitle': 'Willkommen zurück',
   'backDes': 'Ihre Community-Punktzahl wurde gutgeschrieben, lösen Sie jetzt Ihre Belohnung ein!',
   'getCoins': '{value} Münzen einlösen',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': 'Ihre Punktzahl ist sehr niedrig. Sie können derzeit nicht die Funktionen {func} nutzen. Schließen Sie Missionen ab, die Ihre Punktzahl erhöhen.',
     'bad': 'Ihr Punktzahl ist sehr niedrig, schließen Sie Missionen ab, die Ihre Punktzahl erhöhen.',
+    'poorHas': 'Ihre Punktzahl ist etwas niedrig, Sie können derzeit nicht die Funktionen {func} nutzen. Schließen Sie Missionen ab, die Ihre Punktzahl erhöhen.',
     'poor': 'Ihre Punktzahl ist etwas niedrig, schließen Sie Missionen ab, die Ihre Punktzahl erhöhen.',
     'just': 'Das können Sie besser. Erfüllen Sie Missionen, die Ihre Punktzahl verbessern.',
     'good': 'Gut gemacht! Machen Sie weiter so und upgraden Sie Ihren Rang.',
@@ -100,7 +102,7 @@ module.exports = {
     'third_account': 'Mit einem externen Social Media-Konto verknüpfen',
     'mobile_email_account': 'E-Mail-Adresse oder Handynummer hinzufügen',
     'first_recharge': 'Erste Aufladung',
-    'first_send_gift': 'Sie erhalten ein Geschenk, wenn Sie Ihre erste Aufladung durchgeführt haben.',
+    'first_send_gift': 'Geben Sie jemandem zum ersten Mal ein Goldmünzengeschenk',
     'video_call': 'Mit {value} Nutzern Video-Gespräche führen',
     'add_friend': '{value} Freunde hinzufügen',
     'continue_login': '{value} Tage in Folge einloggen',

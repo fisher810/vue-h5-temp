@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': 'Não mais',
+  'noData': 'Sem recompensas e penalidades',
   'backTitle': 'Bem vindo de volta',
   'backDes': 'A recompensa da sua pontuação comunitária foi creditada, exija a sua recompensa agora!',
   'getCoins': 'Reclamar {value} moedas',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': 'A sua pontuação é muito baixa, atualmente não pode usar as funções {func}, conclua missões que melhorem a sua pontuação. ',
     'bad': 'A sua pontuação é muito baixa, conclua missões que melhorem a sua pontuação.',
+    'poorHas': 'A sua pontuação é um pouco baixa, atualmente não pode usar as funções {func}, conclua missões que melhorem a sua pontuação. ',
     'poor': 'A sua pontuação é um pouco baixa, conclua missões que melhorem a sua pontuação.',
     'just': 'Pode fazer melhor, conclua missões que melhorem a sua pontuação.',
     'good': 'Bom trabalho! Mantenha o bom trabalho e continue a fazer atualizações.',
@@ -100,7 +102,7 @@ module.exports = {
     'third_account': 'Associar a conta de terceiro nas redes sociais',
     'mobile_email_account': 'Adicionar endereço de e-mail ou número de telefone',
     'first_recharge': 'Primeira finalização',
-    'first_send_gift': 'Receba um presente gratuito quando completar a sua primeira finalização',
+    'first_send_gift': 'Dê a alguém um presente de moeda de ouro pela primeira vez',
     'video_call': 'Faça videochamadas com {value} utilizadores',
     'add_friend': 'Adicione {value} amigos',
     'continue_login': 'Inicie sessão em {value} dias consecutivos',

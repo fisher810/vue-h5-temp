@@ -3,6 +3,7 @@
  */
 module.exports = {
   'listNo': '没有更多了',
+  'noData': '暂无奖励或惩罚',
   'backTitle': '欢迎回来',
   'backDes': '今日的Community Score 奖励到货，请领取',
   'getCoins': '领取{value}金币',
@@ -21,6 +22,7 @@ module.exports = {
   'creditRead': {
     'badHas': '当前 Community Impact score极差，你暂无法使用{func}功能，请注意提升分数',
     'bad': '当前 Community Impact score极差，请注意提升分数',
+    'poorHas': '当前 Community Impact score较差，你暂无法使用{func}功能，请注意提升分数',
     'poor': '当前 Community Impact score较差，请注意提升分数',
     'just': '当前 Community Impact score分一般，请注意提升分数',
     'good': '当前 Community Impact score分很好，请继续保持，继续提升可获得更多权益哦~',
@@ -49,9 +51,9 @@ module.exports = {
       'match_weight_reduction': '匹配功能排序降权',
       'block_account': '冻结账号'
     },
-    'videoViolation': '视频通话中',
-    'infoViolation': '个人信息中',
-    'chatViolation': '聊天消息中'
+    'videoViolation': '视频通话',
+    'infoViolation': '个人信息',
+    'chatViolation': '聊天消息'
   },
   'title2': 'Community Score等级权益介绍',
   'creditList': {
