@@ -1,10 +1,10 @@
 <!--
  * @Author: fisher
  * @Date: 2020-02-25 10:25:08
- * @LastEditTime: 2020-03-04 11:22:12
+ * @LastEditTime: 2020-06-30 15:22:19
  * @LastEditors: your name
  * @Description:
- * @FilePath: /assessment/src/common/Dialog.vue
+ * @FilePath: /credit-score/src/common/Dialog.vue
  * @可以输入预定的版权声明、个性签名、空行等
  -->
 <style scoped lang="scss">
@@ -74,6 +74,7 @@ import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator'
 @Component
 export default class Dialog extends Vue {
   curentHeight: number = 0
+  currentScrollTop: number = 0
   @Prop({ default: '' })
   name!: string
   @Prop({ default: false })
@@ -90,14 +91,16 @@ export default class Dialog extends Vue {
   onDialogShowChanged (val) {
     let bodySel = document.body
     let htmlSel = document.documentElement
+    // console.log(this.currentScrollTop)
     if (val) {
-      let autoTop = htmlSel.scrollTop || bodySel.scrollTop
+      this.currentScrollTop = bodySel.scrollTop || htmlSel.scrollTop
       this.curentHeight = bodySel.offsetHeight
-      bodySel.style.overflow = 'hidden'
-      htmlSel.style.overflow = 'hidden'
+      bodySel.style.position = 'fixed'
+      bodySel.style.top = `${-1 * this.currentScrollTop}px`
     } else {
-      bodySel.style.overflow = ''
-      htmlSel.style.overflow = ''
+      bodySel.style.position = 'static'
+      bodySel.style.top = '0'
+      window.scrollTo(0, this.currentScrollTop)
     }
   }
   @Emit()

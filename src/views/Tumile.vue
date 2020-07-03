@@ -540,43 +540,43 @@
     <div class="row-block scroll-box margin-top20">
       <Title :title="$t('title2')"></Title>
       <div class="srcoll-wrap">
-        <div class="rights-list" @click="openCredit">
-          <dl class="rights-item">
+        <div class="rights-list">
+          <dl class="rights-item" @click="openCredit(1)">
             <dt class="icon-wrap">
               <img src="../assets/images/match_offer.png" alt="">
             </dt>
             <dd class="mid-text">{{$t('creditList.match_offer')}}</dd>
             <dd class="footer-text">≥{{creditScore.match_offer}}</dd>
           </dl>
-          <dl class="rights-item">
+          <dl class="rights-item" @click="openCredit(2)">
             <dt class="icon-wrap">
               <img src="../assets/images/per_day_free_coin.png" alt="">
             </dt>
             <dd class="mid-text">{{$t('creditList.per_day_free_coin')}}</dd>
             <dd class="footer-text">≥{{creditScore.per_day_free_coin}}</dd>
           </dl>
-          <dl class="rights-item">
+          <dl class="rights-item" @click="openCredit(3)">
             <dt class="icon-wrap">
               <img src="../assets/images/exclusive_picture_frame.png" alt="">
             </dt>
             <dd class="mid-text">{{$t('creditList.exclusive_picture_frame')}}</dd>
             <dd class="footer-text">≥{{creditScore.exclusive_picture_frame}}</dd>
           </dl>
-          <dl class="rights-item">
+          <dl class="rights-item" @click="openCredit(4)">
             <dt class="icon-wrap">
               <img src="../assets/images/match_queue_first.png" alt="">
             </dt>
             <dd class="mid-text">{{$t('creditList.match_queue_first')}}</dd>
             <dd class="footer-text">≥{{creditScore.match_queue_first}}</dd>
           </dl>
-          <dl class="rights-item">
+          <dl class="rights-item" @click="openCredit(5)">
             <dt class="icon-wrap">
               <img src="../assets/images/top_of_discovery_list.png" alt="">
             </dt>
             <dd class="mid-text">{{$t('creditList.top_of_discovery_list')}}</dd>
             <dd class="footer-text">≥{{creditScore.top_of_discovery_list}}</dd>
           </dl>
-          <dl class="rights-item">
+          <dl class="rights-item" @click="openCredit(6)">
             <dt class="icon-wrap">
               <img src="../assets/images/reputation_mark.png" alt="">
             </dt>
@@ -725,7 +725,7 @@
       </div>
     </Dialog>
     <Dialog :dialogShow="creditDialogShow" @dialog-close="creditDialogClose" :dialog-title="$t('dialog3.title')">
-      <div class="credit-dialog">
+      <div class="credit-dialog" ref="creditDialogRef">
         <!-- <div class="no-data">
           <img src="../assets/images/no-data.png" alt="">
         </div> -->
@@ -974,8 +974,20 @@ export default class Home extends Vue {
     this.introduceDialogShow = true
     triggerService({ eventId: '3-3-14-2' })
   }
-  openCredit () {
+  openCredit (index:number = 1) {
     this.creditDialogShow = true
+    index = index - 1
+    this.$nextTick(() => {
+      const ref: any = this.$refs.creditDialogRef
+      const list: any = document.querySelectorAll('.credit-rights-item')
+      const parent = ref.parentNode
+      // ref.style.height = ref.offsetHeight + (parent.offsetHeight - list[list.length - 1].offsetHeight) + 'px'
+      const top = Array.from(list).reduce((top:number, el:any, ind:number) => {
+        const prev = list[ind - 1]
+        return ind <= index ? (prev ? top + prev.offsetHeight + 10 : 0) : top
+      }, 0)
+      parent.scrollTop = top
+    })
     triggerService({ eventId: '3-3-14-5' })
   }
   /**
