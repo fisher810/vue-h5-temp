@@ -7,14 +7,14 @@ module.exports = {
       'vue',
       'vue-i18n',
       'vue-router'
-    ],
-    echarts: [
-      'echarts/lib/echarts',
-      'echarts/lib/chart/radar',
-      'echarts/lib/component/tooltip',
-      'echarts/lib/component/title',
-      'echarts/lib/component/legend'
     ]
+    // echarts: [
+    //   'echarts/lib/echarts',
+    //   'echarts/lib/chart/radar',
+    //   'echarts/lib/component/tooltip',
+    //   'echarts/lib/component/title',
+    //   'echarts/lib/component/legend'
+    // ]
   },
   output: {
     filename: '[name]_[hash:8].dll.js',

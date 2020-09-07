@@ -1,10 +1,6 @@
 import Message from '../common/messageBox/index'
 import axios from 'axios'
 import Models from '../api-models/index'
-// import {
-//   encryptData,
-//   decryptData
-// } from './crypto'
 interface Obj {
   [key: string]: any
 }

@@ -12,30 +12,4 @@ $vw_fontSize: 75; // iPhone 6尺寸的根元素大小基准值
      @return ($px / $vw_fontSize ) * 1rem;
 };
 
-$theme-tumile: (
-     primary: #FF5924,
-     dark-primary: darken(#FF5924, 20%),
-     light-primary: lighten(#FF5924, 10%),
-     light-primary-1: rgba(167, 48, 8, 0.26),
-     // body-bg: url('../images/bg-tumile.jpg')
-     body-bg:linear-gradient(180deg,#FFC200 0%,#FF5924 100%),
-     linear-bg: linear-gradient(90deg,#FFC200 0%,#FF5924 100%)
-);
-$theme-yaar: (
-     primary: #00C784,
-     dark-primary: darken(#00C784, 20%),
-     light-primary: lighten(#00C784, 10%),
-     light-primary-1: rgba(6, 161, 110, 0.26),
-     body-bg: linear-gradient(180deg,#00C784 0%,#5986FF 100%),
-     linear-bg: linear-gradient(90deg,#00C784 0%,#5986FF 100%)
-);
-$theme-livu: (
-     primary: #6C11FF,
-     dark-primary: darken(#6C11FF, 20%),
-     light-primary: lighten(#6C11FF, 10%),
-     light-primary-1: rgba(107,16,255, .26),
-     body-bg: linear-gradient(180deg,#b761fd 0%,#6C11FF 100%),
-     linear-bg: linear-gradient(90deg,#b761fd 0%,#6C11FF 100%)
-);
-
 

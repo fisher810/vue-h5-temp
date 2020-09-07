@@ -41,9 +41,20 @@ let terserSetting = () => {
 }
 module.exports = {
   publicPath: './', // 公共路径
+  assetsDir: 'static',
   productionSourceMap: process.env.NODE_ENV === 'development',
   css: {
-    extract: false
+    extract: false,
+    loaderOptions: {
+      css: {},
+      postcss: {
+        plugins: [
+          require('postcss-px2rem')({
+            remUnit: 75
+          })
+        ]
+      }
+    }
   },
   configureWebpack: {
     // resolve: {
@@ -84,10 +95,10 @@ module.exports = {
       // new BundleAnalyzerPlugin(),
       new webpack.DllReferencePlugin({
         manifest: require('./public/library/library.json')
-      }),
-      new webpack.DllReferencePlugin({
-        manifest: require('./public/library/echarts.json')
       })
+      // new webpack.DllReferencePlugin({
+      //   manifest: require('./public/library/echarts.json')
+      // })
     ]
   }
   // devServer: {
